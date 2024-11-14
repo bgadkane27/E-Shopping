@@ -13,29 +13,50 @@ import ShopCheckout from "./pages/shop-view/checkout";
 import ShopHome from "./pages/shop-view/home";
 import ShopListing from "./pages/shop-view/listing";
 import NotFound from "./pages/not-found/notfound";
+import CheckAuth from "./components/common/check-auth";
+import UnauthPage from "./pages/unauth-page";
 
 function App() {
+  const isAuthenticated = false;
+  const user = {
+    name: 'baburao',
+    role: 'admin'
+  };
+
   return (
     <div className="flex flex-col overflow-hidden bg-green-400">
       <h4>Header</h4>
       <Routes>
-        <Route path="/auth" element={<AppLayout />}>
+        <Route path="/auth" element={
+          <CheckAuth isAuthenticated={isAuthenticated} user={user} >
+            <AppLayout />
+          </CheckAuth>
+        }>
           <Route path="login" element={<AuthLogin />} />
           <Route path="register" element={<AuthRegister />} />
           <Route />
         </Route>
-        <Route path="/admin" element={<AdminLayout />}>
+        <Route path="/admin" element={
+          <CheckAuth isAuthenticated={isAuthenticated} user={user}>
+            <AdminLayout />
+          </CheckAuth>
+        }>
           <Route path="dashboard" element={<AdminDashboard />} />
           <Route path="features" element={<AdminFeatures />} />
           <Route path="orders" element={<AdminOrders />} />
           <Route path="products" element={<AdminProducts />} />
         </Route>
-        <Route path="/shop" element={<ShopLayout />}>
+        <Route path="/shop" element={
+          <CheckAuth isAuthenticated={isAuthenticated} user={user}>
+            <ShopLayout />
+          </CheckAuth>
+        }>
           <Route path="account" element={<ShopAccount />} />
           <Route path="checkout" element={<ShopCheckout />} />
           <Route path="home" element={<ShopHome />} />
           <Route path="listing" element={<ShopListing />} />
         </Route>
+        <Route path='unauth-page' element={<UnauthPage />}/>
         <Route path="*" element={<NotFound />}/>
       </Routes>
     </div>

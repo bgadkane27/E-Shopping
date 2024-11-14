@@ -14,6 +14,8 @@ mongoose
 .catch((error)=> console.log('Error connecting to MongoDB :', error))
 
 app.use(cookieParser())
+app.use(express.json())
+app.use(express.urlencoded({extended:true}))
 app.use(
     cors({
         origin: "http://localhost:5173/",
