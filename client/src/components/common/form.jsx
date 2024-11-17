@@ -4,7 +4,7 @@ import { Textarea } from "../ui/textarea";
 
 function CommonForm({formControls, formData, setFormData, onSubmit, buttonText}) {
   function renderInputByComponentType(getControlitem) {
-    const element = null;
+    let element = null;
 
     const value = formData[getControlitem.name] || ''
 
@@ -18,10 +18,10 @@ function CommonForm({formControls, formData, setFormData, onSubmit, buttonText})
 
     switch (getControlitem.componentType) {
       case "input":
-        const element = (
+        element = (
           <Input
             name={getControlitem.name}
-            id={getControlitem.id}
+            id={getControlitem.name}
             placeholder={getControlitem.placeholder}
             type={getControlitem.type}
             value={value}
@@ -61,13 +61,13 @@ function CommonForm({formControls, formData, setFormData, onSubmit, buttonText})
     <form onSubmit={onSubmit}>
       <div className="flex flex-col gap-3">
         {formControls.map((controlitem) => (
-          <div className="grid w-full gap-1.5" key={controlitem.name}>
-            <Label className="mb-1">{controlitem.label}</Label>
+          <div className="grid w-full gap-1" key={controlitem.name}>
+            <Label className="mb-0.3">{controlitem.label}</Label>
             {renderInputByComponentType(controlitem)}
           </div>
         ))}
       </div>
-      <button type="submit" className="flex w-full">{ buttonText || "Submit"}</button>
+      <button type="submit" className="flex w-full mt-6 justify-center">{ buttonText || "Submit"}</button>
     </form>
   );
 }

@@ -14,10 +14,10 @@ function AuthRegister(){
         event.preventDefault();
     }
     return(
-        <div className="mx-auto w-full max-w-md space-y-6">
-            <div className="text-center">
+        <div className="mx-auto max-w-md space-y-6">
+            <div className="">
                 <h1 className="text-4xl font-bold tracking-normal text-white">Create new account <span className="text-blue-800 text-5xl">.</span></h1>
-                <p className="text-gray-400 m-2">Already have an account? <a href="/auth/login" className="text-blue-800">Login</a></p>
+                <p className="text-gray-400 mt-2">Already have an account? <a href="/auth/login" className="text-blue-800">Login</a></p>
             </div>
             <CommonForm 
             formControls={registerFormControls}
