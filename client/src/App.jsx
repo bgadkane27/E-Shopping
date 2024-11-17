@@ -25,7 +25,7 @@ function App() {
   // };
 
   return (
-    <div className="flex flex-col overflow-hidden bg-green-400">
+    <div className="flex flex-col overflow-hidden">
       <h4>Header</h4>
       <Routes>
         <Route path="/auth" element={

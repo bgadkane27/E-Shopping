@@ -16,9 +16,9 @@ function CommonForm({formControls, formData, setFormData, onSubmit, buttonText})
           });
     }
 
-    switch (getControlitem.contentType) {
+    switch (getControlitem.componentType) {
       case "input":
-        element = (
+        const element = (
           <Input
             name={getControlitem.name}
             id={getControlitem.id}
@@ -49,6 +49,8 @@ function CommonForm({formControls, formData, setFormData, onSubmit, buttonText})
             id={getControlitem.name}
             placeholder={getControlitem.placeholder}
             type={getControlitem.type}
+            value={value}
+            onChange={handleInputChange}
           ></Input>
         );
     }
@@ -60,7 +62,7 @@ function CommonForm({formControls, formData, setFormData, onSubmit, buttonText})
       <div className="flex flex-col gap-3">
         {formControls.map((controlitem) => (
           <div className="grid w-full gap-1.5" key={controlitem.name}>
-            <Label className="mb-0.5">{controlitem.label}</Label>
+            <Label className="mb-1">{controlitem.label}</Label>
             {renderInputByComponentType(controlitem)}
           </div>
         ))}
