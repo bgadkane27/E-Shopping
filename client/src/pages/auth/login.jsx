@@ -15,8 +15,9 @@ function AuthLogin(){
     }
     return(
         <div className="mx-auto max-w-md space-y-6">
-            <div>
-                <h1 className="text-4xl font-bold tracking-normal text-black">Login into an account<span className="text-blue-800 text-5xl">.</span></h1>
+            <div className="flex flex-col justify-center items-center">
+                <img src="/logo1.png" alt="Vite logo" className="w-24"/>
+                <h1 className="text-4xl font-bold tracking-normal text-black">Sign in to an account<span className="text-blue-800 text-5xl">.</span></h1>
                 <p className="text-gray-600 mt-2">Doesn't have an account? <Link to="/auth/register" className="text-blue-800 ml-0.5 hover:underline">Register</Link></p>
             </div>
             <CommonForm 
