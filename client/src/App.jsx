@@ -26,7 +26,7 @@ function App() {
 
   return (
     <div className="flex flex-col overflow-hidden">
-      <h4>Header</h4>
+      {/* <h4>Header</h4> */}
       <Routes>
         <Route path="/auth" element={
           <CheckAuth isAuthenticated={isAuthenticated} user={user} >

@@ -61,13 +61,13 @@ function CommonForm({formControls, formData, setFormData, onSubmit, buttonText})
     <form onSubmit={onSubmit}>
       <div className="flex flex-col gap-3">
         {formControls.map((controlitem) => (
-          <div className="grid w-full gap-1" key={controlitem.name}>
-            <Label className="mb-0.3">{controlitem.label}</Label>
+          <div className="grid w-full gap-0.5" key={controlitem.name}>
+            <Label className="text-gray-600 text-sm">{controlitem.label}</Label>
             {renderInputByComponentType(controlitem)}
           </div>
         ))}
       </div>
-      <button type="submit" className="flex w-full mt-6 justify-center">{ buttonText || "Submit"}</button>
+      <button type="submit" className="flex w-full mt-6 justify-center text-white">{ buttonText || "Submit"}</button>
     </form>
   );
 }
