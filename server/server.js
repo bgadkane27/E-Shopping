@@ -8,7 +8,7 @@ const PORT = process.env.PORT || 5000;
 const app=express()
 
 
-const mongoDBURI = 'mongodb+srv://adkaneb:Password%231@cluster0.y2q5d.mongodb.net/'
+const mongoDBURI = process.env.MONGODB_URI || 'mongodb+srv://adkaneb:Password%231@cluster0.y2q5d.mongodb.net/'
 mongoose
 .connect(mongoDBURI)
 .then(()=>console.log('MongoDB Conneted'))
@@ -20,7 +20,7 @@ app.use(express.urlencoded({extended:true}))
 app.use('/api/auth', authRoute)
 app.use(
     cors({
-        origin: "http://localhost:5173/",
+        origin: "http://localhost:5173",
         methods: ['GET', 'POST', 'PUT', 'DELETE'],
         allowedHeaders: [
             "Content-Type",

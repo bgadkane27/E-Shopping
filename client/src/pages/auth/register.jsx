@@ -1,7 +1,9 @@
 import CommonForm from "@/components/common/form";
 import { registerFormControls } from "@/config/index";
+import { registerUser } from "@/store/auth-slice";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 
 let initialState = {
   username: "",
@@ -10,9 +12,17 @@ let initialState = {
 };
 function AuthRegister() {
   const [formData, setFormData] = useState(initialState);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   function onSubmit(event) {
     event.preventDefault();
+
+    dispatch(registerUser(formData)).then((data) => {
+      console.log(data);
+      if (data?.payload?.success) navigate("/auth/login");
+    });
   }
+
   return (
     <div className="mx-auto max-w-md space-y-6">
       <div className="flex flex-col justify-center items-center">
