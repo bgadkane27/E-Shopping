@@ -12,8 +12,8 @@ function AppLayout() {
         }}
       >
         <div className="max-w-full space-y-6 text-center text-primary-foreground">
-          <h1 className="text-5xl font-extrabold tracking-tight text-black">
-            Welcome to E Shopping
+          <h1 className="text-7xl font-extrabold tracking-tight text-black">
+            B Shopify
           </h1>
         </div>
       </div>

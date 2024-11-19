@@ -67,7 +67,7 @@ function CommonForm({formControls, formData, setFormData, onSubmit, buttonText})
           </div>
         ))}
       </div>
-      <button type="submit" className="flex w-full mt-6 justify-center text-white">{ buttonText || "Submit"}</button>
+      <button type="submit" className="flex w-full mt-6 justify-center text-white bg-blue-800 hover:bg-blue-700 focus:bg-blue-700 focus-visible:bg-blue-700">{ buttonText || "Submit"}</button>
     </form>
   );
 }
