@@ -3,7 +3,7 @@ import axios from "axios";
 
 const initialState = {
   isAuthenticated: false,
-  isLoading: false,
+  isLoading: true,
   user: null,
 };
 
@@ -31,6 +31,22 @@ export const loginUser = createAsyncThunk("auth/login", async (formData) => {
   );
   return response.data;
 });
+
+export const authUser = createAsyncThunk(
+  "auth/checkauth",
+  async () => {
+    const response = await axios.get(
+      "http://localhost:5000/api/auth/check-auth",
+      {
+        withCredentials: true,
+        headers: {
+          "cache-control": "no-cache, no-store, must-revalidate, proxy-revalidate",
+        }
+      }
+    );
+    return response.data;
+  }
+);
 
 const authSlice = createSlice({
   name: "auth",
@@ -62,6 +78,19 @@ const authSlice = createSlice({
         state.user = action.payload.sucess ? action.payload.user : null;
       })
       .addCase(loginUser.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isAuthenticated = false;
+        state.user = null;
+      })
+      .addCase(authUser.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(authUser.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isAuthenticated = action.payload.sucess;
+        state.user = action.payload.sucess ? action.payload.user : null;
+      })
+      .addCase(authUser.rejected, (state, action) => {
         state.isLoading = false;
         state.isAuthenticated = false;
         state.user = null;

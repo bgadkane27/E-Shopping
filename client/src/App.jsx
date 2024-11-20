@@ -15,12 +15,24 @@ import ShopListing from "./pages/shop-view/listing";
 import NotFound from "./pages/not-found/notfound";
 import CheckAuth from "./components/common/check-auth";
 import UnauthPage from "./pages/unauth-page";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { authUser } from "./store/auth-slice";
 
 function App() {
   
-  const {user, isAuthenticated} = useSelector((state) => state.auth)
+  const {user, isAuthenticated, isLoading } = useSelector((state) => state.auth)
+  const dispatch = useDispatch();
 
+  useEffect(() => {
+    dispatch(authUser())
+  }, [dispatch])
+
+  if(isLoading) {
+    return (
+      <div>Loading...</div>
+    )
+  }
   return (
     <div className="flex flex-col overflow-hidden">
       {/* <h4>Header</h4> */}

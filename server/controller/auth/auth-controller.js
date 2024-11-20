@@ -29,7 +29,7 @@ const registerUser = async (req, res) => {
 
     res.status(200).json({
       sucess: true,
-      message: "Registration successful.",
+      message: "Registered successfully.",
     });
   } catch (e) {
     console.log(e);
@@ -55,7 +55,7 @@ const loginUser = async (req, res) => {
     if (!checkPassword) {
       return res.json({
         sucess: false,
-        message: "Incorrect password.",
+        message: "Incorrect email or password.",
       });
     }
     const token = jwt.sign(
@@ -69,7 +69,7 @@ const loginUser = async (req, res) => {
 
     res.cookie("token", token, {httpOnly: true, secure: false}).json({
       sucess: true,
-      message: "Login successful.",
+      message: "Logged in sucessfully.",
       user: {
         id: checkUser._id,
         email: checkUser.email,
@@ -89,7 +89,7 @@ const loginUser = async (req, res) => {
 const logoutUser = async (req, res) => {
   res.clearCookie("token").json({
     sucess: true,
-    message: "Logout successful.",
+    message: "Logged out sucessfully.",
   })
 }
 
