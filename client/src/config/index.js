@@ -1,3 +1,4 @@
+
 export const registerFormControls = [
   {
     name: "username",
@@ -36,5 +37,71 @@ export const loginFormControls = [
     type: "password",
     label: "Password",
     placeholder: "Enter a password ",
+  }
+];
+
+export const addProductFormControls = [
+  {
+    label: "Product Name",
+    name: "name",
+    componentType: "input",
+    type: "text",    
+    placeholder: "Enter product name"
+  },
+  {
+    label: "Description",
+    name: "description",
+    componentType: "textarea",
+    type: "text",    
+    placeholder: "Enter product description"
+  },
+  {
+    label: "Category",
+    name: "category",
+    componentType:"select",
+    options: [
+      { id: "men", label: "Men" },
+      { id: "women", label: "Women" },
+      { id: "kids", label: "Kids" },
+      { id: "accessories", label: "Accessories" },
+      { id: "footwear", label: "Footwear" },
+      { id: "electronics", label: "Electronics" },
+      {id: "others", label: "Others"}
+    ]
+  },
+  {
+    label: "Brand",
+    name: "brand",
+    componentType:"select",
+    options: [
+      { id: "adidas", label: "Adidas" },
+      { id: "nike", label: "Nike" },
+      { id: "puma", label: "Puma" },
+      { id: "reebok", label: "Reebok" },
+      { id: "converse", label: "Converse" },
+      { id: "asics", label: "Asics" },
+      { id: "others", label: "Others" }
+    ]
+  },
+  {
+    label: "Price",
+    name: "price",
+    componentType: "input",
+    type: "number",    
+    placeholder: "Enter product price"
+  },
+  {
+    label: "Sales Price",
+    name: "salesPrice",
+    componentType: "input",
+    type: "number",    
+    placeholder: "Enter product sales price(optional)"
+  },
+  {
+    lebel: "Total Stock",
+    name: "totalStock",
+    componentType: "input",
+    type: "number",    
+    placeholder: "Enter product total stock"
   }
 ];
