@@ -1,19 +1,20 @@
 import { Label } from "@radix-ui/react-label";
 import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 
-function CommonForm({formControls, formData, setFormData, onSubmit, buttonText}) {
+function CommonForm({ formControls, formData, setFormData, onSubmit, buttonText }) {
   function renderInputByComponentType(getControlitem) {
     let element = null;
 
     const value = formData[getControlitem.name] || ''
 
-    function handleInputChange(event){
-        event.preventDefault();
-        setFormData({
-            ...formData,
-            [getControlitem.name]: event.target.value,
-          });
+    function handleInputChange(event) {
+      event.preventDefault();
+      setFormData({
+        ...formData,
+        [getControlitem.name]: event.target.value,
+      });
     }
 
     switch (getControlitem.componentType) {
@@ -42,6 +43,24 @@ function CommonForm({formControls, formData, setFormData, onSubmit, buttonText})
         );
         break;
 
+      case "select":
+        element = (
+          <Select value={value} onValueChange={(value) => setFormData({
+            ...formData, [getControlitem.name]: value,
+          })}>
+            <SelectTrigger className="w-full">
+              <SelectValue placeholder={getControlitem.label} />
+            </SelectTrigger>
+            <SelectContent>
+              {getControlitem.options && getControlitem.options.length > 0
+                ? getControlitem.options.map((optionitem) =>
+                  <SelectItem key={optionitem.id} value={optionitem.id}>{optionitem.label}</SelectItem>
+                ) : null}
+            </SelectContent>
+          </Select>
+        );
+        break;
+
       default:
         element = (
           <Input
@@ -67,7 +86,7 @@ function CommonForm({formControls, formData, setFormData, onSubmit, buttonText})
           </div>
         ))}
       </div>
-      <button type="submit" className="flex w-full mt-6 justify-center text-white bg-blue-800 hover:bg-blue-700 focus:bg-blue-700 focus-visible:bg-blue-700">{ buttonText || "Submit"}</button>
+      <button type="submit" className="flex w-full mt-6 justify-center text-white bg-blue-800 hover:bg-blue-700 focus:bg-blue-700 focus-visible:bg-blue-700">{buttonText || "Submit"}</button>
     </form>
   );
 }
