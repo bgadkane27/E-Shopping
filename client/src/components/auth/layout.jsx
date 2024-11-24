@@ -13,7 +13,7 @@ function AppLayout() {
       >
         <div className="max-w-full space-y-6 text-center text-primary-foreground">
           <h1 className="text-7xl font-extrabold tracking-tight text-black">
-            B Shopify
+            Welcome.
           </h1>
         </div>
       </div>

@@ -59,6 +59,7 @@ export const addProductFormControls = [
     label: "Category",
     name: "category",
     componentType:"select",
+    placeholder: "Select a category",
     options: [
       { id: "men", label: "Men" },
       { id: "women", label: "Women" },
@@ -73,6 +74,7 @@ export const addProductFormControls = [
     label: "Brand",
     name: "brand",
     componentType:"select",
+    placeholder: "Select a brand",
     options: [
       { id: "adidas", label: "Adidas" },
       { id: "nike", label: "Nike" },
@@ -87,21 +89,21 @@ export const addProductFormControls = [
     label: "Price",
     name: "price",
     componentType: "input",
-    type: "number",    
+    type: "text",    
     placeholder: "Enter product price"
   },
   {
     label: "Sales Price",
     name: "salesPrice",
     componentType: "input",
-    type: "number",    
+    type: "text",   
     placeholder: "Enter product sales price(optional)"
   },
   {
     lebel: "Total Stock",
     name: "totalStock",
     componentType: "input",
-    type: "number",    
+    type: "text",     
     placeholder: "Enter product total stock"
   }
 ];
