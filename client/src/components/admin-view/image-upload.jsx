@@ -16,8 +16,6 @@ function ImageUpload({
     if (selectedFile) {
       setImgFile(selectedFile);
     }
-    if(selectedFile.type !== "image/jpeg" && selectedFile.type !== "image/png") {
-      alert("Please select a JPEG or PNG file.");}
   }
 
   function handleImageDrag(event) {
@@ -34,11 +32,10 @@ function ImageUpload({
 
   function handleRemoveImage() {
     setImgFile(null);
-    if(inputRef.current) {
-        inputRef.current.value = "";
+    if (inputRef.current) {
+      inputRef.current.value = "";
     }
   }
-
 
   return (
     <div className="w-full max-w-md mx-auto mt-2">
@@ -71,7 +68,10 @@ function ImageUpload({
         ) : (
           <div className="flex items-center justify-between h-10">
             <div className="flex items-center px-2">
-              <FileIcon color="gray" className="w-6 h-6 text-muted-foreground" />
+              <FileIcon
+                color="gray"
+                className="w-6 h-6 text-muted-foreground"
+              />
             </div>
             <p className="text-sm text-gray-600 font-medium">{imgFile.name}</p>
             <Button variant="ghost" onClick={handleRemoveImage}>
