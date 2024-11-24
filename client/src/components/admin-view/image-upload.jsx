@@ -1,7 +1,7 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
-import { FileIcon, UploadCloudIcon, XIcon } from "lucide-react";
+import { FileIcon, InfoIcon, UploadCloudIcon, XIcon } from "lucide-react";
 import { Button } from "../ui/button";
 
 function ImageUpload({
@@ -11,10 +11,18 @@ function ImageUpload({
   setUploadedImgUrl,
 }) {
   const inputRef = useRef(null);
+  const [errorMessage, setErrorMessage] = useState("");
+
   function handleImageFileChange(event) {
     const selectedFile = event.target.files?.[0];
     if (selectedFile) {
-      setImgFile(selectedFile);
+      const allowedTypes = ["image/jpeg", "image/png"];
+      if (allowedTypes.includes(selectedFile.type)) {
+        setImgFile(selectedFile);
+        setErrorMessage("");
+      } else {
+        setErrorMessage("Only JPG and PNG images are allowed.");
+      }
     }
   }
 
@@ -26,7 +34,13 @@ function ImageUpload({
     event.preventDefault();
     const droppedFile = event.dataTransfer.files?.[0];
     if (droppedFile) {
-      setImgFile(droppedFile);
+      const allowedTypes = ["image/jpeg", "image/png"];
+      if (allowedTypes.includes(droppedFile.type)) {
+        setImgFile(droppedFile);
+        setErrorMessage("");
+      } else {
+        setErrorMessage("Only JPG and PNG images are allowed.");
+      }
     }
   }
 
@@ -38,9 +52,15 @@ function ImageUpload({
   }
 
   return (
-    <div className="w-full max-w-md mx-auto mt-2">
-      <Label htmlFor="image-upload" className="mb-2 block">
+    <div className="w-full max-w-md mx-auto mt-2 relative">
+      <Label htmlFor="image-upload" className="mb-2 block relative">
         Upload Image
+        <span className="absolute top-0 left-24 flex items-center group">
+          <InfoIcon className="w-4 h-4 text-gray-500 cursor-pointer" />
+          <span className="hidden group-hover:block absolute top-5 right-0 bg-gray-600 text-white text-xs rounded-md px-6 py-1">
+            Only JPG and PNG images are allowed.
+          </span>
+        </span>
       </Label>
       <div
         onDragOver={handleImageDrag}
@@ -81,6 +101,11 @@ function ImageUpload({
           </div>
         )}
       </div>
+      {
+        errorMessage && (
+          <p className="text-sm text-red-600">{errorMessage}</p>
+        )
+      }
     </div>
   );
 }
