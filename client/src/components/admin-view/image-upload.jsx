@@ -58,8 +58,8 @@ function ImageUpload({
 
     const response = await axios.post("http://localhost:5000/api/admin/products/upload-image", data)
     console.log(response);
-    if(response) {
-      setUploadedImgUrl(response.data)
+    if(response?.data?.sucesss) {
+      setUploadedImgUrl(response.data.result.url)
     }
   }
 
