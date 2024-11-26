@@ -10,6 +10,7 @@ function ImageUpload({
   setImgFile,
   uploadedImgUrl,
   setUploadedImgUrl,
+  setImageLoading
 }) {
   const inputRef = useRef(null);
   const [errorMessage, setErrorMessage] = useState("");
@@ -53,6 +54,7 @@ function ImageUpload({
   }
 
   async function uploadImageToCloudinary() {
+    setImageLoading(true)
     const data = new FormData();
     data.append("my_file", imgFile);
 
@@ -60,6 +62,7 @@ function ImageUpload({
     console.log(response);
     if(response?.data?.sucesss) {
       setUploadedImgUrl(response.data.result.url)
+      setImageLoading(false)
     }
   }
 
