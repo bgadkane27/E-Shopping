@@ -1,8 +1,9 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { FileIcon, InfoIcon, UploadCloudIcon, XIcon } from "lucide-react";
 import { Button } from "../ui/button";
+import axios from "axios";
 
 function ImageUpload({
   imgFile,
@@ -50,6 +51,22 @@ function ImageUpload({
       inputRef.current.value = "";
     }
   }
+
+  async function uploadImageToCloudinary() {
+    const data = new FormData();
+    data.append("my_file", imgFile);
+
+    const response = await axios.post("http://localhost:5000/api/admin/products/upload-image", data)
+    console.log(response);
+    if(response) {
+      setUploadedImgUrl(response.data)
+    }
+  }
+
+  useEffect(() => {
+    if(imgFile !== null) { uploadImageToCloudinary() }
+  },[imgFile])
+
 
   return (
     <div className="w-full max-w-md mx-auto mt-2 relative">
