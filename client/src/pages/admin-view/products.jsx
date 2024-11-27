@@ -61,10 +61,14 @@ function AdminProducts() {
           </SheetHeader>
           <ImageUpload
             imgFile={imgFile}
-            setImgFile={setImgFile}
+            setImgFile={(file) => {
+              setImgFile(file);
+              setFormData((prevData) => ({ ...prevData, image: file }));
+            }}
             uploadedImgUrl={uploadedImgUrl}
             setUploadedImgUrl={setUploadedImgUrl}
             setImageLoading={setImageLoading}
+            imageLoading={imageLoading}
           />
           <div className="py-2">
             <CommonForm

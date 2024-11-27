@@ -97,10 +97,10 @@ export const addProductFormControls = [
     name: "salesPrice",
     componentType: "input",
     type: "text",   
-    placeholder: "Enter product sales price(optional)"
+    placeholder: "Enter product sales price"
   },
   {
-    lebel: "Total Stock",
+    label: "Total Stock",
     name: "totalStock",
     componentType: "input",
     type: "text",     

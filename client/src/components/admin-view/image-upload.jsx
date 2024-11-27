@@ -4,13 +4,16 @@ import { Label } from "../ui/label";
 import { FileIcon, InfoIcon, UploadCloudIcon, XIcon } from "lucide-react";
 import { Button } from "../ui/button";
 import axios from "axios";
+import { Skeleton } from "../ui/skeleton";
+
 
 function ImageUpload({
   imgFile,
   setImgFile,
   uploadedImgUrl,
   setUploadedImgUrl,
-  setImageLoading
+  imageLoading,
+  setImageLoading,
 }) {
   const inputRef = useRef(null);
   const [errorMessage, setErrorMessage] = useState("");
@@ -54,22 +57,26 @@ function ImageUpload({
   }
 
   async function uploadImageToCloudinary() {
-    setImageLoading(true)
+    setImageLoading(true);
     const data = new FormData();
     data.append("my_file", imgFile);
 
-    const response = await axios.post("http://localhost:5000/api/admin/products/upload-image", data)
+    const response = await axios.post(
+      "http://localhost:5000/api/admin/products/upload-image",
+      data
+    );
     console.log(response);
-    if(response?.data?.sucesss) {
-      setUploadedImgUrl(response.data.result.url)
-      setImageLoading(false)
+    if (response?.data?.sucess) {
+      setUploadedImgUrl(response.data.result.url);    
+      setImageLoading(false);  
     }
   }
 
   useEffect(() => {
-    if(imgFile !== null) { uploadImageToCloudinary() }
-  },[imgFile])
-
+    if (imgFile) {
+      uploadImageToCloudinary();
+    }
+  }, [imgFile]);
 
   return (
     <div className="w-full max-w-md mx-auto mt-2 relative">
@@ -105,7 +112,10 @@ function ImageUpload({
               Drag and drop or Click here to upload.
             </span>
           </Label>
-        ) : (
+        ) :  (
+          imageLoading ? (
+            <Skeleton className=" h-10 bg-gray-300" />
+          ): 
           <div className="flex items-center justify-between h-10">
             <div className="flex items-center px-2">
               <FileIcon
@@ -121,11 +131,7 @@ function ImageUpload({
           </div>
         )}
       </div>
-      {
-        errorMessage && (
-          <p className="text-sm text-red-600">{errorMessage}</p>
-        )
-      }
+      {errorMessage && <p className="text-sm text-red-600">{errorMessage}</p>}
     </div>
   );
 }
