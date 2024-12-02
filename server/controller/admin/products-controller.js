@@ -102,7 +102,7 @@ const deleteProduct = async (req, res) => {
 const getAllProduct = async (req, res) => {
   try {
 
-    const listOfProduct = await Product.find({});
+    const listOfProduct = await Product.find()
     res.status(200).json({
       sucess: true,
       data: listOfProduct

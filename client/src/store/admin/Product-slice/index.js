@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
 
 const initialState = {
   isLoading: false,
@@ -21,7 +22,7 @@ const addProduct = createAsyncThunk(
   }
 );
 
-const getAllProduct = createAsyncThunk("product/getAllProducts", async () => {
+const getAllProduct = createAsyncThunk("product/getAllProduct", async () => {
   const response = await axios.get(
     "http://localhost:5000/api/admin/products/get"
   );
@@ -61,9 +62,9 @@ const AdminProductSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(getAllProduct.fulfilled, (state, action) => {
-        console.log(action.payload);
+        // console.log(action.payload);
         state.isLoading = false;
-        state.productList = action.payload;
+        state.productList = action.payload.data;
       })
       .addCase(getAllProduct.rejected, (state) => {
         state.isLoading = false;
@@ -72,4 +73,5 @@ const AdminProductSlice = createSlice({
   },
 });
 
+export { addProduct, getAllProduct, editProduct, deleteProduct };
 export default AdminProductSlice.reducer;
