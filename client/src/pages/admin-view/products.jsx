@@ -73,7 +73,7 @@ function AdminProducts() {
       <div className="grid gap-4 md:grid-cols-3 lg:grid-cols-4">
         {
           productList && productList.length > 0 ?
-          productList.map(productItem => <AdminProductTile product={productItem}/>) : ''
+          productList.map((productItem, index) => <AdminProductTile key={index} product={productItem}/>) : ''
         }
       </div>
       <Sheet
