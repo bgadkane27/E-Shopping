@@ -10,7 +10,11 @@ import {
 import { addProductFormControls } from "@/config";
 import { Dialog, DialogContent } from "@radix-ui/react-dialog";
 import { CirclePlus } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addProduct, getAllProduct } from "@/store/admin/Product-slice";
+import { useToast } from "@/hooks/use-toast";
+import AdminProductTile from "@/components/admin-view/products";
 
 const initialformData = {
   image: null,
@@ -29,11 +33,34 @@ function AdminProducts() {
   const [imgFile, setImgFile] = useState(null);
   const [uploadedImgUrl, setUploadedImgUrl] = useState("");
   const [imageLoading, setImageLoading] = useState(false);
+  const {productList} = useSelector(state=>state.adminProduct);
+  const dispatch = useDispatch();
+  const {toast} = useToast();
 
   function onSubmit(event) {
     event.preventDefault();
-    console.log(formData);
+    // console.log(formData);
+    dispatch(addProduct({
+      ...formData, image: uploadedImgUrl
+    })).then((data) => {
+      if (data?.payload?.sucess) {
+        setOpenCreateProductDialog(false);
+        setImgFile(null);
+        setFormData(initialformData);
+        dispatch(getAllProduct());
+        toast({
+          title:"Product Added Successfully",
+          variant:"success",
+          duration:2000
+        })
+    }})
   }
+
+  useEffect(() => { 
+    dispatch(getAllProduct());
+  },[dispatch])
+
+  // console.log(productList);
 
   return (
     <>
@@ -43,7 +70,12 @@ function AdminProducts() {
           Add Product
         </Button>
       </div>
-      <div className="grid gap-4 md:grid-cols-3 lg:grid-cols-4"></div>
+      <div className="grid gap-4 md:grid-cols-3 lg:grid-cols-4">
+        {
+          productList && productList.length > 0 ?
+          productList.map((productItem, index) => <AdminProductTile key={index} product={productItem}/>) : ''
+        }
+      </div>
       <Sheet
         open={openCreateProductDialog}
         onOpenChange={setOpenCreateProductDialog}
@@ -65,7 +97,6 @@ function AdminProducts() {
             uploadedImgUrl={uploadedImgUrl}
             setUploadedImgUrl={setUploadedImgUrl}
             setImageLoading={setImageLoading}
-            imageLoading={imageLoading}
           />
           <div className="py-2">
             <CommonForm
