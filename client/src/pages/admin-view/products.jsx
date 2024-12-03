@@ -61,10 +61,7 @@ function AdminProducts() {
           </SheetHeader>
           <ImageUpload
             imgFile={imgFile}
-            setImgFile={(file) => {
-              setImgFile(file);
-              setFormData((prevData) => ({ ...prevData, image: file }));
-            }}
+            setImgFile={setImgFile}
             uploadedImgUrl={uploadedImgUrl}
             setUploadedImgUrl={setUploadedImgUrl}
             setImageLoading={setImageLoading}
