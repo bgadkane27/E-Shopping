@@ -33,6 +33,7 @@ function AdminProducts() {
   const [imgFile, setImgFile] = useState(null);
   const [uploadedImgUrl, setUploadedImgUrl] = useState("");
   const [imageLoading, setImageLoading] = useState(false);
+  const [currentEditedID, setCurrentEditedID] = useState(null);
   const {productList} = useSelector(state=>state.adminProduct);
   const dispatch = useDispatch();
   const {toast} = useToast();
@@ -73,7 +74,7 @@ function AdminProducts() {
       <div className="grid gap-4 md:grid-cols-3 lg:grid-cols-4">
         {
           productList && productList.length > 0 ?
-          productList.map((productItem, index) => <AdminProductTile key={index} product={productItem}/>) : ''
+          productList.map((productItem, index) => <AdminProductTile setCurrentEditedID={setCurrentEditedID} setOpenCreateProductDialog={setOpenCreateProductDialog} setFormData={setFormData}  key={index} product={productItem}/>) : ''
         }
       </div>
       <Sheet
