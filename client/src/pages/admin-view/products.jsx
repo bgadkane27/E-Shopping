@@ -97,6 +97,7 @@ function AdminProducts() {
             uploadedImgUrl={uploadedImgUrl}
             setUploadedImgUrl={setUploadedImgUrl}
             setImageLoading={setImageLoading}
+            imageLoading={imageLoading}
           />
           <div className="py-2">
             <CommonForm
