@@ -12,9 +12,10 @@ import { Dialog, DialogContent } from "@radix-ui/react-dialog";
 import { CirclePlus } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addProduct, getAllProduct } from "@/store/admin/Product-slice";
+import { addProduct, editProduct, getAllProduct } from "@/store/admin/Product-slice";
 import { useToast } from "@/hooks/use-toast";
 import AdminProductTile from "@/components/admin-view/products";
+import { data } from "autoprefixer";
 
 const initialformData = {
   image: null,
@@ -41,6 +42,17 @@ function AdminProducts() {
   function onSubmit(event) {
     event.preventDefault();
     // console.log(formData);
+    currentEditedID !== null ? 
+    dispatch(editProduct( {
+      id:currentEditedID,
+      formData})).then((data)=>{
+        if (data?.payload?.sucess) {
+          setOpenCreateProductDialog(false);
+          setFormData(initialformData);
+          dispatch(getAllProduct());
+          setCurrentEditedID(null);
+      }
+      }):
     dispatch(addProduct({
       ...formData, image: uploadedImgUrl
     })).then((data) => {
@@ -79,7 +91,10 @@ function AdminProducts() {
       </div>
       <Sheet
         open={openCreateProductDialog}
-        onOpenChange={setOpenCreateProductDialog}
+        onOpenChange={()=>{setOpenCreateProductDialog(false)
+          setCurrentEditedID(null)
+          setFormData(initialformData)
+        }}  
       >
         <Dialog>
           <DialogContent aria-describedby="product-dialog">
@@ -90,7 +105,8 @@ function AdminProducts() {
         </Dialog>
         <SheetContent side="right" className="overflow-auto">
           <SheetHeader className="overflow-auto">
-            <SheetTitle className="text-2xl">Add New Product</SheetTitle>
+            <SheetTitle className="text-2xl">
+              {currentEditedID !== null ? "Edit Product" : "Add New Product"}</SheetTitle>
           </SheetHeader>
           <ImageUpload
             imgFile={imgFile}
@@ -99,6 +115,7 @@ function AdminProducts() {
             setUploadedImgUrl={setUploadedImgUrl}
             setImageLoading={setImageLoading}
             imageLoading={imageLoading}
+            isEditMode= {currentEditedID !== null}
           />
           <div className="py-2">
             <CommonForm
@@ -106,7 +123,7 @@ function AdminProducts() {
               onSubmit={onSubmit}
               formData={formData}
               setFormData={setFormData}
-              buttonText="Add"
+              buttonText={currentEditedID !== null ? "Edit" : "Add"}
             />
           </div>
         </SheetContent>

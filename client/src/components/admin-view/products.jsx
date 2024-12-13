@@ -20,7 +20,10 @@ function AdminProductTile({product, setCurrentEditedID, setOpenCreateProductDial
                     </div>
                 </CardContent>
                 <CardFooter className="flex justify-between items-center">
-                    <Button onClick ={() => {setCurrentEditedID(product?._id); setOpenCreateProductDialog(true); setFormData(product)}}>Edit</Button>
+                    <Button onClick ={() => {
+                        setCurrentEditedID(product?._id)
+                        setOpenCreateProductDialog(true) 
+                        setFormData(product)}}>Edit</Button>
                     <Button onClick={()=> {setCurrentEditedID(product?._id)}}>Delete</Button>
                 </CardFooter>
             </div>

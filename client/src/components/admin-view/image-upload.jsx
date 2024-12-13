@@ -14,6 +14,7 @@ function ImageUpload({
   setUploadedImgUrl,
   imageLoading,
   setImageLoading,
+  isEditMode
 }) {
   const inputRef = useRef(null);
   const [errorMessage, setErrorMessage] = useState("");
@@ -92,7 +93,7 @@ function ImageUpload({
       <div
         onDragOver={handleImageDrag}
         onDrop={handleImageDrop}
-        className="border-2 border-dashed rounded-md p-0.5"
+        className={`border-2 border-dashed rounded-md p-0.5 ${isEditMode ? 'opacity-60': ''}`}
       >
         <Input
           className="hidden"
@@ -101,12 +102,14 @@ function ImageUpload({
           accept="image/jpeg, image/png"
           ref={inputRef}
           onChange={handleImageFileChange}
+          disabled = {isEditMode}
         />
         {!imgFile ? (
           <Label
             htmlFor="image-upload"
-            className="flex flex-col items-center justify-center h-32 cursor-pointer"
-          >
+            className={`flex flex-col items-center justify-center h-32 ${
+              isEditMode ? 'cursor-not-allowed' : 'cursor-pointer'
+            }`}>
             <UploadCloudIcon className="w-10 h-10 text-muted-foreground" />
             <span className="text-sm text-muted-foreground">
               Drag and drop or Click here to upload.
