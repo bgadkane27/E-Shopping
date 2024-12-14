@@ -57,8 +57,8 @@ const editProduct = async (req, res) => {
     findProduct.description = description || findProduct.description
     findProduct.category = category || findProduct.category
     findProduct.brand = brand || findProduct.brand
-    findProduct.price = price == ''? 0 :  price || findProduct.price
-    findProduct.salesPrice = salesPrice == ''? 0:  salesPrice || findProduct.salesPrice
+    findProduct.price = price == '' ? 0 : price || findProduct.price
+    findProduct.salesPrice = salesPrice == '' ? 0 : salesPrice || findProduct.salesPrice
     findProduct.totalStock = totalStock || findProduct.totalStock
 
     await findProduct.save();
@@ -81,7 +81,7 @@ const deleteProduct = async (req, res) => {
     const { id } = req.params;
     const productDelete = await Product.findByIdAndDelete(id)
 
-    if(!productDelete) return res.status(404).json({
+    if (!productDelete) return res.status(404).json({
       sucess: false,
       message: "product not found"
     })
