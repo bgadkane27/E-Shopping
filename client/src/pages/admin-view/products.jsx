@@ -12,10 +12,9 @@ import { Dialog, DialogContent } from "@radix-ui/react-dialog";
 import { CirclePlus } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addProduct, editProduct, getAllProduct } from "@/store/admin/Product-slice";
+import { addProduct, deleteProduct, editProduct, getAllProduct } from "@/store/admin/Product-slice";
 import { useToast } from "@/hooks/use-toast";
 import AdminProductTile from "@/components/admin-view/products";
-import { data } from "autoprefixer";
 
 const initialformData = {
   image: null,
@@ -35,43 +34,69 @@ function AdminProducts() {
   const [uploadedImgUrl, setUploadedImgUrl] = useState("");
   const [imageLoading, setImageLoading] = useState(false);
   const [currentEditedID, setCurrentEditedID] = useState(null);
-  const {productList} = useSelector(state=>state.adminProduct);
+  const { productList } = useSelector(state => state.adminProduct);
   const dispatch = useDispatch();
-  const {toast} = useToast();
+  const { toast } = useToast();
 
   function onSubmit(event) {
     event.preventDefault();
     // console.log(formData);
-    currentEditedID !== null ? 
-    dispatch(editProduct( {
-      id:currentEditedID,
-      formData})).then((data)=>{
+    currentEditedID !== null ?
+      dispatch(editProduct({
+        id: currentEditedID,
+        formData
+      })).then((data) => {
         if (data?.payload?.sucess) {
           setOpenCreateProductDialog(false);
           setFormData(initialformData);
           dispatch(getAllProduct());
           setCurrentEditedID(null);
-      }
-      }):
-    dispatch(addProduct({
-      ...formData, image: uploadedImgUrl
-    })).then((data) => {
-      if (data?.payload?.sucess) {
-        setOpenCreateProductDialog(false);
-        setImgFile(null);
-        setFormData(initialformData);
-        dispatch(getAllProduct());
-        toast({
-          title:"Product Added Successfully",
-          variant:"success",
-          duration:2000
-        })
-    }})
+          toast({
+            title: "Product Edited Successfully",
+            variant: "success",
+            duration: 2000
+          })
+        }
+      }) :
+      dispatch(addProduct({
+        ...formData, image: uploadedImgUrl
+      })).then((data) => {
+        if (data?.payload?.sucess) {
+          setOpenCreateProductDialog(false);
+          setImgFile(null);
+          setFormData(initialformData);
+          dispatch(getAllProduct());
+          toast({
+            title: "Product Added Successfully",
+            variant: "success",
+            duration: 2000
+          })
+        }
+      })
   }
 
-  useEffect(() => { 
+  function isFormValid() {
+    return Object.keys(formData)
+    .map((key)=> formData[key]!== '')
+    .every(item=> item)
+  }
+
+  function handleDelete(getCurrentProductId){
+    dispatch(deleteProduct(getCurrentProductId)).then((data) => {
+      if(data?.payload?.sucess){
+        dispatch(getAllProduct());
+        toast({
+          variant: "success",
+          duration: 2000,
+          title: "Product Deleted Successfully",
+        })
+      }
+    })  
+  }
+
+  useEffect(() => {
     dispatch(getAllProduct());
-  },[dispatch])
+  }, [dispatch])
 
   // console.log(productList);
 
@@ -86,15 +111,21 @@ function AdminProducts() {
       <div className="grid gap-4 md:grid-cols-3 lg:grid-cols-4">
         {
           productList && productList.length > 0 ?
-          productList.map((productItem, index) => <AdminProductTile setCurrentEditedID={setCurrentEditedID} setOpenCreateProductDialog={setOpenCreateProductDialog} setFormData={setFormData}  key={index} product={productItem}/>) : ''
+            productList.map((productItem, index) => <AdminProductTile 
+            setCurrentEditedID={setCurrentEditedID} 
+            setOpenCreateProductDialog={setOpenCreateProductDialog} 
+            setFormData={setFormData} 
+            handleDelete={handleDelete}
+            key={index} product={productItem} />) : ''
         }
       </div>
       <Sheet
         open={openCreateProductDialog}
-        onOpenChange={()=>{setOpenCreateProductDialog(false)
+        onOpenChange={() => {
+          setOpenCreateProductDialog(false)
           setCurrentEditedID(null)
           setFormData(initialformData)
-        }}  
+        }}
       >
         <Dialog>
           <DialogContent aria-describedby="product-dialog">
@@ -115,7 +146,7 @@ function AdminProducts() {
             setUploadedImgUrl={setUploadedImgUrl}
             setImageLoading={setImageLoading}
             imageLoading={imageLoading}
-            isEditMode= {currentEditedID !== null}
+            isEditMode={currentEditedID !== null}
           />
           <div className="py-2">
             <CommonForm
@@ -124,6 +155,7 @@ function AdminProducts() {
               formData={formData}
               setFormData={setFormData}
               buttonText={currentEditedID !== null ? "Edit" : "Add"}
+              isBtnDisabled={!isFormValid()}
             />
           </div>
         </SheetContent>

@@ -3,7 +3,7 @@ import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 
-function CommonForm({ formControls, formData, setFormData, onSubmit, buttonText }) {
+function CommonForm({ formControls, formData, setFormData, onSubmit, buttonText, isBtnDisabled }) {
   function renderInputByComponentType(getControlitem) {
     let element = null;
 
@@ -86,7 +86,11 @@ function CommonForm({ formControls, formData, setFormData, onSubmit, buttonText 
           </div>
         ))}
       </div>
-      <button type="submit" className="flex w-full mt-6 justify-center text-white bg-blue-800 hover:bg-blue-700 focus:bg-blue-700 focus-visible:bg-blue-700">{buttonText || "Submit"}</button>
+      <button disabled={isBtnDisabled} type="submit" className={`flex w-full mt-6 justify-center text-white ${
+    isBtnDisabled
+      ? "bg-gray-700 cursor-not-allowed"
+      : "bg-blue-800 hover:bg-blue-700 focus:bg-blue-700 focus-visible:bg-blue-700"
+  }`}>{buttonText || "Submit"}</button>
     </form>
   );
 }
