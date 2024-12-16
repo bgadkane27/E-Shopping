@@ -50,7 +50,7 @@ function AuthRegister() {
   return (
     <div className="mx-auto max-w-md space-y-6">
       <div className="flex flex-col justify-center items-center">
-        <img src="/logo1.png" alt="Vite logo" className="w-24" />
+        <img src="/logo.png" alt="Bruno Logo" className="w-24" />
         <h1 className="text-4xl font-bold tracking-normal text-black">
           Create new account<span className="text-blue-800 text-5xl">.</span>
         </h1>

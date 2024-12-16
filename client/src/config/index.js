@@ -145,3 +145,41 @@ export const headermenuItems = [
     path: '/shop/listing'
   }
 ];
+
+export const filterOptions = {
+  Category: [
+    { id: 'men', label: 'Men' },
+    { id: 'women', label: 'Women' },
+    { id: 'kids', label: 'Kids' },
+    { id: 'accessories', label: 'Accessories' },
+    { id: 'footwear', label: 'Footwear' },
+    { id: 'electronics', label: 'Electronics' },
+  ],
+  Brand: [
+    { id: 'adidas', label: 'Adidas' },
+    { id: 'nike', label: 'Nike' },
+    { id: 'puma', label: 'Puma' },
+    { id: 'reebok', label: 'Reebok' },
+    { id: 'converse', label: 'Converse' },
+    { id: 'asics', label: 'Asics' },
+  ],
+};
+
+export const sortOptions= [
+  {
+    id: "asc",
+    label: "Price: Low to High"
+  },
+  {
+    id: "desc",
+    label: "Price: High to Low"
+  },
+  {
+    id:"atoz",
+    label: "Name: A to Z"
+  },
+  {
+    id:"ztoa",
+    label: "Name: Z to A"
+  }
+]
