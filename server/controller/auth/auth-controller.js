@@ -62,7 +62,8 @@ const loginUser = async (req, res) => {
       {
         id: checkUser._id,
         email: checkUser.email,
-        role: checkUser.role
+        role: checkUser.role,
+        username: checkUser.username
       },
       'CLIENT_SECRET_KEY', {expiresIn: "60m"}
     );
@@ -73,7 +74,8 @@ const loginUser = async (req, res) => {
       user: {
         id: checkUser._id,
         email: checkUser.email,
-        role: checkUser.role
+        role: checkUser.role,
+        username: checkUser.username
       }
     })  
   } catch (e) {

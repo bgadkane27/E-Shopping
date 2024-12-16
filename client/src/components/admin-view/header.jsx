@@ -27,7 +27,7 @@ function AdminHeader({setOpen}) {
       <div className="flex flex-1 justify-end px-4 py-2 font-light">
         <Button onClick={handleLogout}>
           <LogOut />
-          <span className="px-0.5">Logout</span>
+          <span className="px-0.5">Sign out</span>
         </Button>
       </div>
     </header>
