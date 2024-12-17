@@ -1,9 +1,9 @@
 import ProductFilter from "@/components/shop-view/filter";
+import ShopProductTile from "@/components/shop-view/product-tile";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuLabel,
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
   DropdownMenuTrigger,
@@ -43,7 +43,7 @@ function ShopListing() {
             </DropdownMenu>
           </div>
         </div>
-        
+          <ShopProductTile />        
       </div>
     </div>
   );
