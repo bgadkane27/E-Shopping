@@ -10,7 +10,7 @@ function AdminProductTile({product, setCurrentEditedID, setOpenCreateProductDial
         <Card className="w-full max-w-sm mx-auto">
             <div className="relative">
                 <div className="relative">
-                    <img src={product?.image} alt={product?.name} className="w-full h-[250px] object-cover rounded-t-lg"/>
+                    <img src={product?.image} alt={product?.name} className="w-full h-[200px] object-cover rounded-t-lg"/>
                 </div>
                 <CardContent>
                     <h2 className="text-xl font-semibold mt-2">{product?.name}</h2>
