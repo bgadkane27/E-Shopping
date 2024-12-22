@@ -146,6 +146,24 @@ export const headermenuItems = [
   }
 ];
 
+export const categoryOptions = {
+  men : "Men",
+  women : "Women",  
+  kids : "Kids",
+  accessories : "Accessories",
+  footwear : "Footwear",
+  electronics : "Electronics"
+}
+export const brandOptions = {
+  adidas : "Adidas",
+  nike : "Nike",  
+  puma : "Puma",
+  reebok : "Reebok",
+  converse : "Converse",
+  asics : "Asics",
+  others : "Others"
+}
+
 export const filterOptions = {
   Category: [
     { id: 'men', label: 'Men' },

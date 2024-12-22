@@ -114,5 +114,4 @@ const getAllProduct = async (req, res) => {
   }
 };
 
-
 module.exports = { handleImageUpload, addProduct, editProduct, deleteProduct, getAllProduct };
