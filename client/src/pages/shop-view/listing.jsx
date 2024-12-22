@@ -11,21 +11,52 @@ import {
 import { sortOptions } from "@/config";
 import { getAllProduct } from "@/store/admin/Product-slice";
 import { ArrowUpDownIcon } from "lucide-react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 function ShopListing() {
   const dispatch = useDispatch();
-  const {productList} = useSelector((state) => state.shopProduct);
+  const { productList } = useSelector((state) => state.shopProduct);
+  const [filters, setFilters] = useState({});
+  const [sort, setSort] = useState(null);
 
-  console.log(productList, "productList");
+  function handleSort(value) {
+    setSort(value);
+  }
+
+  function handleFilter(getSectionID, getCurrentOption) {
+    console.log(getSectionID, getCurrentOption);
+
+    let cpyFilters = { ...filters };
+    const IndexOfCurrentSection = Object.keys(cpyFilters).indexOf(getSectionID);
+    if (IndexOfCurrentSection === -1) {
+      cpyFilters = { ...cpyFilters, [getSectionID]: [getCurrentOption] };
+    } else {
+      const indexOfCurrentOption = cpyFilters[getSectionID].indexOf(getCurrentOption);
+      if (indexOfCurrentOption === -1) {
+        cpyFilters[getSectionID].push(getCurrentOption);
+      } else {
+        cpyFilters[getSectionID].splice(indexOfCurrentOption, 1);
+      }
+    }
+    setFilters(cpyFilters);
+    sessionStorage.setItem("filters", JSON.stringify(cpyFilters));
+  }
+
+  useEffect(() => {
+    setSort("asc");
+    setFilters(JSON.parse(sessionStorage.getItem("filters")) || {});
+  }, []);
+
   useEffect(() => {
     dispatch(getAllProduct());
   }, [dispatch]);
 
+  console.log(filters, "filters");
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-[300px_1fr] gap-6 p-4 md:p-6">
-      <ProductFilter />
+      <ProductFilter filters={filters} handleFilter={handleFilter} />
       <div className="bg-background w-full rounded-lg shadow-sm">
         <div className="p-3 border-b flex items-center justify-between">
           <h2 className="text-md font-semibold">All Products</h2>
@@ -43,9 +74,9 @@ function ShopListing() {
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-48">
-                <DropdownMenuRadioGroup>
+                <DropdownMenuRadioGroup value={sort} onValueChange={handleSort}>
                   {sortOptions.map((option) => (
-                    <DropdownMenuRadioItem key={option.id}>
+                    <DropdownMenuRadioItem value={option.id} key={option.id}>
                       {option.label}
                     </DropdownMenuRadioItem>
                   ))}
@@ -54,13 +85,13 @@ function ShopListing() {
             </DropdownMenu>
           </div>
         </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-2">
-          {
-          productList && productList.length > 0 ?
-            productList.map((productItem, index) => <ShopProductTile 
-            key={index} product={productItem} />) : ''
-        }
-          </div>      
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-2">
+          {productList && productList.length > 0
+            ? productList.map((productItem, index) => (
+                <ShopProductTile key={index} product={productItem} />
+              ))
+            : ""}
+        </div>
       </div>
     </div>
   );
