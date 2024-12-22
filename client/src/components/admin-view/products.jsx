@@ -8,7 +8,7 @@ import { Button } from "../ui/button"
 function AdminProductTile({product, setCurrentEditedID, setOpenCreateProductDialog,setFormData, handleDelete }){
     return(
         <Card className="w-full max-w-sm mx-auto">
-            <div>
+            <div className="relative">
                 <div className="relative">
                     <img src={product?.image} alt={product?.name} className="w-full h-[250px] object-cover rounded-t-lg"/>
                 </div>

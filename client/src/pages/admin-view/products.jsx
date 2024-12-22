@@ -12,7 +12,12 @@ import { Dialog, DialogContent } from "@radix-ui/react-dialog";
 import { CirclePlus } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addProduct, deleteProduct, editProduct, getAllProduct } from "@/store/admin/Product-slice";
+import {
+  addProduct,
+  deleteProduct,
+  editProduct,
+  getAllProduct,
+} from "@/store/admin/Product-slice";
 import { useToast } from "@/hooks/use-toast";
 import AdminProductTile from "@/components/admin-view/products";
 
@@ -34,97 +39,107 @@ function AdminProducts() {
   const [uploadedImgUrl, setUploadedImgUrl] = useState("");
   const [imageLoading, setImageLoading] = useState(false);
   const [currentEditedID, setCurrentEditedID] = useState(null);
-  const { productList } = useSelector(state => state.adminProduct);
+  const { productList } = useSelector((state) => state.adminProduct);
   const dispatch = useDispatch();
   const { toast } = useToast();
 
   function onSubmit(event) {
     event.preventDefault();
     // console.log(formData);
-    currentEditedID !== null ?
-      dispatch(editProduct({
-        id: currentEditedID,
-        formData
-      })).then((data) => {
-        if (data?.payload?.sucess) {
-          setOpenCreateProductDialog(false);
-          setFormData(initialformData);
-          dispatch(getAllProduct());
-          setCurrentEditedID(null);
-          toast({
-            title: "Product Edited Successfully",
-            variant: "success",
-            duration: 2000
+    currentEditedID !== null
+      ? dispatch(
+          editProduct({
+            id: currentEditedID,
+            formData,
           })
-        }
-      }) :
-      dispatch(addProduct({
-        ...formData, image: uploadedImgUrl
-      })).then((data) => {
-        if (data?.payload?.sucess) {
-          setOpenCreateProductDialog(false);
-          setImgFile(null);
-          setFormData(initialformData);
-          dispatch(getAllProduct());
-          toast({
-            title: "Product Added Successfully",
-            variant: "success",
-            duration: 2000
+        ).then((data) => {
+          if (data?.payload?.sucess) {
+            setOpenCreateProductDialog(false);
+            setFormData(initialformData);
+            dispatch(getAllProduct());
+            setCurrentEditedID(null);
+            toast({
+              title: "Product Edited Successfully",
+              variant: "success",
+              duration: 2000,
+            });
+          }
+        })
+      : dispatch(
+          addProduct({
+            ...formData,
+            image: uploadedImgUrl,
           })
-        }
-      })
+        ).then((data) => {
+          if (data?.payload?.sucess) {
+            setOpenCreateProductDialog(false);
+            setImgFile(null);
+            setFormData(initialformData);
+            dispatch(getAllProduct());
+            toast({
+              title: "Product Added Successfully",
+              variant: "success",
+              duration: 2000,
+            });
+          }
+        });
   }
 
   function isFormValid() {
     return Object.keys(formData)
-    .map((key)=> formData[key]!== '')
-    .every(item=> item)
+      .map((key) => formData[key] !== "")
+      .every((item) => item);
   }
 
-  function handleDelete(getCurrentProductId){
+  function handleDelete(getCurrentProductId) {
     dispatch(deleteProduct(getCurrentProductId)).then((data) => {
-      if(data?.payload?.sucess){
+      if (data?.payload?.sucess) {
         dispatch(getAllProduct());
         toast({
           variant: "success",
           duration: 2000,
           title: "Product Deleted Successfully",
-        })
+        });
       }
-    })  
+    });
   }
 
   useEffect(() => {
     dispatch(getAllProduct());
-  }, [dispatch])
+  }, [dispatch]);
 
   // console.log(productList);
 
   return (
     <>
-      <div className="flex flex-1 mb-5 px-2">
+      <div className="flex mb-5 px-2">
         <Button onClick={() => setOpenCreateProductDialog(true)}>
           <CirclePlus />
           Add Product
         </Button>
       </div>
-      <div className="grid gap-4 md:grid-cols-3 lg:grid-cols-4">
-        {
-          productList && productList.length > 0 ?
-            productList.map((productItem, index) => <AdminProductTile 
-            setCurrentEditedID={setCurrentEditedID} 
-            setOpenCreateProductDialog={setOpenCreateProductDialog} 
-            setFormData={setFormData} 
-            handleDelete={handleDelete}
-            key={index} product={productItem} />) : ''
-        }
+      <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-4">
+        {productList && productList.length > 0 ? (
+          productList.map((productItem, index) => (
+            <AdminProductTile
+              setCurrentEditedID={setCurrentEditedID}
+              setOpenCreateProductDialog={setOpenCreateProductDialog}
+              setFormData={setFormData}
+              handleDelete={handleDelete}
+              key={index}
+              product={productItem}
+            />
+          ))
+        ) : (
+          <p className="text-muted-foreground text-red-600 px-2">No products available. Add some products!</p>
+        )}
       </div>
       <Sheet
         open={openCreateProductDialog}
         onOpenChange={() => {
-          setOpenCreateProductDialog(false)
-          setCurrentEditedID(null)
-          setFormData(initialformData)
+          setOpenCreateProductDialog(false);
+          setCurrentEditedID(null);
+          setFormData(initialformData);
         }}
       >
         <Dialog>
@@ -137,7 +152,8 @@ function AdminProducts() {
         <SheetContent side="right" className="overflow-auto">
           <SheetHeader className="overflow-auto">
             <SheetTitle className="text-2xl">
-              {currentEditedID !== null ? "Edit Product" : "Add New Product"}</SheetTitle>
+              {currentEditedID !== null ? "Edit Product" : "Add New Product"}
+            </SheetTitle>
           </SheetHeader>
           <ImageUpload
             imgFile={imgFile}

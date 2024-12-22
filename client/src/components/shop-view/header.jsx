@@ -47,7 +47,7 @@ function ShopHeader() {
         </Button>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost" size="icon">
+            <Button variant="secondary" size="icon">
               <Avatar className="bg-black">
                 <AvatarFallback className="bg-black text-white font-extrabold">
                   {user?.email?.[0]?.toUpperCase() || "?"}
@@ -57,7 +57,7 @@ function ShopHeader() {
           </DropdownMenuTrigger>
           <DropdownMenuContent
             side="bottom"
-            className="w-56 mt-2 mr-1 py-2 text-muted-foreground bg-gray-300 rounded-xl"
+            className="w-56 mt-2 mr-6 py-2 text-muted-foreground bg-gray-300 rounded-xl"
           >
             <DropdownMenuLabel>Email: {user?.email}</DropdownMenuLabel>
             <DropdownMenuSeparator />
