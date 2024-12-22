@@ -90,7 +90,7 @@ function ShopListing() {
             ? productList.map((productItem, index) => (
                 <ShopProductTile key={index} product={productItem} />
               ))
-            : ""}
+            : <p>No Products Available for Sale.<br /> Please try again after some time.</p>}
         </div>
       </div>
     </div>
