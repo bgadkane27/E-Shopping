@@ -13,12 +13,26 @@ import { getAllProduct } from "@/store/admin/Product-slice";
 import { ArrowUpDownIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useSearchParams } from "react-router-dom";
+
+function createSearchParamsHelper(filterParams) {
+  const queryParams = [];
+
+  for(const [key, value] of Object.entries(filterParams)) {
+    if(Array.isArray(value) && value.length > 0) {
+      const paramValue= value.join(',');
+      queryParams.push(`${key}=${encodeURIComponent(paramValue)}`);
+    }
+  }
+  return queryParams.join('&');  
+}
 
 function ShopListing() {
   const dispatch = useDispatch();
   const { productList } = useSelector((state) => state.shopProduct);
   const [filters, setFilters] = useState({});
   const [sort, setSort] = useState(null);
+  const [searchParams, setSearchParams] = useSearchParams();
 
   function handleSort(value) {
     setSort(value);
@@ -32,7 +46,8 @@ function ShopListing() {
     if (IndexOfCurrentSection === -1) {
       cpyFilters = { ...cpyFilters, [getSectionID]: [getCurrentOption] };
     } else {
-      const indexOfCurrentOption = cpyFilters[getSectionID].indexOf(getCurrentOption);
+      const indexOfCurrentOption =
+        cpyFilters[getSectionID].indexOf(getCurrentOption);
       if (indexOfCurrentOption === -1) {
         cpyFilters[getSectionID].push(getCurrentOption);
       } else {
@@ -49,6 +64,13 @@ function ShopListing() {
   }, []);
 
   useEffect(() => {
+    if (filters && Object.keys(filters).length > 0) {
+      const createQueryString = createSearchParamsHelper(filters);
+      setSearchParams(new URLSearchParams(createQueryString));
+    }
+  }, [filters]);
+
+  useEffect(() => {
     dispatch(getAllProduct());
   }, [dispatch]);
 
@@ -61,7 +83,9 @@ function ShopListing() {
         <div className="p-3 border-b flex items-center justify-between">
           <h2 className="text-md font-semibold">All Products</h2>
           <div className="flex items-center gap-3">
-            <span className="text-muted-foreground">{productList.length || 0} Product(s)</span>
+            <span className="text-muted-foreground">
+              {productList.length || 0} Product(s)
+            </span>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button
@@ -86,11 +110,16 @@ function ShopListing() {
           </div>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-2">
-          {productList && productList.length > 0
-            ? productList.map((productItem, index) => (
-                <ShopProductTile key={index} product={productItem} />
-              ))
-            : <p>No Products Available for Sale.<br /> Please try again after some time.</p>}
+          {productList && productList.length > 0 ? (
+            productList.map((productItem, index) => (
+              <ShopProductTile key={index} product={productItem} />
+            ))
+          ) : (
+            <p className="text-red-500">
+              No Products Available for Sale.
+              <br /> Please try again after some time.
+            </p>
+          )}
         </div>
       </div>
     </div>
