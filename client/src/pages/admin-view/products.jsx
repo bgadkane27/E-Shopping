@@ -45,7 +45,6 @@ function AdminProducts() {
 
   function onSubmit(event) {
     event.preventDefault();
-    // console.log(formData);
     currentEditedID !== null
       ? dispatch(
           editProduct({
@@ -107,8 +106,6 @@ function AdminProducts() {
   useEffect(() => {
     dispatch(getAllProduct());
   }, [dispatch]);
-
-  // console.log(productList);
 
   return (
     <>

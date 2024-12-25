@@ -9,8 +9,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { sortOptions } from "@/config";
-import { getAllProduct } from "@/store/admin/Product-slice";
-import { ArrowUpDownIcon } from "lucide-react";
+import { getAllShopProducts } from "@/store/shop/Product-slice";
+import { ArrowUpDownIcon} from "lucide-react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
@@ -39,8 +39,6 @@ function ShopListing() {
   }
 
   function handleFilter(getSectionID, getCurrentOption) {
-    console.log(getSectionID, getCurrentOption);
-
     let cpyFilters = { ...filters };
     const IndexOfCurrentSection = Object.keys(cpyFilters).indexOf(getSectionID);
     if (IndexOfCurrentSection === -1) {
@@ -48,12 +46,11 @@ function ShopListing() {
     } else {
       const indexOfCurrentOption =
         cpyFilters[getSectionID].indexOf(getCurrentOption);
-      if (indexOfCurrentOption === -1) {
+      if (indexOfCurrentOption === -1) 
         cpyFilters[getSectionID].push(getCurrentOption);
-      } else {
-        cpyFilters[getSectionID].splice(indexOfCurrentOption, 1);
-      }
-    }
+       else 
+        cpyFilters[getSectionID].splice(indexOfCurrentOption, 1);     
+    }    
     setFilters(cpyFilters);
     sessionStorage.setItem("filters", JSON.stringify(cpyFilters));
   }
@@ -71,13 +68,12 @@ function ShopListing() {
   }, [filters]);
 
   useEffect(() => {
-    dispatch(getAllProduct());
-  }, [dispatch]);
-
-  console.log(filters, "filters");
+    if(filters !== null && sort !== null)
+    dispatch(getAllShopProducts({filterParams: filters, sortParams: sort}));
+  }, [dispatch, sort, filters]);  
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-[300px_1fr] gap-6 p-4 md:p-6">
+    <div className="grid grid-cols-1 md:grid-cols-[200px_1fr] gap-6 p-4 md:p-6">
       <ProductFilter filters={filters} handleFilter={handleFilter} />
       <div className="bg-background w-full rounded-lg shadow-sm">
         <div className="p-3 border-b flex items-center justify-between">
@@ -116,8 +112,7 @@ function ShopListing() {
             ))
           ) : (
             <p className="text-red-500">
-              No Products Available for Sale.
-              <br /> Please try again after some time.
+              No products are available that match your filter criteria for sale.
             </p>
           )}
         </div>

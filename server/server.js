@@ -15,7 +15,7 @@ const mongoDBURI =
 mongoose
   .connect(mongoDBURI)
   .then(() => console.log("MongoDB Conneted"))
-  .catch((error) => console.log("Error connecting to MongoDB :", error));
+  .catch((e) => console.log("Error connecting to MongoDB :", e));
 
 app.use(
   cors({

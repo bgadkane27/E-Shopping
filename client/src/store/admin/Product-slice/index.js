@@ -62,7 +62,6 @@ const AdminProductSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(getAllProduct.fulfilled, (state, action) => {
-        // console.log(action.payload);
         state.isLoading = false;
         state.productList = action.payload.data;
       })

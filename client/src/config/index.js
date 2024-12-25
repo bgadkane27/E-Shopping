@@ -165,7 +165,7 @@ export const brandOptions = {
 }
 
 export const filterOptions = {
-  Category: [
+  category: [
     { id: 'men', label: 'Men' },
     { id: 'women', label: 'Women' },
     { id: 'kids', label: 'Kids' },
@@ -173,13 +173,14 @@ export const filterOptions = {
     { id: 'footwear', label: 'Footwear' },
     { id: 'electronics', label: 'Electronics' },
   ],
-  Brand: [
+  brand: [
     { id: 'adidas', label: 'Adidas' },
     { id: 'nike', label: 'Nike' },
     { id: 'puma', label: 'Puma' },
-    { id: 'reebok', label: 'Reebok' },
     { id: 'converse', label: 'Converse' },
     { id: 'asics', label: 'Asics' },
+    { id: 'reebok', label: 'Reebok' },
+    { id: 'others', label: 'Others' },
   ],
 };
 

@@ -1,7 +1,7 @@
 import { filterOptions } from "@/config";
 import { Fragment } from "react";
 import { Label } from "../ui/label";
-// import { Checkbox } from "../ui/checkbox";
+import { Checkbox } from "../ui/checkbox";
 import { Separator } from "../ui/separator";
 
 function ProductFilter({ filters, handleFilter }) {
@@ -22,7 +22,14 @@ function ProductFilter({ filters, handleFilter }) {
                     className="flex items-center gap-2 font-normal"
                     key={option.id}
                   >
-                    {/* <Checkbox onCheckedChange={() => handleFilter(keyItem, option.id) }/>{option.label} */}
+                    {/* <Checkbox 
+                    checked={
+                      filters &&
+                      Object.keys(filters).length > 0 &&
+                      filters[keyItem] &&
+                      filters[keyItem].indexOf(option.id) > -1
+                    }
+                    onCheckedChange={() => handleFilter(keyItem, option.id) }/>{option.label} */}
                     <input
                       type="checkbox"
                       className="w-4 h-4 accent-emerald-500/25"
@@ -32,7 +39,9 @@ function ProductFilter({ filters, handleFilter }) {
                         filters[keyItem] &&
                         filters[keyItem].indexOf(option.id) > -1
                       }
-                      onChange={() => handleFilter(keyItem, option.id)}
+                      onChange={(e) =>
+                        handleFilter(keyItem, option.id, e.target.checked)
+                      }
                     />
                     {option.label}
                   </Label>
