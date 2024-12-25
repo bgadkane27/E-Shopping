@@ -15,10 +15,10 @@ const getFilterProduct = async (req, res) => {
     let sort = {};
     switch(sortBy) {
       case 'asc':
-        sort.price = 1;
+        sort.salesPrice = 1;
         break;
       case 'desc':
-        sort.price = -1;
+        sort.salesPrice = -1;
         break;
       case 'atoz':
         sort.name = 1;

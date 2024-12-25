@@ -32,7 +32,7 @@ function ProductFilter({ filters, handleFilter }) {
                     onCheckedChange={() => handleFilter(keyItem, option.id) }/>{option.label} */}
                     <input
                       type="checkbox"
-                      className="w-4 h-4 accent-emerald-500/25"
+                      className="w-4 h-4 appearance-none border border-blue-900 rounded-lg checked:bg-green-400 checked:border-blue-900 focus:outline-none focus:ring-0"
                       checked={
                         filters &&
                         Object.keys(filters).length > 0 &&
