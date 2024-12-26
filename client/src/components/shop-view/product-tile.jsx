@@ -4,10 +4,10 @@ import { Card, CardContent, CardFooter } from "../ui/card";
 import { brandOptions, categoryOptions } from "@/config";
 import { Badge } from "../ui/badge";
 
-function ShopProductTile({ product }) {
+function ShopProductTile({ product, handlegetProductDetails }) {
   return (
     <Card className="w-full max-w-sm mx-auto">
-      <div className="relative">
+      <div className="relative" onClick={()=> handlegetProductDetails(product?._id)}>
         <div>
           <img
             src={product?.image}
@@ -45,9 +45,12 @@ function ShopProductTile({ product }) {
             ) : null}
           </div>
         </CardContent>
-        <CardFooter className="flex justify-between items-center">
+        <CardFooter className="flex justify-between items-center gap-2">
           <Button variant="outline" size="sm" className="w-full mt-4">
             <ShoppingCart /> Add to Cart
+          </Button>
+          <Button variant="outline" size="sm" className="w-full mt-4">
+            View Details
           </Button>
         </CardFooter>
       </div>

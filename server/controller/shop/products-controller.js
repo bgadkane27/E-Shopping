@@ -47,4 +47,29 @@ const getFilterProduct = async (req, res) => {
   }
 };
 
-module.exports = { getFilterProduct };
+const getProductDetails = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const product = await Product.findById(id);
+    if(!product) {
+      return res.status(404).json({
+        sucess: false,
+        message: "Product not available."
+      })
+    }
+    res.status(200).json({
+      sucess: true,
+      data: product,
+    });
+  } catch (e) {
+    console.log(e);
+    res
+      .status(500)
+      .json({
+        sucess: false,
+        message: "Error Occured: Not able to fetch product details.",
+      });
+  }
+};
+
+module.exports = { getFilterProduct, getProductDetails };

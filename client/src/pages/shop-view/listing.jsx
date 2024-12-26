@@ -9,7 +9,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { sortOptions } from "@/config";
-import { getAllShopProducts } from "@/store/shop/Product-slice";
+import { getAllShopProducts, getProductDetails } from "@/store/shop/Product-slice";
 import { ArrowUpDownIcon} from "lucide-react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -72,6 +72,11 @@ function ShopListing() {
     dispatch(getAllShopProducts({filterParams: filters, sortParams: sort}));
   }, [dispatch, sort, filters]);  
 
+  function handlegetProductDetails(getProductDeatils) {
+    console.log(getProductDeatils);
+    dispatch(getProductDetails());
+  }
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-[200px_1fr] gap-6 p-4 md:p-6">
       <ProductFilter filters={filters} handleFilter={handleFilter} />
@@ -108,7 +113,7 @@ function ShopListing() {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-2">
           {productList && productList.length > 0 ? (
             productList.map((productItem, index) => (
-              <ShopProductTile key={index} product={productItem} />
+              <ShopProductTile key={index} product={productItem}  handlegetProductDetails={handlegetProductDetails}/>
             ))
           ) : (
             <p className="text-red-500">

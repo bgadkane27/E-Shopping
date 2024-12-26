@@ -1,7 +1,6 @@
 import { filterOptions } from "@/config";
 import { Fragment } from "react";
 import { Label } from "../ui/label";
-import { Checkbox } from "../ui/checkbox";
 import { Separator } from "../ui/separator";
 
 function ProductFilter({ filters, handleFilter }) {
@@ -22,14 +21,6 @@ function ProductFilter({ filters, handleFilter }) {
                     className="flex items-center gap-2 font-normal"
                     key={option.id}
                   >
-                    {/* <Checkbox 
-                    checked={
-                      filters &&
-                      Object.keys(filters).length > 0 &&
-                      filters[keyItem] &&
-                      filters[keyItem].indexOf(option.id) > -1
-                    }
-                    onCheckedChange={() => handleFilter(keyItem, option.id) }/>{option.label} */}
                     <input
                       type="checkbox"
                       className="w-4 h-4 appearance-none border border-blue-900 rounded-lg checked:bg-green-400 checked:border-blue-900 focus:outline-none focus:ring-0"

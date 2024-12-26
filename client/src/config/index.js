@@ -152,7 +152,8 @@ export const categoryOptions = {
   kids : "Kids",
   accessories : "Accessories",
   footwear : "Footwear",
-  electronics : "Electronics"
+  electronics : "Electronics",
+  others : "Others"
 }
 export const brandOptions = {
   adidas : "Adidas",
@@ -172,6 +173,7 @@ export const filterOptions = {
     { id: 'accessories', label: 'Accessories' },
     { id: 'footwear', label: 'Footwear' },
     { id: 'electronics', label: 'Electronics' },
+    {id: 'others', label: 'Others'}
   ],
   brand: [
     { id: 'adidas', label: 'Adidas' },
