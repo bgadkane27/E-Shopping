@@ -1,7 +1,13 @@
+import {Dialog} from '@/components/ui/dialog'
+import { DialogContent } from '@radix-ui/react-dialog'
+ 
 
-
-function ProductDetails() {
+function ProductDetailsDialog({open, setOpen, productDetail}) {
     return (
-        <div>ProductDetail</div>
+        <Dialog open={open} onOpenChange={setOpen}>
+            <DialogContent>
+                <p>{productDetail?.name}</p>
+            </DialogContent>  
+        </Dialog>
     )
 }

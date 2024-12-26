@@ -72,8 +72,8 @@ function ShopListing() {
     dispatch(getAllShopProducts({filterParams: filters, sortParams: sort}));
   }, [dispatch, sort, filters]);  
 
-  function handlegetProductDetails(getProductDeatils) {
-    console.log(getProductDeatils);
+  function handlegetProductDetails(getProductDeatil) {
+    console.log(getProductDeatil);
     dispatch(getProductDetails());
   }
 
