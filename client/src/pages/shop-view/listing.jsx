@@ -1,4 +1,5 @@
 import ProductFilter from "@/components/shop-view/filter";
+import ProductDetailsDialog from "@/components/shop-view/product-details";
 import ShopProductTile from "@/components/shop-view/product-tile";
 import { Button } from "@/components/ui/button";
 import {
@@ -29,10 +30,11 @@ function createSearchParamsHelper(filterParams) {
 
 function ShopListing() {
   const dispatch = useDispatch();
-  const { productList } = useSelector((state) => state.shopProduct);
+  const { productList, productDetails } = useSelector((state) => state.shopProduct);
   const [filters, setFilters] = useState({});
   const [sort, setSort] = useState(null);
   const [searchParams, setSearchParams] = useSearchParams();
+  const [openDetailsDialog, setOpenDetailsDialog] = useState(false);
 
   function handleSort(value) {
     setSort(value);
@@ -72,9 +74,15 @@ function ShopListing() {
     dispatch(getAllShopProducts({filterParams: filters, sortParams: sort}));
   }, [dispatch, sort, filters]);  
 
+  useEffect(() => {
+    if (productDetails) {
+      setOpenDetailsDialog(true);
+    }
+  }, [productDetails]);
+
   function handlegetProductDetails(getProductDeatil) {
     console.log(getProductDeatil);
-    dispatch(getProductDetails());
+    dispatch(getProductDetails(getProductDeatil));
   }
 
   return (
@@ -122,6 +130,7 @@ function ShopListing() {
           )}
         </div>
       </div>
+      <ProductDetailsDialog  open={openDetailsDialog} setOpen={setOpenDetailsDialog} productDetail={productDetails}/>
     </div>
   );
 }

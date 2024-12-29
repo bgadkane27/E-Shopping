@@ -7,7 +7,7 @@ import { Badge } from "../ui/badge";
 function ShopProductTile({ product, handlegetProductDetails }) {
   return (
     <Card className="w-full max-w-sm mx-auto">
-      <div className="relative" onClick={()=> handlegetProductDetails(product?._id)}>
+      <div  className="relative">
         <div>
           <img
             src={product?.image}
@@ -49,7 +49,7 @@ function ShopProductTile({ product, handlegetProductDetails }) {
           <Button variant="outline" size="sm" className="w-full mt-4">
             <ShoppingCart /> Add to Cart
           </Button>
-          <Button variant="outline" size="sm" className="w-full mt-4">
+          <Button variant="outline" size="sm" className="w-full mt-4" onClick={()=> handlegetProductDetails(product?._id)}>
             View Details
           </Button>
         </CardFooter>

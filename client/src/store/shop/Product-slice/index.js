@@ -23,7 +23,7 @@ const getAllShopProducts = createAsyncThunk(
 
 const getProductDetails = createAsyncThunk(
   "product/getProductDetails",
-  async ({id}) => {
+  async (id) => {
     const response = await axios.get(
       `http://localhost:5000/api/shop/products/get/${id}`
     );
