@@ -3,6 +3,7 @@ import { Button } from "../ui/button";
 import { ShoppingCart, StarIcon } from "lucide-react";
 import { Separator } from "../ui/separator";
 import { Avatar, AvatarFallback } from "../ui/avatar";
+import { Input } from "../ui/input";
 
 function ProductDetailsDialog({ open, setOpen, productDetail }) {
   return (
@@ -12,7 +13,7 @@ function ProductDetailsDialog({ open, setOpen, productDetail }) {
           <img
             src={productDetail?.image}
             alt={productDetail?.name}
-            className="aspect-square object-cover w-full"
+            className="aspect-square object-cover w-full rounded-lg"
           />
         </div>
         <div>
@@ -44,7 +45,7 @@ function ProductDetailsDialog({ open, setOpen, productDetail }) {
           <Separator className="my-4" />
           <div className="max-h-[300px] overflow-auto">
             <h3 className="text-md font-semibold my-2">Reviews</h3>
-            <div className="grid gap-6">
+            <div className="grid gap-6 my-2">
               <div className="flex gap-4">
                 <Avatar>
                   <AvatarFallback>AB</AvatarFallback>
@@ -60,8 +61,53 @@ function ProductDetailsDialog({ open, setOpen, productDetail }) {
                     <StarIcon className="w-4 h-4 fill-primary" />
                     <StarIcon className="w-4 h-4 fill-primary" />
                   </div>
+                  <p className="text-md">This is an awesome product.</p>
                 </div>
               </div>
+            </div>
+            <div className="grid gap-6 my-2">
+              <div className="flex gap-4">
+                <Avatar>
+                  <AvatarFallback>AB</AvatarFallback>
+                </Avatar>
+                <div className="grid gap-1">
+                  <div className="flex gap-2">
+                    <h3 className="text-md font-semibold">Abhishek</h3>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <StarIcon className="w-4 h-4 fill-primary" />
+                    <StarIcon className="w-4 h-4 fill-primary" />
+                    <StarIcon className="w-4 h-4 fill-primary" />
+                    <StarIcon className="w-4 h-4 fill-primary" />
+                    <StarIcon className="w-4 h-4 fill-primary" />
+                  </div>
+                  <p className="text-md">This is an awesome product.</p>
+                </div>
+              </div>
+            </div>
+            <div className="grid gap-6 my-2">
+              <div className="flex gap-4">
+                <Avatar>
+                  <AvatarFallback>AB</AvatarFallback>
+                </Avatar>
+                <div className="grid gap-1">
+                  <div className="flex gap-2">
+                    <h3 className="text-md font-semibold">Abhishek</h3>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <StarIcon className="w-4 h-4 fill-primary" />
+                    <StarIcon className="w-4 h-4 fill-primary" />
+                    <StarIcon className="w-4 h-4 fill-primary" />
+                    <StarIcon className="w-4 h-4 fill-primary" />
+                    <StarIcon className="w-4 h-4 fill-primary" />
+                  </div>
+                  <p className="text-md">This is an awesome product.</p>
+                </div>
+              </div>
+            </div>
+            <div className="flex gap-2 mt-6">
+              <Input placeholder="Write a review" className="mb-2 ml-1" />
+              <Button>Submit</Button>
             </div>
           </div>
         </div>
