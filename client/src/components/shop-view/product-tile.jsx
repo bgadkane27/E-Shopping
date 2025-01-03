@@ -45,11 +45,11 @@ function ShopProductTile({ product, handlegetProductDetails }) {
             ) : null}
           </div>
         </CardContent>
-        <CardFooter className="flex justify-between items-center gap-2">
+        <CardFooter className="flex flex-col justify-between items-center">
           <Button variant="outline" size="sm" className="w-full mt-4">
             <ShoppingCart /> Add to Cart
           </Button>
-          <Button variant="outline" size="sm" className="w-full mt-4" onClick={()=> handlegetProductDetails(product?._id)}>
+          <Button variant="outline" size="sm" className="w-full mt-2" onClick={()=> handlegetProductDetails(product?._id)}>
             View Details
           </Button>
         </CardFooter>
