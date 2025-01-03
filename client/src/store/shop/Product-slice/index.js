@@ -7,7 +7,7 @@ const initialState = {
   productDetails: null,
 };
 
-const getAllShopProducts = createAsyncThunk(
+export const getAllShopProducts = createAsyncThunk(
   "product/getAllProduct",
   async ({ filterParams, sortParams }) => {
     const query = new URLSearchParams({
@@ -21,7 +21,7 @@ const getAllShopProducts = createAsyncThunk(
   }
 );
 
-const getProductDetails = createAsyncThunk(
+export const getProductDetails = createAsyncThunk(
   "product/getProductDetails",
   async (id) => {
     const response = await axios.get(
@@ -62,5 +62,5 @@ const ShopProductSlice = createSlice({
   },
 });
 
-export { getAllShopProducts, getProductDetails };
+// export { getAllShopProducts, getProductDetails };
 export default ShopProductSlice.reducer;
