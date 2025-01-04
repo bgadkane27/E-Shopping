@@ -10,11 +10,14 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { sortOptions } from "@/config";
+import { useToast } from "@/hooks/use-toast";
+import { addToCart, fetchCartItems } from "@/store/shop/Cart-slice";
 import { getAllShopProducts, getProductDetails } from "@/store/shop/Product-slice";
 import { ArrowUpDownIcon} from "lucide-react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
+
 
 function createSearchParamsHelper(filterParams) {
   const queryParams = [];
@@ -30,11 +33,13 @@ function createSearchParamsHelper(filterParams) {
 
 function ShopListing() {
   const dispatch = useDispatch();
+  const {user} = useSelector((state) => state.auth);
   const { productList, productDetails } = useSelector((state) => state.shopProduct);
   const [filters, setFilters] = useState({});
   const [sort, setSort] = useState(null);
   const [searchParams, setSearchParams] = useSearchParams();
   const [openDetailsDialog, setOpenDetailsDialog] = useState(false);
+  const {toast} = useToast();
 
   function handleSort(value) {
     setSort(value);
@@ -55,6 +60,24 @@ function ShopListing() {
     }    
     setFilters(cpyFilters);
     sessionStorage.setItem("filters", JSON.stringify(cpyFilters));
+  }
+
+  function handlegetProductDetails(getProductDeatil) {
+    dispatch(getProductDetails(getProductDeatil));
+  }
+
+  function handleAddtoCart(getCurrentProductID){
+    // console.log(getCurrentProductID);
+    dispatch(addToCart({userId: user?.id, productId : getCurrentProductID, quantity: 1})).then(data=>{
+      if(data?.payload?.sucess){
+        dispatch(fetchCartItems(user?.id));
+        toast({
+          variant: "success",
+          duration: 2000,
+          title: "Product Added to Cart Successfully",
+        });
+      }
+    });
   }
 
   useEffect(() => {
@@ -80,10 +103,6 @@ function ShopListing() {
     }
   }, [productDetails]);
 
-  function handlegetProductDetails(getProductDeatil) {
-    console.log(getProductDeatil);
-    dispatch(getProductDetails(getProductDeatil));
-  }
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-[200px_1fr] gap-6 p-4 md:p-6">
@@ -121,7 +140,10 @@ function ShopListing() {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-2">
           {productList && productList.length > 0 ? (
             productList.map((productItem, index) => (
-              <ShopProductTile key={index} product={productItem}  handlegetProductDetails={handlegetProductDetails}/>
+              <ShopProductTile key={index} 
+              product={productItem}  
+              handlegetProductDetails={handlegetProductDetails} 
+              handleAddtoCart={handleAddtoCart}/>
             ))
           ) : (
             <p className="text-red-500">

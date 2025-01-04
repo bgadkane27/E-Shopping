@@ -3,8 +3,8 @@ const Product = require("../../models/Products");
 
 const addToCart = async (req, res) => {
     try {
-        const { userID, productId, quantity } = req.body;
-        if (!userID || !productId || quantity < 0) {
+        const { userId, productId, quantity } = req.body;
+        if (!userId || !productId || quantity <= 0) {
             return res.status(400).json({
                 sucess: false,
                 message: "Invalid product details."
@@ -19,17 +19,17 @@ const addToCart = async (req, res) => {
             })
         }
 
-        const cart = await Cart.findOne({ userID });
+        let cart = await Cart.findOne({ userId });
         if (!cart) {
-            cart = new Cart({ userID, items: [] });
+            cart = new Cart({ userId, items:[]});
         }
 
-        const findCurrentProductIndex = cart.items.findIndex(item => item.productID.toString() == productId);
-        if (findCurrentProductIndex != -1) {
-            cart.items[findCurrentProductIndex].quantity += quantity;
+        const findCurrentProductIndex = cart.items.findIndex(item => item.productId._id.toString() === productId);
+        if (findCurrentProductIndex === -1) {
+            cart.items.push({ productId, quantity });            
         }
         else {
-            cart.items.push({ productID: productId, quantity });
+            cart.items[findCurrentProductIndex].quantity += quantity;
         }
 
         await cart.save();
@@ -49,15 +49,15 @@ const addToCart = async (req, res) => {
 
 const fetchCartItem = async (req, res) => {
     try {
-        const { userID } = req.params;
-        if (!userID) {
+        const { userId } = req.params;
+        if (!userId) {
             return res.status(400).json({
                 sucess: false,
                 message: "User id is mandatory."
             })
         }
-        const cart = await Cart.findOne({ userID }).populate({
-            path: "items.productID",
+        const cart = await Cart.findOne({ userId }).populate({
+            path: "items.productId",
             select: "image name price salesPrice"
         })
         if (!cart) {
@@ -67,18 +67,18 @@ const fetchCartItem = async (req, res) => {
             })
         }
 
-        const validItems = cart.items.filter(item => item.productID);
+        const validItems = cart.items.filter(productitem => productitem.productId);
         if (validItems.length < cart.items.length) {
             cart.items = validItems;
             await cart.save();
         }
 
         const populateCartItems = validItems.map(item => ({
-            productID: item.productID._id,
-            image: item.productID.image,
-            name: item.productID.name,
-            price: item.productID.price,
-            salesPrice: item.productID.salesPrice,
+            productId: item.productId._id,
+            image: item.productId.image,
+            name: item.productId.name,
+            price: item.productId.price,
+            salesPrice: item.productId.salesPrice,
             quantity: item.quantity
         }))
         res.status(200).json({
@@ -100,15 +100,15 @@ const fetchCartItem = async (req, res) => {
 
 const updateCartItem = async (req, res) => {
     try {
-        const { userID, productId, quantity } = req.body;
-        if (!userID || !productId || quantity < 0) {
+        const { userId, productId, quantity } = req.body;
+        if (!userId || !productId || quantity < 0) {
             return res.status(400).json({
                 sucess: false,
                 message: "Invalid product details."
             })
         }
 
-        const cart = await Cart.findOne({ userID });
+        const cart = await Cart.findOne({ userId });
         if (!cart) {
             return res.status(404).json({
                 sucess: false,
@@ -116,7 +116,7 @@ const updateCartItem = async (req, res) => {
             })
         }
 
-        const findCurrentProductIndex = cart.items.findIndex(item => item.productID.toString() == productId);
+        const findCurrentProductIndex = cart.items.findIndex(item => item.productId.toString() === productId);
         if (findCurrentProductIndex === -1) {
             return res.status(404).json({
                 sucess: false,
@@ -128,16 +128,16 @@ const updateCartItem = async (req, res) => {
         await cart.save();
 
         await cart.populate({
-            path: "items.productID",
+            path: "items.productId",
             select: "image name price salesPrice"
         })
 
         const populateCartItems = cart.items.map(item => ({
-            productID: item.productID ? item.productID._id : null,
-            image: item.productID ? item.productID.image : null,
-            name: item.productID ? item.productID.name : 'Product not found',
-            price: item.productID ? item.productID.price : null,
-            salesPrice: item.productID ? item.productID.salesPrice : null,
+            productId: item.productId ? item.productId._id : null,
+            image: item.productId ? item.productId.image : null,
+            name: item.productId ? item.productId.name : 'Product not found',
+            price: item.productId ? item.productId.price : null,
+            salesPrice: item.productId ? item.productId.salesPrice : null,
             quantity: item.quantity
         }))
         res.status(200).json({
@@ -160,16 +160,16 @@ const updateCartItem = async (req, res) => {
 
 const deleteCartItem = async (req, res) => {
     try {
-        const { userID, productId } = req.params;
-        if (!userID || !productId) {
+        const { userId, productId } = req.params;
+        if (!userId || !productId) {
             return res.status(400).json({
                 sucess: false,
                 message: "Invalid product details."
             })
         }
 
-        const cart = await Cart.findOne({ userID }).populate({
-            path: "items.productID",
+        const cart = await Cart.findOne({ userId }).populate({
+            path: "items.productId",
             select: "image name price salesPrice"
         })
         if (!cart) {
@@ -178,20 +178,20 @@ const deleteCartItem = async (req, res) => {
                 message: "Cart not found."
             })
         }
-        cart.items = cart.items.filter(item => item.productID.toString() !== productId);
+        cart.items = cart.items.filter(item => item.productId._id.toString() !== productId);
         await cart.save();
 
         await cart.populate({
-            path: "items.productID",
+            path: "items.productId",
             select: "image name price salesPrice"
         })
 
         const populateCartItems = cart.items.map(item => ({
-            productID: item.productID ? item.productID._id : null,
-            image: item.productID ? item.productID.image : null,
-            name: item.productID ? item.productID.name : 'Product not found',
-            price: item.productID ? item.productID.price : null,
-            salesPrice: item.productID ? item.productID.salesPrice : null,
+            productId: item.productId ? item.productId._id : null,
+            image: item.productId ? item.productId.image : null,
+            name: item.productId ? item.productId.name : 'Product not found',
+            price: item.productId ? item.productId.price : null,
+            salesPrice: item.productId ? item.productId.salesPrice : null,
             quantity: item.quantity
         }))
 

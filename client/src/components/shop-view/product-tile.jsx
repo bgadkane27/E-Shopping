@@ -4,7 +4,7 @@ import { Card, CardContent, CardFooter } from "../ui/card";
 import { brandOptions, categoryOptions } from "@/config";
 import { Badge } from "../ui/badge";
 
-function ShopProductTile({ product, handlegetProductDetails }) {
+function ShopProductTile({ product, handlegetProductDetails, handleAddtoCart }) {
   return (
     <Card className="w-full max-w-sm mx-auto">
       <div  className="relative">
@@ -15,11 +15,11 @@ function ShopProductTile({ product, handlegetProductDetails }) {
             className="w-full h-[200px] object-cover rounded-t-lg"
           />
         </div>
-        {product?.salesPrice && product.salesPrice > 0 ? (
+        {product?.salesPrice > 0 && (
           <Badge className="absolute top-2 left-2 bg-red-500 hover:bg-red-600">
             Sale
           </Badge>
-        ) : null}
+        )}
         <CardContent className="p-4">
           <h2 className="text-xl font-semibold mb-2">{product?.name}</h2>
           <div className="flex items-center justify-between mb-2">
@@ -46,7 +46,7 @@ function ShopProductTile({ product, handlegetProductDetails }) {
           </div>
         </CardContent>
         <CardFooter className="flex flex-col justify-between items-center">
-          <Button variant="outline" size="sm" className="w-full mt-4">
+          <Button onClick={()=>handleAddtoCart(product?._id)} variant="outline" size="sm" className="w-full mt-4">
             <ShoppingCart /> Add to Cart
           </Button>
           <Button variant="outline" size="sm" className="w-full mt-2" onClick={()=> handlegetProductDetails(product?._id)}>

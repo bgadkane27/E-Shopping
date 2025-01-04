@@ -1,27 +1,28 @@
 import axios from "axios";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
+
 const initialState = {
     isLoading: false,
-    cart: [],
+    cartItems: [],
 };
 
 export const addToCart = createAsyncThunk(
     "cart/addToCart",
-    async ({ userID, productId, quantity }) => {
+    async ({ userId, productId, quantity }) => {
         const response = await axios.post(
             `http://localhost:5000/api/shop/cart/add`,
-            { userID, productId, quantity }
+            { userId, productId, quantity }
         );
         return response?.data;
     }
 );
 
 export const fetchCartItems = createAsyncThunk(
-    "cart/fetchCartItems",
-    async (userID) => {
+    "cart/fetchCartItem",
+    async (userId) => {
         const response = await axios.get(
-            `http://localhost:5000/api/shop/cart/get/${userID}`
+            `http://localhost:5000/api/shop/cart/get/${userId}`
         );
         return response?.data;
     }
@@ -29,10 +30,10 @@ export const fetchCartItems = createAsyncThunk(
 
 export const updateCartItem = createAsyncThunk(
     "cart/updateCartItem",
-    async ({ userID, productId, quantity }) => {
+    async ({ userId, productId, quantity }) => {
         const response = await axios.put(
             `http://localhost:5000/api/shop/cart/update`,
-            { userID, productId, quantity }
+            { userId, productId, quantity }
         );
         return response?.data;
     }
@@ -40,17 +41,18 @@ export const updateCartItem = createAsyncThunk(
 
 export const deleteCartItem = createAsyncThunk(
     "cart/deleteCartItem",
-    async ({ userID, productId }) => {
+    async ({ userId, productId }) => {
         const response = await axios.delete(
-            `http://localhost:5000/api/shop/cart/delete/${userID}/${productId}`
+            `http://localhost:5000/api/shop/cart/delete/${userId}/${productId}`
         );
         return response?.data;
     }
 );
 
 const cartSlice = createSlice({
-    name: "cart",
+    name: "shoppingCart",
     initialState,
+    reducers: {},
     extraReducers: (builder) => {
         builder
             .addCase(addToCart.pending, (state) => {
@@ -58,44 +60,44 @@ const cartSlice = createSlice({
             })
             .addCase(addToCart.fulfilled, (state, action) => {
                 state.isLoading = false;
-                state.cart = action.payload.data;
+                state.cartItems = action.payload.data;
             })
             .addCase(addToCart.rejected, (state) => {
                 state.isLoading = false;
-                state.cart = [];
+                state.cartItems = [];
             })
             .addCase(fetchCartItems.pending, (state) => {
                 state.isLoading = true;
             })
             .addCase(fetchCartItems.fulfilled, (state, action) => {
                 state.isLoading = false;
-                state.cart = action.payload.data;
+                state.cartItems = action.payload.data;
             })
             .addCase(fetchCartItems.rejected, (state) => {
                 state.isLoading = false;
-                state.cart = [];    
+                state.cartItems = [];    
             })
             .addCase(updateCartItem.pending, (state) => {
                 state.isLoading = true;
             })
             .addCase(updateCartItem.fulfilled, (state, action) => {
                 state.isLoading = false;
-                state.cart = action.payload.data;
+                state.cartItems = action.payload.data;
             })
             .addCase(updateCartItem.rejected, (state) => {
                 state.isLoading = false;
-                state.cart = [];    
+                state.cartItems = [];    
             })
             .addCase(deleteCartItem.pending, (state) => {
                 state.isLoading = true;
             })
             .addCase(deleteCartItem.fulfilled, (state, action) => {
                 state.isLoading = false;
-                state.cart = action.payload.data;
+                state.cartItems = action.payload.data;
             })
             .addCase(deleteCartItem.rejected, (state) => {
                 state.isLoading = false;
-                state.cart = [];    
+                state.cartItems = [];    
             });
     }}
 );
