@@ -2,15 +2,36 @@ import { Minus, Plus,Trash2 } from "lucide-react"
 import { Button } from "../ui/button"
 import { Separator } from "../ui/separator"
 import { useDispatch, useSelector } from "react-redux";
-import { deleteCartItem } from "@/store/shop/Cart-slice";
+import { deleteCartItem, updateCartItem } from "@/store/shop/Cart-slice";
+import { useToast } from "@/hooks/use-toast";
 
 function CartItemsContent({cartItem}) {
     const {user} = useSelector(state=>state.auth);
     const dispatch = useDispatch();
-    
+    const {toast} = useToast();    
  
     function handleDeleteCartItem(getCartItem){
-        dispatch(deleteCartItem({userId: user?.id, productId: getCartItem?.productId}));
+        dispatch(deleteCartItem({userId: user?.id, productId: getCartItem?.productId})).then(data=>{
+            if(data?.payload?.sucess){
+                toast({
+                variant: "success",
+                duration: 2000,
+                title: "Product deleted from basket successfully.",
+            })
+        }});
+    }
+    function handleUpdateQty(getCartItem, typeOfAction){
+        dispatch(updateCartItem({userId: user?.id, productId: getCartItem?.productId, 
+            quantity: typeOfAction === "plus" ? getCartItem?.quantity + 1 : getCartItem?.quantity - 1})).then(data=>{
+                if(data?.payload?.sucess){
+                    toast({
+                    variant: "success",
+                    duration: 2000,
+                    title: `Quantity ${
+                    typeOfAction === "plus" ? "increased" : "decreased"
+                } successfully.`,
+                })
+            }});
     }
 
     return(
@@ -24,12 +45,16 @@ function CartItemsContent({cartItem}) {
             <div className="flex-1">
                 <h3 className="font-medium text-xl -mt-2">{cartItem?.name}</h3>
                 <div className="flex items-center gap-2 mt-2">
-                    <Button className="w-10 h-10 rounded-full" variant="outline" size="icon">
+                    <Button onClick={()=>handleUpdateQty(cartItem, 'minus')} className="w-10 h-10 rounded-full" 
+                    variant="outline" 
+                    size="icon"
+                    disabled={cartItem?.quantity === 1}
+                    >
                         <Minus className="w-4 h-4 text-red-500"/>
                         <span className="sr-only">Decrease</span>
                     </Button>
                     <span className="font-md text-2xl">{cartItem?.quantity}</span>
-                    <Button className="w-10 h-10 rounded-full" variant="outline" size="icon">
+                    <Button onClick={()=>handleUpdateQty(cartItem, 'plus')} className="w-10 h-10 rounded-full" variant="outline" size="icon">
                         <Plus className="w-4 h-4 text-green-500"/>
                         <span className="sr-only">Increase</span>
                     </Button>

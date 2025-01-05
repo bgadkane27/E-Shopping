@@ -32,7 +32,7 @@ export const updateCartItem = createAsyncThunk(
     "cart/updateCartItem",
     async ({ userId, productId, quantity }) => {
         const response = await axios.put(
-            `http://localhost:5000/api/shop/cart/update`,
+            `http://localhost:5000/api/shop/cart/update-cart`,
             { userId, productId, quantity }
         );
         return response?.data;
