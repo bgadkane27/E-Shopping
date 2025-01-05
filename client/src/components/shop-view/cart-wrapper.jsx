@@ -21,9 +21,9 @@ function Cartwrapper({ cartItems }) {
       </div>
       {/* Total section */}
       <div className="mt-4">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between mr-6">
           <span className="font-medium">Total</span>
-          <span className="font-medium">$ 200</span>
+          <span className="font-medium">₹ 200</span>
         </div>
       </div>
       {/* Checkout button */}
