@@ -4,6 +4,11 @@ import { SheetContent, SheetHeader, SheetTitle } from "../ui/sheet";
 import CartItemsContent from "./cart-items-content";
 
 function Cartwrapper({ cartItems }) {
+
+  const totalCartAmount = cartItems && cartItems.length > 0 ? 
+  cartItems.reduce((sum, currentItem) => sum + 
+  (currentItem?.salesPrice > 0 ? currentItem?.salesPrice : currentItem?.price)* currentItem?.quantity, 0) : 0;
+
   return (
     <SheetContent className="sm:max-w-md flex flex-col h-full">
       <SheetHeader>
@@ -23,7 +28,7 @@ function Cartwrapper({ cartItems }) {
       <div className="mt-4">
         <div className="flex items-center justify-between mr-6">
           <span className="font-medium">Total</span>
-          <span className="font-medium">₹ 200</span>
+          <span className="font-medium">₹ {totalCartAmount}</span>
         </div>
       </div>
       {/* Checkout button */}
