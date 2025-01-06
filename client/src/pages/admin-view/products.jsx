@@ -58,7 +58,7 @@ function AdminProducts() {
             dispatch(getAllProduct());
             setCurrentEditedID(null);
             toast({
-              title: "Product Edited Successfully",
+              title: "Product edited successfully.",
               variant: "success",
               duration: 2000,
             });
@@ -76,7 +76,7 @@ function AdminProducts() {
             setFormData(initialformData);
             dispatch(getAllProduct());
             toast({
-              title: "Product Added Successfully",
+              title: "Product added successfully.",
               variant: "success",
               duration: 2000,
             });
@@ -97,7 +97,7 @@ function AdminProducts() {
         toast({
           variant: "success",
           duration: 2000,
-          title: "Product Deleted Successfully",
+          title: "Product deleted successfully.",
         });
       }
     });

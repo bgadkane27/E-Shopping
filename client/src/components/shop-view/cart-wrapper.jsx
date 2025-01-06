@@ -7,7 +7,7 @@ function Cartwrapper({ cartItems }) {
 
   const totalCartAmount = cartItems && cartItems.length > 0 ? 
   cartItems.reduce((sum, currentItem) => sum + 
-  (currentItem?.salesPrice > 0 ? currentItem?.salesPrice : currentItem?.price)* currentItem?.quantity, 0) : 0;
+  (currentItem?.salesPrice > 0 ? currentItem?.salesPrice : currentItem?.price)* currentItem?.quantity, 0).toFixed(2) : 0;
 
   return (
     <SheetContent className="sm:max-w-md flex flex-col h-full">
