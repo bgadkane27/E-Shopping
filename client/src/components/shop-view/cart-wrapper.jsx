@@ -12,7 +12,7 @@ function Cartwrapper({ cartItems }) {
   return (
     <SheetContent className="sm:max-w-md flex flex-col h-full">
       <SheetHeader>
-        <SheetTitle>Your Basket</SheetTitle>
+        <SheetTitle>Your Cart</SheetTitle>
       </SheetHeader>
       {/* Scrollable content area */}
       <div className="mt-8 space-y-4 flex-grow overflow-y-auto">
@@ -21,7 +21,7 @@ function Cartwrapper({ cartItems }) {
             <CartItemsContent key={index} cartItem={item} />
           ))
         ) : (
-          <p className="text-gray-500">Your basket is empty.</p>
+          <p className="text-gray-500">Your cart is empty.</p>
         )}
       </div>
       {/* Total section */}
@@ -32,7 +32,7 @@ function Cartwrapper({ cartItems }) {
         </div>
       </div>
       {/* Checkout button */}
-      <Button className="mt-4 w-full flex items-center justify-center">
+      <Button className="mt-4 w-full flex items-center justify-center" disabled={cartItems?.length <=0}>
         <CircleCheck className="mr-2" /> CheckOut
       </Button>
     </SheetContent>
