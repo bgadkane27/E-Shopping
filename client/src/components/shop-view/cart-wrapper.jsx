@@ -3,8 +3,10 @@ import { Button } from "../ui/button";
 import { SheetContent, SheetHeader, SheetTitle } from "../ui/sheet";
 import CartItemsContent from "./cart-items-content";
 import { Separator } from "../ui/separator";
+import { useNavigate } from "react-router-dom";
 
 function Cartwrapper({ cartItems }) {
+const navigate = useNavigate();
   const totalCartAmount =
     cartItems && cartItems.length > 0
       ? cartItems
@@ -36,27 +38,32 @@ function Cartwrapper({ cartItems }) {
           ))
         ) : (
           <>
+          <img src="/cart1.png" alt="Empty Cart" className="w-1/4 mx-auto mt-4"/>
           <p className="text-gray-500 text-center">
             Your shopping cart is empty. <br /> Start shopping to add items.
           </p>
-          <img src="/cart1.png" alt="Empty Cart" className="w-1/4 mx-auto mt-4"/>
+          <Button variant="outline" size="lg" className="flex items-center justify-center mt-4 mx-auto" onClick={() => navigate("/shop/home")}>Go Home</Button>
           </>
         )}
       </div>
-      {/* Total section */}
-      <div className="mt-4">
-        <div className="flex items-center justify-between mr-6">
-          <span className="font-medium">Total</span>
-          <span className="font-medium">₹ {totalCartAmount}</span>
-        </div>
-      </div>
-      {/* Checkout button */}
-      <Button
-        className="mt-2 w-full flex items-center justify-center"
-        disabled={cartItems?.length <= 0}
-      >
-        <CircleCheck className="mr-1" /> CheckOut
-      </Button>
+      {
+        cartItems && cartItems.length > 0 && (
+          <>
+          <div className="mt-4">
+            <div className="flex items-center justify-between mr-6">
+              <span className="font-medium">Subtotal</span>
+              <span className="font-medium">₹ {totalCartAmount}</span>
+            </div>
+          </div>
+          <Button
+          className="mt-2 w-full flex items-center justify-center"
+          disabled={cartItems?.length === 0}
+        >
+          <CircleCheck className="mr-1" /> CheckOut
+        </Button>
+        </>
+        )
+      }
     </SheetContent>
   );
 }
