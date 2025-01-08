@@ -1,4 +1,4 @@
-import { ChevronLeftIcon, ChevronRightIcon, ShirtIcon } from "lucide-react";
+import { ChevronLeftIcon, ChevronRightIcon, ComponentIcon, DrumIcon, FootprintsIcon, RadiationIcon, ShirtIcon, UserRound, UsersRound } from "lucide-react";
 import bannerOne from "../../assets/slide1.webp"
 import bannerTwo from "../../assets/slide2.webp"
 import bannerThree from "../../assets/slide3.webp"
@@ -18,19 +18,19 @@ function ShopHome() {
 
     const slides = [bannerOne, bannerTwo, bannerThree];
     const categoriesWithIcon = [
-        { id: "men", label: "Men", icon: ShirtIcon },
+        { id: "men", label: "Men", icon: UsersRound },
         { id: "women", label: "Women", icon: ShirtIcon },
-        { id: "kids", label: "Kids", icon: ShirtIcon },
-        { id: "footwear", label: "Footwear", icon: ShirtIcon },
-        { id: "electronics", label: "Electronics", icon: ShirtIcon },
+        { id: "kids", label: "Kids", icon: DrumIcon },
+        { id: "footwear", label: "Footwear", icon: FootprintsIcon },
+        { id: "electronics", label: "Electronics", icon: RadiationIcon },
     ]
 
     const brandWithIcon = [
-        { id: "adidas", label: "Adidas", icon: ShirtIcon },
-        { id: "nike", label: "Nike", icon: ShirtIcon },
-        { id: "puma", label: "Puma", icon: ShirtIcon },
-        { id: "asics", label: "Asics", icon: ShirtIcon },
-        { id: "reebok", label: "Reebok", icon: ShirtIcon }
+        { id: "adidas", label: "Adidas", icon: ComponentIcon },
+        { id: "nike", label: "Nike", icon: ComponentIcon },
+        { id: "puma", label: "Puma", icon: ComponentIcon },
+        { id: "asics", label: "Asics", icon: ComponentIcon },
+        { id: "reebok", label: "Reebok", icon: ComponentIcon }
     ]
 
     return (
