@@ -70,9 +70,9 @@ function ShopHeader() {
         </Sheet>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="secondary" size="icon">
-              <Avatar className="bg-black">
-                <AvatarFallback className="bg-black text-white font-extrabold">
+            <Button variant="outline" size="icon">
+              <Avatar className="w-10 h-10">
+                <AvatarFallback className="text-black font-extrabold">
                   {user?.email?.[0]?.toUpperCase() || "?"}
                 </AvatarFallback>
               </Avatar>
@@ -80,7 +80,7 @@ function ShopHeader() {
           </DropdownMenuTrigger>
           <DropdownMenuContent
             side="bottom"
-            className="w-56 mt-2 mr-6 py-2 text-muted-foreground bg-gray-300 rounded-xl"
+            className="w-56 mt-2 mr-8 py-2 text-muted-foreground rounded-xl"
           >
             <DropdownMenuLabel>Email: {user?.email}</DropdownMenuLabel>
             <DropdownMenuSeparator />

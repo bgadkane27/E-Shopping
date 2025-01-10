@@ -203,4 +203,52 @@ export const sortOptions= [
     id:"ztoa",
     label: "Name: Z to A"
   }
-]
+];
+
+export const addressFormControls = [
+  {
+    name: "address",
+    label: "Address",
+    componentType: "input", 
+    type: "text",   
+    placeholder: "Enter Address",
+    required: true,
+    maxLength: 124
+  },
+  {
+    name: "city",
+    label: "City",
+    componentType: "input",
+    type: "text",
+    placeholder: "Enter City",
+    required: true,
+    maxLength: 24
+  },
+  {
+    name: "pincode",
+    label: "Pincode",
+    componentType: "input",
+    type: "text",    
+    placeholder: "Enter Pincode",
+    required: true,
+    pattern: "^[0-9]{6}$"
+  },
+  {
+    name: "phone",
+    label: "Mobile Number",
+    componentType: "input",
+    type: "text",    
+    placeholder: "Enter Mobile Number",
+    required: true,
+    pattern: "^[0-9]{10,15}$",
+    minLength: 10,
+    maxLength: 15
+  },
+  {
+    name: "notes",
+    label: "Notes",
+    componentType: "textarea",    
+    placeholder: "Enter Notes",
+    maxLength: 240
+  },
+];
