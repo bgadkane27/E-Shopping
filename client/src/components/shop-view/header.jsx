@@ -17,19 +17,30 @@ import { logoutUser } from "@/store/auth-slice";
 import Cartwrapper from "./cart-wrapper";
 import { useEffect, useState } from "react";
 import { fetchCartItems } from "@/store/shop/Cart-slice";
+import { Label } from "../ui/label";
 
 function ShopHeader() {
   function MenuItems() {
+    const navigate = useNavigate();
+
+    function handleNavigate(getCurrentItem) {
+      sessionStorage.removeItem("filters");
+      const currentFilter= {
+        category: [getCurrentItem.id]
+      }
+      sessionStorage.setItem("filters", JSON.stringify(currentFilter));
+      navigate(getCurrentItem.path);
+    }
+
     return (
       <nav className="flex flex-col gap-2 lg:flex-row lg:space-x-6 lg:items-center">
         {headermenuItems.map((item) => (
-          <NavLink
-            to={item.path}
-            className="flex items-center gap-2 text-sm font-semibold leading-6 text-muted-foreground hover:text-foreground"
+          <Label onClick = {()=>handleNavigate(item)}
+            className="flex items-center gap-2 text-sm font-semibold leading-6 text-muted-foreground hover:text-foreground cursor-pointer"
             key={item.id}
           >
             {item.label}
-          </NavLink>
+          </Label>
         ))}
       </nav>
     );

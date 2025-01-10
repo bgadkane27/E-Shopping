@@ -74,7 +74,7 @@ function ShopListing() {
         toast({
           variant: "success",
           duration: 2000,
-          title: "Product added to cart Successfully.",
+          title: "Product added to cart successfully.",
         });
       }
     });

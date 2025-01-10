@@ -10,9 +10,12 @@ import { Card, CardContent } from "@/components/ui/card";
 import { useEffect, useState } from "react";
 import { Separator } from "@/components/ui/separator";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllShopProducts } from "@/store/shop/Product-slice";
+import { getAllShopProducts, getProductDetails } from "@/store/shop/Product-slice";
 import ShopProductTile from "@/components/shop-view/product-tile";
 import { useNavigate } from "react-router-dom";
+import { addToCart, fetchCartItems } from "@/store/shop/Cart-slice";
+import { useToast } from "@/hooks/use-toast";
+import ProductDetailsDialog from "@/components/shop-view/product-details";
 
 const slides = [bannerOne, bannerTwo, bannerThree, bannerFour, bannerFive, bannerSix];
 const categoriesWithIcon = [
@@ -35,9 +38,30 @@ const brandWithIcon = [
 function ShopHome() {
 
     const [currentSlide, setCurrentSlide] = useState(0);
-    const { productList } = useSelector(state => state.shopProduct)
+    const { productList, productDetails } = useSelector((state) => state.shopProduct);
+    const [openDetailsDialog, setOpenDetailsDialog] = useState(false);
+    const {user} = useSelector((state) => state.auth);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const {toast} = useToast();
+
+    function handlegetProductDetails(getProductDeatil) {
+        dispatch(getProductDetails(getProductDeatil));
+      }
+
+    function handleAddtoCart(getCurrentProductID){
+        // console.log(getCurrentProductID);
+        dispatch(addToCart({userId: user?.id, productId : getCurrentProductID, quantity: 1})).then(data=>{
+          if(data?.payload?.sucess){
+            dispatch(fetchCartItems(user?.id));
+            toast({
+              variant: "success",
+              duration: 2000,
+              title: "Product added to cart successfully.",
+            });
+          }
+        });
+      }
 
     function handleNaviateToListing(getCurrentItem, section) {
         sessionStorage.removeItem("filters");
@@ -47,6 +71,12 @@ function ShopHome() {
         sessionStorage.setItem("filters", JSON.stringify(currentFilter));
         navigate(`/shop/listing`);
     }
+
+    useEffect(() => {
+        if (productDetails) {
+          setOpenDetailsDialog(true);
+        }
+      }, [productDetails]);
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -59,7 +89,7 @@ function ShopHome() {
         dispatch(getAllShopProducts({ filterParams: {}, sortParams: 'asc' }))
     }, [dispatch])
 
-    console.log("Productlist", productList);
+    // console.log("Productlist", productList);
 
     return (
         <div className="flex flex-col min-h-screen">
@@ -97,6 +127,7 @@ function ShopHome() {
                     {
                         categoriesWithIcon.map((category) => (
                             <Card onClick={() => {handleNaviateToListing(category, "category") }}
+                            key={category.id}
                             className="cursor-pointer hover:shadow-lg transition-shadow duration-500">
                                 <CardContent className="flex flex-col items-center justify-evenly p-6 gap-2">
                                     <category.icon className="w-6 h-6 text-pink-500" />
@@ -116,6 +147,7 @@ function ShopHome() {
                     {
                         brandWithIcon.map((brand) => (
                             <Card onClick={() => {handleNaviateToListing(brand, "brand") }}
+                            key={brand.id}
                             className="cursor-pointer hover:shadow-lg transition-shadow duration-500">
                                 <CardContent className="flex flex-col items-center justify-evenly p-6 gap-2">
                                     <brand.icon className="w-6 h-6 text-pink-500" />
@@ -135,12 +167,18 @@ function ShopHome() {
                     {
                         productList && productList.length > 0
                             ? productList.slice(0, 4).map((productItem) => (
-                                <ShopProductTile product={productItem} key={productItem.id} />
+                                <ShopProductTile 
+                                key={productItem.id}
+                                product={productItem}
+                                handlegetProductDetails={handlegetProductDetails}
+                                handleAddtoCart={handleAddtoCart}
+                                />
                             ))
                             : null
                     }
                 </div>
             </section>
+            <ProductDetailsDialog  open={openDetailsDialog} setOpen={setOpenDetailsDialog} productDetail={productDetails}/>
         </div>
     )
 }

@@ -27,7 +27,7 @@ function ProductDetailsDialog({ open, setOpen, productDetail }) {
         toast({
           variant: "success",
           duration: 2000,
-          title: "Product added to cart Successfully.",
+          title: "Product added to cart successfully.",
         });
       }
     });
@@ -40,7 +40,7 @@ function ProductDetailsDialog({ open, setOpen, productDetail }) {
 
   return (
     <Dialog open={open} onOpenChange={handleDialogClose}>
-      <DialogContent className="grid grid-cols-2 gap-8 sm:p-12 max-w-[50vw] sm:max-w-[80vw] lg:max-w-[50vw]">
+      <DialogContent className="grid grid-cols-2 gap-8 sm:p-12 max-w-[50vw] sm:max-w-[80vw] lg:max-w-[50vw] h-[98vh] overflow-y-auto">
         <div className="relative overflow-hidden rounded-lg">
           <img
             src={productDetail?.image}

@@ -16,7 +16,7 @@ function CartItemsContent({cartItem}) {
                 toast({
                 variant: "success",
                 duration: 2000,
-                title: "Product deleted from basket successfully.",
+                title: "Product deleted from cart successfully.",
             })
         }});
     }
