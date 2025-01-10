@@ -13,7 +13,7 @@ import { sortOptions } from "@/config";
 import { useToast } from "@/hooks/use-toast";
 import { addToCart, fetchCartItems } from "@/store/shop/Cart-slice";
 import { getAllShopProducts, getProductDetails } from "@/store/shop/Product-slice";
-import { ArrowUpDownIcon} from "lucide-react";
+import { ArrowUpDownIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
@@ -22,24 +22,24 @@ import { useSearchParams } from "react-router-dom";
 function createSearchParamsHelper(filterParams) {
   const queryParams = [];
 
-  for(const [key, value] of Object.entries(filterParams)) {
-    if(Array.isArray(value) && value.length > 0) {
-      const paramValue= value.join(',');
+  for (const [key, value] of Object.entries(filterParams)) {
+    if (Array.isArray(value) && value.length > 0) {
+      const paramValue = value.join(',');
       queryParams.push(`${key}=${encodeURIComponent(paramValue)}`);
     }
   }
-  return queryParams.join('&');  
+  return queryParams.join('&');
 }
 
 function ShopListing() {
   const dispatch = useDispatch();
-  const {user} = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.auth);
   const { productList, productDetails } = useSelector((state) => state.shopProduct);
   const [filters, setFilters] = useState({});
   const [sort, setSort] = useState(null);
   const [searchParams, setSearchParams] = useSearchParams();
   const [openDetailsDialog, setOpenDetailsDialog] = useState(false);
-  const {toast} = useToast();
+  const { toast } = useToast();
 
   function handleSort(value) {
     setSort(value);
@@ -53,11 +53,11 @@ function ShopListing() {
     } else {
       const indexOfCurrentOption =
         cpyFilters[getSectionID].indexOf(getCurrentOption);
-      if (indexOfCurrentOption === -1) 
+      if (indexOfCurrentOption === -1)
         cpyFilters[getSectionID].push(getCurrentOption);
-       else 
-        cpyFilters[getSectionID].splice(indexOfCurrentOption, 1);     
-    }    
+      else
+        cpyFilters[getSectionID].splice(indexOfCurrentOption, 1);
+    }
     setFilters(cpyFilters);
     sessionStorage.setItem("filters", JSON.stringify(cpyFilters));
   }
@@ -66,10 +66,10 @@ function ShopListing() {
     dispatch(getProductDetails(getProductDeatil));
   }
 
-  function handleAddtoCart(getCurrentProductID){
+  function handleAddtoCart(getCurrentProductID) {
     // console.log(getCurrentProductID);
-    dispatch(addToCart({userId: user?.id, productId : getCurrentProductID, quantity: 1})).then(data=>{
-      if(data?.payload?.sucess){
+    dispatch(addToCart({ userId: user?.id, productId: getCurrentProductID, quantity: 1 })).then(data => {
+      if (data?.payload?.sucess) {
         dispatch(fetchCartItems(user?.id));
         toast({
           variant: "success",
@@ -93,9 +93,9 @@ function ShopListing() {
   }, [filters]);
 
   useEffect(() => {
-    if(filters !== null && sort !== null)
-    dispatch(getAllShopProducts({filterParams: filters, sortParams: sort}));
-  }, [dispatch, sort, filters]);  
+    if (filters !== null && sort !== null)
+      dispatch(getAllShopProducts({ filterParams: filters, sortParams: sort }));
+  }, [dispatch, sort, filters]);
 
   useEffect(() => {
     if (productDetails) {
@@ -140,19 +140,20 @@ function ShopListing() {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-2">
           {productList && productList.length > 0 ? (
             productList.map((productItem, index) => (
-              <ShopProductTile key={index} 
-              product={productItem}  
-              handlegetProductDetails={handlegetProductDetails} 
-              handleAddtoCart={handleAddtoCart}/>
+              <ShopProductTile key={index}
+                product={productItem}
+                handlegetProductDetails={handlegetProductDetails}
+                handleAddtoCart={handleAddtoCart} />
             ))
           ) : (
-            <p className="text-red-500">
-              No products are available that match your filter criteria for sale.
-            </p>
+            <>
+              <span></span>
+              <img src="/not-found.webp" alt="Empty Cart" className="w-full mx-auto mt-6" />
+            </>
           )}
         </div>
       </div>
-      <ProductDetailsDialog  open={openDetailsDialog} setOpen={setOpenDetailsDialog} productDetail={productDetails}/>
+      <ProductDetailsDialog open={openDetailsDialog} setOpen={setOpenDetailsDialog} productDetail={productDetails} />
     </div>
   );
 }

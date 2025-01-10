@@ -38,7 +38,7 @@ const navigate = useNavigate();
           ))
         ) : (
           <>
-          <img src="/cart1.png" alt="Empty Cart" className="w-1/4 mx-auto mt-4"/>
+          <img src="/cart1.webp" alt="Empty Cart" className="w-1/4 mx-auto mt-4"/>
           <p className="text-gray-500 text-center">
             Your shopping cart is empty. <br /> Start shopping to add items.
           </p>
