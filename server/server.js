@@ -6,6 +6,7 @@ const authRoute = require("./routes/auth/auth-route");
 const adminProductsRoute = require("./routes/admin/products-route");
 const shopProductRoute  = require("./routes/shop/products-route");
 const shopCartRoute = require("./routes/shop/cart-route");
+const shopAddressRoute = require("./routes/shop/address-route");
 
 const PORT = process.env.PORT || 5000;
 const app = express();
@@ -33,6 +34,7 @@ app.use("/api/auth", authRoute);
 app.use("/api/admin/products", adminProductsRoute);
 app.use("/api/shop/products", shopProductRoute);
 app.use("/api/shop/cart", shopCartRoute);
+app.use("/api/shop/address", shopAddressRoute);
 
 app.listen(PORT, () => {
   console.log(`Port is running on ${PORT}`);
