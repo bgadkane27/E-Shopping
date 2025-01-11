@@ -66,7 +66,8 @@ function ShopHeader() {
             <ShoppingCart className="w-6 h-6" />
             <span className="sr-only">Cart</span>
           </Button>
-          <Cartwrapper cartItems={cartItems && cartItems.items && cartItems.items.length > 0 ? cartItems.items : []}/>
+          <Cartwrapper setOpenCartSheet={setOpenCartSheet} 
+          cartItems={cartItems && cartItems.items && cartItems.items.length > 0 ? cartItems.items : []}/>
         </Sheet>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>

@@ -188,7 +188,7 @@ export const addressFormControls = [
     label: "Notes",
     componentType: "textarea",    
     placeholder: "Enter notes(Optional)",
-    maxLength: 240
+    maxLength: 24
   },
 ];
 

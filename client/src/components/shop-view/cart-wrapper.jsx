@@ -5,7 +5,7 @@ import CartItemsContent from "./cart-items-content";
 import { Separator } from "../ui/separator";
 import { useNavigate } from "react-router-dom";
 
-function Cartwrapper({ cartItems }) {
+function Cartwrapper({ cartItems, setOpenCartSheet }) {
 const navigate = useNavigate();
   const totalCartAmount =
     cartItems && cartItems.length > 0
@@ -42,7 +42,11 @@ const navigate = useNavigate();
           <p className="text-gray-500 text-center">
             Your shopping cart is empty. <br /> Start shopping to add items.
           </p>
-          <Button variant="outline" size="lg" className="flex items-center justify-center mt-4 mx-auto" onClick={() => navigate("/shop/home")}>Go Home</Button>
+          <Button variant="outline" size="lg" className="flex items-center justify-center mt-4 mx-auto" 
+          onClick={() => {
+            navigate("/shop/home")
+            setOpenCartSheet(false)
+            }}>Go Home</Button>
           </>
         )}
       </div>
@@ -58,8 +62,12 @@ const navigate = useNavigate();
           <Button
           className="mt-2 w-full flex items-center justify-center"
           disabled={cartItems?.length === 0}
+          onClick={() =>{ 
+            navigate("/shop/checkout")
+            setOpenCartSheet(false)
+          }}
         >
-          <CircleCheck className="mr-1" /> CheckOut
+          <CircleCheck className="mr-1"/> CheckOut
         </Button>
         </>
         )
