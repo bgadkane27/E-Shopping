@@ -25,6 +25,10 @@ function CommonForm({ formControls, formData, setFormData, onSubmit, buttonText,
             id={getControlitem.name}
             placeholder={getControlitem.placeholder}
             type={getControlitem.type}
+            required={getControlitem.required || false}
+            minLength={getControlitem.minLength || undefined}
+            maxLength={getControlitem.maxLength || undefined}
+            pattern={getControlitem.pattern || undefined}
             value={value}
             onChange={handleInputChange}
           ></Input>
@@ -37,6 +41,8 @@ function CommonForm({ formControls, formData, setFormData, onSubmit, buttonText,
             id={getControlitem.name}
             placeholder={getControlitem.placeholder}
             type={getControlitem.type}
+            required={getControlitem.required || false}
+            maxLength={getControlitem.maxLength || undefined}
             value={value}
             onChange={handleInputChange}
           ></Textarea>
@@ -68,6 +74,10 @@ function CommonForm({ formControls, formData, setFormData, onSubmit, buttonText,
             id={getControlitem.name}
             placeholder={getControlitem.placeholder}
             type={getControlitem.type}
+            required={getControlitem.required || false}
+            minLength={getControlitem.minLength || undefined} 
+            maxLength={getControlitem.maxLength || undefined}
+            pattern={getControlitem.pattern || undefined}
             value={value}
             onChange={handleInputChange}
           ></Input>
@@ -81,7 +91,10 @@ function CommonForm({ formControls, formData, setFormData, onSubmit, buttonText,
       <div className="flex flex-col gap-3">
         {formControls.map((controlitem) => (
           <div className="grid w-full gap-0.5" key={controlitem.name}>
-            <Label className="text-gray-600 text-sm">{controlitem.label}</Label>
+            <Label className="text-gray-600 text-sm">
+              {controlitem.label}{" "}
+              {controlitem.required && <span className="text-red-500">*</span>}
+            </Label>
             {renderInputByComponentType(controlitem)}
           </div>
         ))}

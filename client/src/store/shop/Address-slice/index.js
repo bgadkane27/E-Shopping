@@ -1,5 +1,6 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+
 
 const initialState = {
     isLoading: false,
@@ -8,11 +9,12 @@ const initialState = {
 
 export const addNewAddress = createAsyncThunk(
     "address/addNewAddress",
-    async ({ formData }) => {
+    async (formData) => {
         const response = await axios.post(
-            "http://localhost:5000/api/shop/address/add", 
-            { formData });
-        return response?.data
+            `http://localhost:5000/api/shop/address/add`, 
+            formData
+        );
+        return response?.data;
     }
 )
 
@@ -21,7 +23,8 @@ export const editaAddress = createAsyncThunk(
     async ({ userId, addressId, formData }) => {
         const response = await axios.put(
             `http://localhost:5000/api/shop/address/update/${userId}/${addressId}`, 
-            { formData });
+            formData
+        );
         return response?.data
     }
 )
@@ -38,7 +41,7 @@ export const deleteAddress = createAsyncThunk(
 
 export const getAllAddress = createAsyncThunk(
     "address/getAllAddress",
-    async ({ userId }) => {
+    async (userId) => {
         const response = await axios.get(
             `http://localhost:5000/api/shop/address/get/${userId}`
             );
@@ -57,11 +60,9 @@ const addressSlice = createSlice({
             })
             .addCase(addNewAddress.fulfilled, (state, action) => {
                 state.isLoading = false;
-                state.addressList = action.payload.data;
             })
             .addCase(addNewAddress.rejected, (state) => {
                 state.isLoading = false;
-                state.addressList = [];
             })
             .addCase(getAllAddress.pending, (state) => {
                 state.isLoading = true;

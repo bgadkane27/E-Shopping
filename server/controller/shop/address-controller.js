@@ -2,17 +2,17 @@ const Address = require("../../models/Address");
 
 const addAddress = async(req,res)=>{
     try{
-        const {userId, phone, address, city, pincode, notes} = req.body
-        if(!userId || !phone || !address || !city || !pincode || !notes){
+        const {userId, phone, address, landmark ,city, pincode, notes} = req.body
+        if(!userId || !phone || !address || !city || !pincode){
             return res.status(400).json({
                 sucess: false,
                 message: "All fields are required."
             })
         }
 
-        const newAddress = new Address({userId, phone, address, city, pincode, notes})
+        const newAddress = new Address({userId, phone, address, landmark, city, pincode, notes})
         await newAddress.save();
-        res.status(200).json({
+        res.status(201).json({
             sucess: true,
             data: newAddress,
             message: "Address added successfully."

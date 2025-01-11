@@ -26,7 +26,7 @@ function ShopAccount() {
                         <TabsContent value="orders">
                             <Orders />
                         </TabsContent>
-                        <TabsContent value="address" className="w-[400px]">
+                        <TabsContent value="address" className="w-full">
                             <Address />
                         </TabsContent>
                     </Tabs>

@@ -4,22 +4,29 @@ export const registerFormControls = [
     name: "username",
     componentType: "input",
     type: "text",
-    label: "Username",
-    placeholder: "Enter a username "
+    label: "Full Name",
+    placeholder: "Enter a full name",
+    required: true,
+    maxLength: 240
+
   },
   {
     name: "email",
     componentType: "input",
     type: "email",
     label: "Email",
-    placeholder: "Enter an email id ",
+    placeholder: "Enter an email id",
+    required: true,
+    maxLength: 64
   },
   {
     name: "password",
     componentType: "input",
     type: "password",
     label: "Password",
-    placeholder: "Enter a password ",
+    placeholder: "Enter a password",
+    required: true,
+    maxLength: 64
   }
 ];
 
@@ -29,14 +36,18 @@ export const loginFormControls = [
     componentType: "input",
     type: "email",
     label: "Email",
-    placeholder: "Enter an email id ",
+    placeholder: "Enter an email id",
+    required: true,
+    maxLength: 64
   },
   {
     name: "password",
     componentType: "input",
     type: "password",
     label: "Password",
-    placeholder: "Enter a password ",
+    placeholder: "Enter a password",
+    required: true,
+    maxLength: 64
   }
 ];
 
@@ -46,14 +57,18 @@ export const addProductFormControls = [
     name: "name",
     componentType: "input",
     type: "text",    
-    placeholder: "Enter product name"
+    placeholder: "Enter product name",
+    required: true,
+    maxLength: 240
   },
   {
     label: "Description",
     name: "description",
     componentType: "textarea",
     type: "text",    
-    placeholder: "Enter product description"
+    placeholder: "Enter product description",
+    required: true,
+    maxLength: 240
   },
   {
     label: "Category",
@@ -90,23 +105,93 @@ export const addProductFormControls = [
     name: "price",
     componentType: "input",
     type: "text",    
-    placeholder: "Enter product price"
+    placeholder: "Enter product price",
+    required: true,
+    pattern: "^[0-9]+(\.[0-9]{1,2})?$",
+    minLength: 1,
+    maxLength: 5,
   },
   {
     label: "Sales Price",
     name: "salesPrice",
     componentType: "input",
     type: "text",   
-    placeholder: "Enter product sales price"
+    placeholder: "Enter product sales price",
+    required: true,
+    pattern: "^[0-9]+(\.[0-9]{1,2})?$",
+    minLength: 1,
+    maxLength: 5,
   },
   {
     label: "Total Stock",
     name: "totalStock",
     componentType: "input",
     type: "text",     
-    placeholder: "Enter product total stock"
+    placeholder: "Enter product total stock",
+    required: true,
+    pattern: "^[0-9]+$",
+    minLength: 1,
+    maxLength: 5
   }
 ];
+
+export const addressFormControls = [
+  {
+    name: "address",
+    label: "Address",
+    componentType: "input", 
+    type: "text",   
+    placeholder: "Enter address",
+    required: true,
+    maxLength: 240
+  },
+  {
+    name: "landmark",
+    label: "Landmark",
+    componentType: "input", 
+    type: "text",   
+    placeholder: "E.g. Near public school",
+    maxLength: 240
+  },
+  {
+    name: "city",
+    label: "Town/City",
+    componentType: "input",
+    type: "text",
+    placeholder: "Enter Town/City",
+    required: true,
+    maxLength: 48
+  },
+  {
+    name: "pincode",
+    label: "Pincode",
+    componentType: "input",
+    type: "text",    
+    placeholder: "Enter 6 digit pincode",
+    required: true,
+    pattern: "^[0-9]{6}$",
+    maxLength: 6
+  },
+  {
+    name: "phone",
+    label: "Mobile Number",
+    componentType: "input",
+    type: "text",    
+    placeholder: "Enter 10 digit mobile number",
+    required: true,
+    pattern: "^[0-9]{10,15}$",
+    minLength: 10,
+    maxLength: 15
+  },
+  {
+    name: "notes",
+    label: "Notes",
+    componentType: "textarea",    
+    placeholder: "Enter notes(Optional)",
+    maxLength: 240
+  },
+];
+
 
 export const headermenuItems = [
   {
@@ -203,52 +288,4 @@ export const sortOptions= [
     id:"ztoa",
     label: "Name: Z to A"
   }
-];
-
-export const addressFormControls = [
-  {
-    name: "address",
-    label: "Address",
-    componentType: "input", 
-    type: "text",   
-    placeholder: "Enter Address",
-    required: true,
-    maxLength: 124
-  },
-  {
-    name: "city",
-    label: "City",
-    componentType: "input",
-    type: "text",
-    placeholder: "Enter City",
-    required: true,
-    maxLength: 24
-  },
-  {
-    name: "pincode",
-    label: "Pincode",
-    componentType: "input",
-    type: "text",    
-    placeholder: "Enter Pincode",
-    required: true,
-    pattern: "^[0-9]{6}$"
-  },
-  {
-    name: "phone",
-    label: "Mobile Number",
-    componentType: "input",
-    type: "text",    
-    placeholder: "Enter Mobile Number",
-    required: true,
-    pattern: "^[0-9]{10,15}$",
-    minLength: 10,
-    maxLength: 15
-  },
-  {
-    name: "notes",
-    label: "Notes",
-    componentType: "textarea",    
-    placeholder: "Enter Notes",
-    maxLength: 240
-  },
 ];
