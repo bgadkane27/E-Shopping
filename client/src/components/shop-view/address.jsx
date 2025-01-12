@@ -29,6 +29,7 @@ function Address() {
         event.preventDefault();
 
         if(addressList.length >=3 && currentEditedId === null){
+            setFormData(initialAddressFormData);
             toast({
                 variant: "destructive",
                 duration: 2000,
