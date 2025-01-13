@@ -9,8 +9,13 @@ function ShopCheckout() {
           alt="Checkout Image"
           className="w-full h-full rounded-md object-cover object-center absolute top-0 left-0"
         />
-      </div>     
-        <Address />      
+      </div>
+      <div className="grid grid-cols-1 gap-4 p-4">
+        <Address />
+        <div className="flex flex-col">
+
+        </div>
+      </div>
     </div>
   );
 }
