@@ -1,9 +1,9 @@
 
 
-function Orders(){
+function ShopOrders(){
     return(
         <>Orders123</>
     );
 }
 
-export default Orders;
+export default ShopOrders;
