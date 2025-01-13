@@ -13,7 +13,7 @@ function ShopCheckout() {
       <div className="grid grid-cols-1 gap-4 p-4">
         <Address />
         <div className="flex flex-col">
-
+            
         </div>
       </div>
     </div>
