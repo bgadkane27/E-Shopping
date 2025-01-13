@@ -6,7 +6,7 @@ import { Edit, Trash2 } from "lucide-react";
 function AddressCard({addressInfo, handleEditAddress, handleDeleteAddress}) {
     
     return(
-        <Card className="bg-gradient-to-b from-pink-200 to-blue-300">
+        <Card className="bg-gradient-to-b from-pink-200 to-blue-300 relative">
             <CardContent className="grid gap-4 p-4 mb-4">
                 <Label>{addressInfo?.address}</Label>
                 <Label>{addressInfo?.landmark}</Label>
@@ -15,12 +15,12 @@ function AddressCard({addressInfo, handleEditAddress, handleDeleteAddress}) {
                 <Label>{addressInfo?.phone}</Label>
                 <Label>{addressInfo?.notes}</Label>
             </CardContent>
-            <CardFooter className="flex justify-between p-2">
-                <Edit color="orange" className="cursor-pointer"
+            <CardFooter className="relative p-2 mt-1 flex items-end">
+                <Edit color="orange" className="cursor-pointer absolute bottom-2 left-2"
                 onClick={() => {handleEditAddress(addressInfo)}}
                 aria-label="Edit Address"
                 />
-                <Trash2 color="red" className="cursor-pointer"
+                <Trash2 color="red" className="cursor-pointer absolute bottom-2 right-2"
                 onClick={() => {handleDeleteAddress(addressInfo)}}
                 aria-label="Delete Address"
                 />

@@ -28,12 +28,12 @@ function Address() {
     function handleManageAddress(event) {
         event.preventDefault();
 
-        if(addressList.length >=3 && currentEditedId === null){
+        if(addressList.length >=2 && currentEditedId === null){
             setFormData(initialAddressFormData);
             toast({
                 variant: "destructive",
                 duration: 2000,
-                title: "You can add maximum of three addresses only.",
+                title: "You can add maximum of two addresses only.",
             });
             return;
         }
@@ -108,7 +108,7 @@ function Address() {
     }, [dispatch])
 
     return <Card>
-        <div className="p-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="p-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
             {
                 addressList && addressList.length > 0 ? 
                 addressList.map((address) => (

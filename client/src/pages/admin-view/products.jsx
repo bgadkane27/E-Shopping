@@ -86,7 +86,7 @@ function AdminProducts() {
 
   function isFormValid() {
     return Object.keys(formData)
-      .map((key) => formData[key].trim() !== "")
+      .map((key) => formData[key] !== "")
       .every((item) => item);
   }
 
