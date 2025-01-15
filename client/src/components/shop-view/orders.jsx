@@ -25,7 +25,7 @@ function ShopOrders(){
                             <TableCell>8769</TableCell>
                             <TableCell>27/12/2024</TableCell>
                             <TableCell>In process</TableCell>
-                            <TableCell> $ 120</TableCell>
+                            <TableCell>₹ 120</TableCell>
                             <TableCell>
                                 <Button>View Details</Button>
                             </TableCell>
