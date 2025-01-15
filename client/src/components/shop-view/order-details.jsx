@@ -1,21 +1,9 @@
-import { useState } from "react"
-import CommonForm from "../common/form"
 import { DialogContent, DialogTitle } from "../ui/dialog"
 import { Label } from "../ui/label"
 import { Separator } from "../ui/separator"
 
-const initialFormData = {
-    status: "",
-}
 
-function AdminOrdersDetailsView() {
-    const [formData, setFormData] = useState(initialFormData);
-
-    function handleUpdateStatus(event) {
-        event.preventDefault();
-        console.log(formData);
-    }
-
+function ShopOrdersDetailsView() {   
     return (
         <DialogContent className="sm:max-w-[600px]">
             <DialogTitle className="text-xl font-medium">Order Details</DialogTitle>
@@ -64,32 +52,10 @@ function AdminOrdersDetailsView() {
                         </div>
                     </div>
                 </div>
-                <div>
-                    <CommonForm
-                    formControls= {[
-                        {
-                            label: "Order Status",
-                            name: "status",
-                            componentType: "select",
-                            placeholder: "Select a status to update.",
-                            options: [
-                                { id: "pending", label: "Pending" },
-                                { id: "inTransit", label: "In Transit" },
-                                { id: "rejected", label: "Rejected" },
-                                { id: "delivered", label: "Delivered" },
-                            ]
-                        }
-                    ]}
-                    formData= {formData}
-                    setFormData= {setFormData}
-                    buttonText= {'Update Order Status'}
-                    onSubmit= {handleUpdateStatus}
-                    />
-                </div>
             </div>
         </DialogContent>
     )
 
 }
 
-export default AdminOrdersDetailsView;
+export default ShopOrdersDetailsView;
