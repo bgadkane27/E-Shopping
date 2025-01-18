@@ -1,12 +1,11 @@
 const Order = require("../../models/Order");
 const paypal = require('../../helpers/paypal')
-
+    
 const createOrder = async (req, res) => {
     try {
-        const { userId,
-            orderId,
+        const { userId, 
             cartItems,
-            addressInfo,
+            addressInfo, 
             orderStatus,
             paymentMethod,
             paymentStatus,
@@ -14,7 +13,7 @@ const createOrder = async (req, res) => {
             orderDate,
             orderUpdateDate,
             paymentId,
-            PayerId } = req.body;
+            payerId} = req.body;
 
         const create_payment_json = {
             intent: 'sale',
@@ -22,7 +21,7 @@ const createOrder = async (req, res) => {
                 payment_method: 'paypal'
             },
             redirect_urls: {
-                return_url: 'http://localhost:5173/shop/paypal-retuen',
+                return_url: 'http://localhost:5173/shop/paypal-return',
                 cancel_url: 'http://localhost:5173/shop/paypal-cancel'
             },
             transactions: [
@@ -31,7 +30,7 @@ const createOrder = async (req, res) => {
                         items: cartItems.map(item => ({
                             name: item.name,
                             sku: item.productId,
-                            price: item.price,
+                            price: item.price.toFixed(2),
                             currency: 'INR',
                             quantity: item.quantity
                         }))
@@ -43,21 +42,19 @@ const createOrder = async (req, res) => {
                     description: "additional description."
                 }
             ]
-        }
+        };
 
         paypal.payment.create(create_payment_json, async (error, paymentInfo) => {
             if (error) {
-                console.log(error)
-                res.status(500).json({
+                console.log(error);
+                return res.status(500).json({
                     sucess: false,
                     duration: 2000,
-                    messgae: 'Error occured while doing payment.'
-                })
-            }
-            else {
+                    messgae: 'Error occurred while processing the payment.'
+                });
+            } else {
                 const newlyCreatedOrder = new Order({
                     userId,
-                    orderId,
                     cartItems,
                     addressInfo,
                     orderStatus,
@@ -67,19 +64,21 @@ const createOrder = async (req, res) => {
                     orderDate,
                     orderUpdateDate,
                     paymentId,
-                    PayerId
+                    payerId
                 })
-            await newlyCreatedOrder.save();
-            
-            const approvalURL = paymentInfo.links.find(link => link.rel === 'approval_url').href;
 
-            res.status(201).json({
-                sucess: true,
-                approvalURL,
-                orderId: newlyCreatedOrder?._id
-            })
-            }
-        })
+                console.log(newlyCreatedOrder,"dddd");
+
+                await newlyCreatedOrder.save();
+
+                const approvalURL = paymentInfo.links.find(link => link.rel === 'approval_url').href;
+                                
+                res.status(201).json({
+                    sucess: true,
+                    approvalURL,
+                    orderId: newlyCreatedOrder?._id
+                })
+            }})
 
     } catch (e) {
         res.status(500).json({

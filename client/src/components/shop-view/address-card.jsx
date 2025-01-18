@@ -3,10 +3,11 @@ import { Label } from "../ui/label";
 import { Edit, Trash2 } from "lucide-react";
 
 
-function AddressCard({addressInfo, handleEditAddress, handleDeleteAddress}) {
-    
-    return(
-        <Card className="bg-gradient-to-b from-pink-200 to-blue-300 max-w-96">
+function AddressCard({ addressInfo, handleEditAddress, handleDeleteAddress, setCurrentSelectedAddress }) {
+
+    return (
+        <Card className="bg-gradient-to-b from-pink-200 to-blue-300 max-w-96"
+            onClick={setCurrentSelectedAddress ? () => setCurrentSelectedAddress(addressInfo) : null}>
             <CardContent className="grid gap-4 p-4 mb-4">
                 <Label>{addressInfo?.address}</Label>
                 <Label>{addressInfo?.landmark}</Label>
@@ -17,17 +18,17 @@ function AddressCard({addressInfo, handleEditAddress, handleDeleteAddress}) {
             </CardContent>
             <CardFooter className="relative p-2 mt-1 flex items-end">
                 <Edit color="orange" className="cursor-pointer absolute bottom-2 left-2"
-                onClick={() => {handleEditAddress(addressInfo)}}
-                aria-label="Edit Address"
+                    onClick={() => { handleEditAddress(addressInfo) }}
+                    aria-label="Edit Address"
                 />
                 <Trash2 color="red" className="cursor-pointer absolute bottom-2 right-2"
-                onClick={() => {handleDeleteAddress(addressInfo)}}
-                aria-label="Delete Address"
+                    onClick={() => { handleDeleteAddress(addressInfo) }}
+                    aria-label="Delete Address"
                 />
             </CardFooter>
         </Card>
     );
-    
+
 }
 
 export default AddressCard;

@@ -16,7 +16,7 @@ const initialAddressFormData = {
     notes: ""
 }
 
-function Address() {
+function Address({setCurrentSelectedAddress}) {
 
     const [formData, setFormData] = useState(initialAddressFormData)
     const [currentEditedId, setCurrentEditedId] = useState(null)
@@ -116,6 +116,7 @@ function Address() {
                     addressInfo={address} 
                     handleDeleteAddress={() => handleDeleteAddress(address)}
                     handleEditAddress={() => handleEditAddress(address)}
+                    setCurrentSelectedAddress= {setCurrentSelectedAddress}
                     />
                 ))
                 :<p className="px-3 text-red-500">Looks like you have not added address yet.</p>
