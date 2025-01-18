@@ -1,15 +1,14 @@
 const mongoose = require('mongoose')
 
-
 const OrderSchema = new mongoose.Schema({
     userId: String,
+    orderId: String,
     cartItems : [
         {
             productId: String,
             name: String,
             image: String,
             price: String,
-            salesPrice: String,
             quantity: Number
         }
     ],
