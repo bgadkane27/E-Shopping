@@ -6,4 +6,4 @@ paypal.configure({
     client_secret:'EMve3jRGvCACa_mKpUlif3Z71LhXouN-7hKTJSoccYpkwbg4xB6i0DKsg_nPuO8r4iOzTBiF8u7JeupV'
 })
 
-module.exports = paypal
+module.exports = paypal;
