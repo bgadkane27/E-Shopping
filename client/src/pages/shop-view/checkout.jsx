@@ -5,13 +5,14 @@ import CartItemsContent from "@/components/shop-view/cart-items-content";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { createNewOrder } from "@/store/shop/Order-slice";
 
 function ShopCheckout() {
   const { cartItems } = useSelector((state) => state.shopCart);
   const {user} = useSelector(state=> state.auth)
   const [currentSelectedAddress, setCurrentSelectedAddress] = useState(null);
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
 
   const totalCartAmount =
     cartItems && cartItems.items && cartItems.items.length > 0
@@ -56,8 +57,9 @@ function ShopCheckout() {
       paymentId: '',
       PayerId: ''
     }
-    
-    console.log("orderData", orderData);
+    dispatch(createNewOrder(orderData)).then((data) => {
+      console.log(data);
+    })
   }
 
   return (
