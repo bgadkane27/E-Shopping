@@ -12,7 +12,7 @@ function CartItemsContent({cartItem}) {
  
     function handleDeleteCartItem(getCartItem){
         dispatch(deleteCartItem({userId: user?.id, productId: getCartItem?.productId})).then(data=>{
-            if(data?.payload?.sucess){
+            if(data?.payload?.success){
                 toast({
                 variant: "success",
                 duration: 2000,
@@ -23,7 +23,7 @@ function CartItemsContent({cartItem}) {
     function handleUpdateQty(getCartItem, typeOfAction){
         dispatch(updateCartItem({userId: user?.id, productId: getCartItem?.productId, 
             quantity: typeOfAction === "plus" ? getCartItem?.quantity + 1 : getCartItem?.quantity - 1})).then(data=>{
-                if(data?.payload?.sucess){
+                if(data?.payload?.success){
                     toast({
                     variant: "success",
                     duration: 2000,
@@ -62,7 +62,7 @@ function CartItemsContent({cartItem}) {
             </div>            
             <div className="flex flex-col items-end">
                 <span className="font-semibold">
-                ₹ {((cartItem?.salesPrice > 0 ? cartItem?.salesPrice : cartItem?.price )* cartItem?.quantity).toFixed(2)}
+                $ {((cartItem?.salesPrice > 0 ? cartItem?.salesPrice : cartItem?.price )* cartItem?.quantity).toFixed(2)}
                 </span>
                 <Trash2 onClick= {()=>handleDeleteCartItem(cartItem)}className="mt-2 text-red-500 cursor-pointer" size={20}/>                
             </div> 

@@ -66,7 +66,7 @@ function ImageUpload({
       "http://localhost:5000/api/admin/products/upload-image",
       data
     );
-    if (response?.data?.sucess) {
+    if (response?.data?.success) {
       setUploadedImgUrl(response.data.result.url);    
       setImageLoading(false);  
     }

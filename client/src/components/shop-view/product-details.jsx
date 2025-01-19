@@ -22,7 +22,7 @@ function ProductDetailsDialog({ open, setOpen, productDetail }) {
         quantity: 1,
       })
     ).then((data) => {
-      if (data?.payload?.sucess) {
+      if (data?.payload?.success) {
         dispatch(fetchCartItems(user?.id));
         toast({
           variant: "success",
@@ -61,11 +61,11 @@ function ProductDetailsDialog({ open, setOpen, productDetail }) {
                 productDetail?.salesPrice > 0 ? "line-through" : ""
               } text-lg font-semibold text-primary`}
             >
-              ₹ {productDetail?.price}
+              $ {productDetail?.price}
             </span>
             {productDetail?.salesPrice > 0 ? (
               <span className="text-lg font-semibold text-primary">
-                ₹ {productDetail?.salesPrice}
+                $ {productDetail?.salesPrice}
               </span>
             ) : null}
           </div>

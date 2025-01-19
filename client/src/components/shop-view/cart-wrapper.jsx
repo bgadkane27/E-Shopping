@@ -56,7 +56,7 @@ const navigate = useNavigate();
           <div className="mt-4">
             <div className="flex items-center justify-between mr-6">
               <span className="font-medium">Subtotal</span>
-              <span className="font-medium">₹ {totalCartAmount}</span>
+              <span className="font-medium">$ {totalCartAmount}</span>
             </div>
           </div>
           <Button

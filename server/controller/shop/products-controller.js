@@ -33,7 +33,7 @@ const getFilterProduct = async (req, res) => {
 
     const listOfProduct = await Product.find(filters).sort(sort);
     res.status(200).json({
-      sucess: true,
+      success: true,
       data: listOfProduct,
     });
   } catch (e) {
@@ -41,7 +41,7 @@ const getFilterProduct = async (req, res) => {
     res
       .status(500)
       .json({
-        sucess: false,
+        success: false,
         message: "Some error occured while fetching products.",
       });
   }
@@ -53,12 +53,12 @@ const getProductDetails = async (req, res) => {
     const product = await Product.findById(id);
     if(!product) {
       return res.status(404).json({
-        sucess: false,
+        success: false,
         message: "Product not available."
       })
     }
     res.status(200).json({
-      sucess: true,
+      success: true,
       data: product,
     });
   } catch (e) {
@@ -66,7 +66,7 @@ const getProductDetails = async (req, res) => {
     res
       .status(500)
       .json({
-        sucess: false,
+        success: false,
         message: "Error Occured: Not able to fetch product details.",
       });
   }

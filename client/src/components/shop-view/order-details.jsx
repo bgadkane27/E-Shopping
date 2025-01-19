@@ -19,7 +19,7 @@ function ShopOrdersDetailsView() {
                     </div>
                     <div className="flex items-center justify-between">
                         <p className="font-normal">Order Price</p>
-                        <Label>₹ 100</Label>
+                        <Label>$ 100</Label>
                     </div>
                     <div className="flex items-center justify-between">
                         <p className="font-normal">Order Status</p>
@@ -33,7 +33,7 @@ function ShopOrdersDetailsView() {
                         <ul className="grid gap-2">
                             <li className="flex items-center justify-between">
                                 <span>Product Name</span>
-                                <span>₹ 100 </span>
+                                <span>$ 100 </span>
                             </li>
                         </ul>
                     </div>

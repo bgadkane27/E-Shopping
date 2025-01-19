@@ -36,11 +36,11 @@ function ShopProductTile({ product, handlegetProductDetails, handleAddtoCart }) 
                 product?.salesPrice > 0 ? "line-through" : ""
               } text-lg font-semibold text-primary`}
             > 
-            ₹ {product?.price}
+            $ {product?.price}
             </span>
             {product?.salesPrice > 0 ? (
               <span className="text-lg font-semibold text-primary">
-                ₹ {product?.salesPrice}
+                $ {product?.salesPrice}
               </span>
             ) : null}
           </div>

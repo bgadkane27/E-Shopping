@@ -6,7 +6,7 @@ const addToCart = async (req, res) => {
     const { userId, productId, quantity } = req.body;
     if (!userId || !productId || quantity <= 0) {
       return res.status(400).json({
-        sucess: false,
+        success: false,
         message: "Invalid product details.",
       });
     }
@@ -14,7 +14,7 @@ const addToCart = async (req, res) => {
     const product = await Product.findById(productId);
     if (!product) {
       return res.status(404).json({
-        sucess: false,
+        success: false,
         message: "Product not found.",
       });
     }
@@ -35,13 +35,13 @@ const addToCart = async (req, res) => {
 
     await cart.save();
     res.status(200).json({
-      sucess: true,
+      success: true,
       data: cart,
     });
   } catch (e) {
     console.log(e);
     res.status(500).json({
-      sucess: false,
+      success: false,
       message: "Error Occured: Not able to add product to cart.",
     });
   }
@@ -52,7 +52,7 @@ const fetchCartItem = async (req, res) => {
     const { userId } = req.params;
     if (!userId) {
       return res.status(400).json({
-        sucess: false,
+        success: false,
         message: "User id is mandatory.",
       });
     }
@@ -62,7 +62,7 @@ const fetchCartItem = async (req, res) => {
     });
     if (!cart) {
       return res.status(404).json({
-        sucess: false,
+        success: false,
         message: "Cart not found.",
       });
     }
@@ -84,7 +84,7 @@ const fetchCartItem = async (req, res) => {
       quantity: item.quantity,
     }));
     res.status(200).json({
-      sucess: true,
+      success: true,
       data: {
         ...cart._doc,
         items: populateCartItems,
@@ -93,7 +93,7 @@ const fetchCartItem = async (req, res) => {
   } catch (e) {
     console.log(e);
     res.status(500).json({
-      sucess: false,
+      success: false,
       message: "Error Occured: Not able to fetch product to cart.",
     });
   }
@@ -104,7 +104,7 @@ const updateCartItem = async (req, res) => {
     const { userId, productId, quantity } = req.body;
     if (!userId || !productId || quantity < 0) {
       return res.status(400).json({
-        sucess: false,
+        success: false,
         message: "Invalid product details.",
       });
     }
@@ -112,7 +112,7 @@ const updateCartItem = async (req, res) => {
     const cart = await Cart.findOne({ userId });
     if (!cart) {
       return res.status(404).json({
-        sucess: false,
+        success: false,
         message: "Cart not found.",
       });
     }
@@ -122,7 +122,7 @@ const updateCartItem = async (req, res) => {
     );
     if (findCurrentProductIndex === -1) {
       return res.status(404).json({
-        sucess: false,
+        success: false,
         message: "Product not found in cart.",
       });
     }
@@ -144,7 +144,7 @@ const updateCartItem = async (req, res) => {
       quantity: item.quantity,
     }));
     res.status(200).json({
-      sucess: true,
+      success: true,
       data: {
         ...cart._doc,
         items: populateCartItems,
@@ -153,7 +153,7 @@ const updateCartItem = async (req, res) => {
   } catch (e) {
     console.log(e);
     res.status(500).json({
-      sucess: false,
+      success: false,
       message: "Error Occured: Not able to update product in cart.",
     });
   }
@@ -164,7 +164,7 @@ const deleteCartItem = async (req, res) => {
     const { userId, productId } = req.params;
     if (!userId || !productId) {
       return res.status(400).json({
-        sucess: false,
+        success: false,
         message: "Invalid product details.",
       });
     }
@@ -175,7 +175,7 @@ const deleteCartItem = async (req, res) => {
     });
     if (!cart) {
       return res.status(404).json({
-        sucess: false,
+        success: false,
         message: "Cart not found.",
       });
     }
@@ -199,7 +199,7 @@ const deleteCartItem = async (req, res) => {
     }));
 
     res.status(200).json({
-      sucess: true,
+      success: true,
       data: {
         ...cart._doc,
         items: populateCartItems,
@@ -208,7 +208,7 @@ const deleteCartItem = async (req, res) => {
   } catch (e) {
     console.log(e);
     res.status(500).json({
-      sucess: false,
+      success: false,
       message: "Error Occured: Not able to delete product from cart.",
     });
   }

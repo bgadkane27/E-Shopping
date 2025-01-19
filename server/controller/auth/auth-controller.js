@@ -13,7 +13,7 @@ const registerUser = async (req, res) => {
 
     if (user || emailUser) {
       return res.json({
-        sucess: false,
+        success: false,
         message:
           "username or email already exists. Try with a different username or email.",
       });
@@ -28,13 +28,13 @@ const registerUser = async (req, res) => {
     await newUser.save();
 
     res.status(200).json({
-      sucess: true,
+      success: true,
       message: "Registered successfully.",
     });
   } catch (e) {
     console.log(e);
     res.status(500).json({
-      sucess: false,
+      success: false,
       message: "Internal Server Error",
     });
   }
@@ -46,7 +46,7 @@ const loginUser = async (req, res) => {
     const checkUser = await User.findOne({ email });    
     if (!checkUser) {
       return res.json({
-        sucess: false,
+        success: false,
         message: "User does not exist. Please register first.",
       });
     }
@@ -54,7 +54,7 @@ const loginUser = async (req, res) => {
     const checkPassword = await bcrypt.compare(password, checkUser.password);
     if (!checkPassword) {
       return res.json({
-        sucess: false,
+        success: false,
         message: "Incorrect email or password.",
       });
     }
@@ -69,8 +69,8 @@ const loginUser = async (req, res) => {
     );
 
     res.cookie("token", token, {httpOnly: true, secure: false}).json({
-      sucess: true,
-      message: "Logged in sucessfully.",
+      success: true,
+      message: "Logged in successfully.",
       user: {
         id: checkUser._id,
         email: checkUser.email,
@@ -81,7 +81,7 @@ const loginUser = async (req, res) => {
   } catch (e) {
     console.log(e);
     res.status(500).json({
-      sucess: false,
+      success: false,
       message: "Internal Server Error",
     });
   }
@@ -90,8 +90,8 @@ const loginUser = async (req, res) => {
 //for logout
 const logoutUser = async (req, res) => {
   res.clearCookie("token").json({
-    sucess: true,
-    message: "Logged out sucessfully.",
+    success: true,
+    message: "Logged out successfully.",
   })
 }
 
@@ -100,7 +100,7 @@ const authMiddleware = async (req, res, next) => {
   const token = req.cookies.token;
   if (!token) {
     return res.status(401).json({
-      sucess: false,
+      success: false,
       message: "Unauthorized.",
     });
   }
@@ -112,7 +112,7 @@ const authMiddleware = async (req, res, next) => {
   } catch (e) {
     console.log(e);
     res.status(401).json({
-      sucess: false,
+      success: false,
       message: "Unauthorized.",
     });
   }

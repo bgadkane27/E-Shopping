@@ -9,13 +9,13 @@ const handleImageUpload = async (req, res) => {
     const result = await imageUploadUtil(url);
 
     res.json({
-      sucess: true,
+      success: true,
       message: "Image uploaded successfully.",
       result
     });
   } catch (e) {
     console.log(e);
-    res.json({ sucess: false, message: "Image upload failed." });
+    res.json({ success: false, message: "Image upload failed." });
   }
 };
 
@@ -29,14 +29,14 @@ const addProduct = async (req, res) => {
     await newlyCreatedProduct.save();
 
     res.status(201).json({
-      sucess: true,
+      success: true,
       message: "Product added successfully.",
       data: newlyCreatedProduct
     })
 
   } catch (e) {
     console.log(e);
-    res.json({ sucess: false, message: "Add product failed." });
+    res.json({ success: false, message: "Add product failed." });
   }
 };
 // update a product
@@ -64,14 +64,14 @@ const editProduct = async (req, res) => {
     await findProduct.save();
 
     res.status(200).json({
-      sucess: true,
+      success: true,
       data: findProduct
     })
 
 
   } catch (e) {
     console.log(e);
-    res.json({ sucess: false, message: "Update product failed." });
+    res.json({ success: false, message: "Update product failed." });
   }
 };
 // delete a product
@@ -82,18 +82,18 @@ const deleteProduct = async (req, res) => {
     const productDelete = await Product.findByIdAndDelete(id)
 
     if (!productDelete) return res.status(404).json({
-      sucess: false,
+      success: false,
       message: "product not found"
     })
 
     res.status(200).json({
-      sucess: true,
-      message: "Product deleted sucessfully."
+      success: true,
+      message: "Product deleted successfully."
     })
 
   } catch (e) {
     console.log(e);
-    res.json({ sucess: false, message: "Delete product failed." });
+    res.json({ success: false, message: "Delete product failed." });
   }
 };
 
@@ -104,13 +104,13 @@ const getAllProduct = async (req, res) => {
 
     const listOfProduct = await Product.find()
     res.status(200).json({
-      sucess: true,
+      success: true,
       data: listOfProduct
     })
 
   } catch (e) {
     console.log(e);
-    res.json({ sucess: false, message: "Get all products failed." });
+    res.json({ success: false, message: "Get all products failed." });
   }
 };
 

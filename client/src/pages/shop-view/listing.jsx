@@ -69,7 +69,7 @@ function ShopListing() {
   function handleAddtoCart(getCurrentProductID) {
     // console.log(getCurrentProductID);
     dispatch(addToCart({ userId: user?.id, productId: getCurrentProductID, quantity: 1 })).then(data => {
-      if (data?.payload?.sucess) {
+      if (data?.payload?.success) {
         dispatch(fetchCartItems(user?.id));
         toast({
           variant: "success",

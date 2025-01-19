@@ -43,7 +43,7 @@ function Address({setCurrentSelectedAddress}) {
             addressId: currentEditedId,
             formData
         })).then(data => {
-            if (data?.payload?.sucess) {
+            if (data?.payload?.success) {
                 dispatch(getAllAddress(user?.id));
                 setFormData(initialAddressFormData);
                 setCurrentEditedId(null);
@@ -58,7 +58,7 @@ function Address({setCurrentSelectedAddress}) {
             ...formData,
             userId: user?.id,
         })).then(data => {
-            if (data?.payload?.sucess) {
+            if (data?.payload?.success) {
                 dispatch(getAllAddress(user?.id));
                 setFormData(initialAddressFormData);
                 toast({
@@ -72,7 +72,7 @@ function Address({setCurrentSelectedAddress}) {
 
     function handleDeleteAddress(getCurrentAddress) {
         dispatch(deleteAddress({userId: user?.id, addressId: getCurrentAddress._id})).then(data => {
-            if (data?.payload?.sucess) {
+            if (data?.payload?.success) {
                 dispatch(getAllAddress(user?.id));
                 toast({
                     variant: "success",

@@ -5,7 +5,7 @@ const addAddress = async(req,res)=>{
         const {userId, phone, address, landmark ,city, pincode, notes} = req.body
         if(!userId || !phone || !address || !city || !pincode){
             return res.status(400).json({
-                sucess: false,
+                success: false,
                 message: "All fields are required."
             })
         }
@@ -13,14 +13,14 @@ const addAddress = async(req,res)=>{
         const newAddress = new Address({userId, phone, address, landmark, city, pincode, notes})
         await newAddress.save();
         res.status(201).json({
-            sucess: true,
+            success: true,
             data: newAddress,
             message: "Address added successfully."
         })
 
     }catch(e){
         console.log(e);
-        res.json({ sucess: false, message: "Add address failed." });
+        res.json({ success: false, message: "Add address failed." });
     }
 }
 const getAllAddress = async(req,res)=>{
@@ -28,21 +28,21 @@ const getAllAddress = async(req,res)=>{
         const {userId} = req.params;
         if(!userId){
             return res.status(400).json({
-                sucess: false,
+                success: false,
                 message: "User id is required."
             })
         }
 
         const addressList = await Address.find({userId});
         res.status(200).json({
-            sucess: true,
+            success: true,
             data: addressList,
             message: "Address fetched successfully."
         })
 
     }catch(e){
         console.log(e);
-        res.json({ sucess: false, message: "Fetch address failed." });
+        res.json({ success: false, message: "Fetch address failed." });
     }
 }
 
@@ -53,7 +53,7 @@ const editAddress = async(req,res)=>{
 
         if(!userId || !addressId){
             return res.status(400).json({
-                sucess: false,
+                success: false,
                 message: "User and address id are required."
             })
         }
@@ -67,13 +67,13 @@ const editAddress = async(req,res)=>{
         )
         if(!address){
             return res.status(404).json({
-                sucess: false,
+                success: false,
                 message: "Address not found."
             })
         }
         res.status(200).json(
             {
-                sucess: true,
+                success: true,
                 data: address,
                 message: "Address edited successfully."
             }
@@ -81,7 +81,7 @@ const editAddress = async(req,res)=>{
 
     }catch(e){
         console.log(e);
-        res.json({ sucess: false, message: "Edit address failed." });
+        res.json({ success: false, message: "Edit address failed." });
     }
 }
 
@@ -91,7 +91,7 @@ const deleteAddress = async(req,res)=>{
 
         if(!userId || !addressId){
             return res.status(400).json({
-                sucess: false,
+                success: false,
                 message: "User and address id are required."
             })
         }
@@ -102,20 +102,20 @@ const deleteAddress = async(req,res)=>{
         })
         if(!address){
             return res.status(404).json({
-                sucess: false,
+                success: false,
                 message: "Address not found."
             })
         }
         res.status(200).json(
             {
-                sucess: true,
+                success: true,
                 data: address,
                 message: "Address deleted successfully."
             }
     );
     }catch(e){
         console.log(e);
-        res.json({ sucess: false, message: "Delete address failed." });
+        res.json({ success: false, message: "Delete address failed." });
     }
 }
 

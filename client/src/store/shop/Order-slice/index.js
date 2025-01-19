@@ -1,10 +1,10 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 const initialState = {    
     approvalURL: null,
     isLoading: false,
-    orderId:  null
+    orderId:  null,
 };
 
 export const createNewOrder = createAsyncThunk(
@@ -16,7 +16,7 @@ export const createNewOrder = createAsyncThunk(
         );
         return response.data;
     }
-)
+);
 
 const shoppingOrderSlice = createSlice({
     name: "shoppingOrderSlice",
@@ -32,12 +32,12 @@ const shoppingOrderSlice = createSlice({
                 state.approvalURL = action.payload.approvalURL;
                 state.orderId = action.payload.orderId;                
             })
-            .addCase(createNewOrder.rejected, (state) => {
+            .addCase(createNewOrder.rejected, (state, action) => {
                 state.isLoading = false;
                 state.approvalURL = null;
                 state.orderId = null;
             });
     }           
-})
+});
 
-export default shoppingOrderSlice.reducer
+export default shoppingOrderSlice.reducer;

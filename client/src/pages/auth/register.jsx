@@ -29,7 +29,7 @@ function AuthRegister() {
     }
 
     dispatch(registerUser(formData)).then((data) => {
-      if (data?.payload?.sucess){
+      if (data?.payload?.success){
         toast({
           title: data?.payload?.message,
           variant: "success",
