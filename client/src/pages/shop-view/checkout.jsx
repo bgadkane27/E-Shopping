@@ -10,7 +10,9 @@ import { createNewOrder } from "@/store/shop/Order-slice";
 function ShopCheckout() {
   const { cartItems } = useSelector((state) => state.shopCart);
   const {user} = useSelector(state=> state.auth)
+  const {approvalURL} = useSelector(state=> state.shopOrder)
   const [currentSelectedAddress, setCurrentSelectedAddress] = useState(null);
+  const [isPaymentStart, setIsPaymentStart] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -59,10 +61,16 @@ function ShopCheckout() {
       PayerId: ''
     };
     dispatch(createNewOrder(orderData)).then((data) => {
-      console.log(data);
-    }).catch(error => {
-      console.error("Order creation failed:", error);
+      if(data?.payload?.success){
+        setIsPaymentStart(true);
+      }else{
+        setIsPaymentStart(false);
+      }
     });
+  }
+
+  if(approvalURL){
+    window.location.href = approvalURL;
   }
 
   return (
