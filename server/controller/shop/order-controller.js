@@ -4,6 +4,7 @@ const Order = require("../../models/Order");
 const createOrder = async (req, res) => {
   try{
     const{userId, 
+      cartId,
       cartItems, 
       addressInfo, 
       orderStatus, 
@@ -54,6 +55,7 @@ const createOrder = async (req, res) => {
         }else{
           const newlyCreatedOrder = new Order({
             userId,
+            cartId,
             cartItems,
             addressInfo,
             orderStatus,
