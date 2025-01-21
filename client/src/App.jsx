@@ -19,6 +19,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { authUser } from "./store/auth-slice";
 import PaypalReturnPage from "./pages/shop-view/paypal-return";
+import PaymentSuccessPage from "./pages/shop-view/payment-success";
 
 function App() {
   
@@ -67,6 +68,7 @@ function App() {
           <Route path="home" element={<ShopHome />} />
           <Route path="listing" element={<ShopListing />} />
           <Route path="paypal-return" element={<PaypalReturnPage />}/>
+          <Route path="payment-success" element={<PaymentSuccessPage />}/>
         </Route>
         <Route path='unauth-page' element={<UnauthPage />}/>
         <Route path="*" element={<NotFound />}/>
