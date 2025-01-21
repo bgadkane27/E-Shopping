@@ -49,7 +49,7 @@ function ShopProductTile({ product, handlegetProductDetails, handleAddtoCart }) 
           <Button onClick={()=>handleAddtoCart(product?._id)} variant="outline" size="sm" className="w-full mt-4">
             <ShoppingCart /> Add to Cart
           </Button>
-          <Button variant="outline" size="sm" className="w-full mt-2" onClick={()=> handlegetProductDetails(product?._id)}>
+          <Button variant="default" size="sm" className="w-full mt-2" onClick={()=> handlegetProductDetails(product?._id)}>
             View Details
           </Button>
         </CardFooter>
