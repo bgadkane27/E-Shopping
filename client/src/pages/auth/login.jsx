@@ -56,7 +56,7 @@ function AuthLogin() {
             to="/auth/register"
             className="text-blue-800 ml-0.5 hover:underline"
           >
-            Register
+            Sign Up
           </Link>
         </p>
       </div>

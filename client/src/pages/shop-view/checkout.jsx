@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { createNewOrder } from "@/store/shop/Order-slice";
+import { useToast } from "@/hooks/use-toast";
 
 function ShopCheckout() {
   const { cartItems } = useSelector((state) => state.shopCart);
@@ -15,6 +16,7 @@ function ShopCheckout() {
   const [isPaymentStart, setIsPaymentStart] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { toast } = useToast();
 
   const totalCartAmount =
     cartItems?.items?.length > 0
@@ -32,6 +34,15 @@ function ShopCheckout() {
       : 0;
 
   function handleInitiatePaypalPayment() {
+
+    if(currentSelectedAddress == null){
+      toast({
+        title: "Please select an address then proceed with payment.",
+        variant: "destructive",
+        duration: 1500,
+      })
+      return;
+    }
 
     const orderData = {
       userId: user.id,
@@ -100,7 +111,7 @@ function ShopCheckout() {
                   variant="default"
                   className="w-full"
                   onClick={handleInitiatePaypalPayment}>
-                  Checkout with Paypal
+                  Pay with paypal
                 </Button>
               </div>
             </>

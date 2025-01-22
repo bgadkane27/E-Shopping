@@ -4,6 +4,7 @@ import {
     CardFooter
   } from "@/components/ui/card"
 import { Button } from "../ui/button"
+import { Edit, Trash2 } from "lucide-react"
 
 function AdminProductTile({product, setCurrentEditedID, setOpenCreateProductDialog,setFormData, handleDelete }){
     return(
@@ -19,12 +20,21 @@ function AdminProductTile({product, setCurrentEditedID, setOpenCreateProductDial
                         <span className="text-md font-medium my-2">Sales Price: {product?.salesPrice}</span>
                     </div>
                 </CardContent>
-                <CardFooter className="flex justify-between items-center">
-                    <Button onClick ={() => {
+                <CardFooter className="flex justify-between items-center py-3">
+                    {/* <Button onClick ={() => {
                         setCurrentEditedID(product?._id)
                         setOpenCreateProductDialog(true) 
-                        setFormData(product)}}>Edit</Button>
-                    <Button onClick={()=> {handleDelete(product?._id)}}>Delete</Button>
+                        setFormData(product)}}>Edit</Button> */}
+                    {/* <Button onClick={()=> {handleDelete(product?._id)}}>Delete</Button> */}
+                    <Edit color="orange" className="cursor-pointer absolute bottom-2 left-2 ml-4"
+                    onClick ={() => {
+                        setCurrentEditedID(product?._id)
+                        setOpenCreateProductDialog(true) 
+                        setFormData(product)}}
+                    />
+                    <Trash2 color="red" className="cursor-pointer absolute bottom-2 right-2 mr-4"
+                    onClick={()=> {handleDelete(product?._id)}}
+                    />
                 </CardFooter>
             </div>
         </Card>

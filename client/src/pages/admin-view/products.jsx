@@ -20,6 +20,7 @@ import {
 } from "@/store/admin/Product-slice";
 import { useToast } from "@/hooks/use-toast";
 import AdminProductTile from "@/components/admin-view/products";
+import { Separator } from "@/components/ui/separator";
 
 const initialformData = {
   image: null,
@@ -109,12 +110,13 @@ function AdminProducts() {
 
   return (
     <>
-      <div className="flex mb-5 px-2">
+      <div className="flex mb-1 px-2">
         <Button onClick={() => setOpenCreateProductDialog(true)}>
-          <CirclePlus />
+          <CirclePlus className="mt-0.5" />
           Add Product
         </Button>
       </div>
+      <Separator className="my-2 bg-pink-300" />
       <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-4">
         {productList && productList.length > 0 ? (
           productList.map((productItem, index) => (

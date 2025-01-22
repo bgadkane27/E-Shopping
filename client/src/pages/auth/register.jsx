@@ -60,7 +60,7 @@ function AuthRegister() {
             to="/auth/login"
             className="text-blue-800 ml-0.5 hover:underline"
           >
-            Login
+            Sign In
           </Link>
         </p>
       </div>
