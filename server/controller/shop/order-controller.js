@@ -123,5 +123,54 @@ const capturePayment = async (req, res) => {
   }
 };
 
+const getAllOrderDetails = async (req, res) => {
+  try{
+    const {userId} = req.body;
 
-module.exports = { createOrder, capturePayment };
+    let orderList = await Order.find({userId});
+    if(!orderList){
+      return res.status(404).json({
+        success: false,
+        message: "Orders not found."
+      });
+    }
+    res.status(200).json({
+      success: true,
+      data:orderList
+    })
+
+  }catch(e){
+    console.log(e);
+    res.status(500).json({
+      success: false,
+      message: "Failed to fetch order details.",
+    });
+  }
+};
+
+const getOrderDetails = async (req, res) => {
+  try{
+    const {id} = req.params;
+    
+    let order = await Order.find({_id:id});
+    if(!order){
+      return res.status(404).json({
+        success: false,
+        message: "Orders not found."
+      });
+    }
+    res.status(200).json({
+      success: true,
+      data:order
+    })
+
+  }catch(e){
+    console.log(e);
+    res.status(500).json({
+      success: false,
+      message: "Failed to fetch order details.",
+    });
+  }
+};
+
+module.exports = { createOrder, capturePayment, getAllOrderDetails, getOrderDetails };
