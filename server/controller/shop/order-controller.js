@@ -123,12 +123,12 @@ const capturePayment = async (req, res) => {
   }
 };
 
-const getAllOrderDetails = async (req, res) => {
+const getAllOrderByUser = async (req, res) => {
   try{
-    const {userId} = req.body;
+    const {userId} = req.params;
 
-    let orderList = await Order.find({userId});
-    if(!orderList){
+    let orders = await Order.find({userId});
+    if(!orders.length){
       return res.status(404).json({
         success: false,
         message: "Orders not found."
@@ -136,7 +136,7 @@ const getAllOrderDetails = async (req, res) => {
     }
     res.status(200).json({
       success: true,
-      data:orderList
+      data:orders
     })
 
   }catch(e){
@@ -151,8 +151,8 @@ const getAllOrderDetails = async (req, res) => {
 const getOrderDetails = async (req, res) => {
   try{
     const {id} = req.params;
-    
-    let order = await Order.find({_id:id});
+
+    let order = await Order.findById(id);
     if(!order){
       return res.status(404).json({
         success: false,
@@ -173,4 +173,4 @@ const getOrderDetails = async (req, res) => {
   }
 };
 
-module.exports = { createOrder, capturePayment, getAllOrderDetails, getOrderDetails };
+module.exports = { createOrder, capturePayment, getAllOrderByUser, getOrderDetails };
