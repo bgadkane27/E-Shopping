@@ -25,6 +25,8 @@ function ShopOrders() {
     useEffect(()=>{
         dispatch(getAllOrderByUser(user?.id))
     }, [dispatch]) 
+
+    console.log("orderDetails", orderDetails);
     
     return (
         <Card>
@@ -35,7 +37,7 @@ function ShopOrders() {
                 <Table>
                     <TableHeader>
                         <TableRow>
-                            <TableHead>Number</TableHead>
+                            <TableHead>Order ID</TableHead>
                             <TableHead>Date</TableHead>
                             <TableHead>Status</TableHead>
                             <TableHead>Price</TableHead>
@@ -49,16 +51,16 @@ function ShopOrders() {
                                 <TableRow>
                                 <TableCell>{orderItem?._id.slice(0, 8)}</TableCell>
                                 <TableCell>{orderItem?.orderDate.split('T')[0]}</TableCell>
-                                <TableCell><Badge className={`py-1 px-3 ${orderItem?.orderStatus == 'confirmed'? 'bg-green-500': 'bg-orange-500'}`}>{orderItem?.orderStatus}</Badge></TableCell>
+                                <TableCell><Badge variant="manual" className={`py-1 px-3 ${orderItem?.orderStatus == 'confirmed'? 'bg-green-600': 'bg-orange-500'}`}>{orderItem?.orderStatus}</Badge></TableCell>
                                 <TableCell>$ {orderItem?.totalAmount.toFixed(2)}</TableCell>
                                 <TableCell>
                                     <Dialog open={openOrdersDetails} 
                                     onOpenChange={()=>{ setOpenOrdersDetails(false)
                                         dispatch(resetOrderDetails())
                                     }}>
-                                        <Button variant="outline"
+                                        <Button variant="default"
                                             onClick={() =>handleFetchOrderDetails(orderItem?._id)}>View Details</Button>
-                                        <ShopOrdersDetailsView />
+                                        <ShopOrdersDetailsView orderDetails={orderDetails} />
                                     </Dialog>
                                 </TableCell>
                             </TableRow> 

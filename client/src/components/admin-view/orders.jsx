@@ -23,7 +23,7 @@ function AdminOrdersView() {
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>Number</TableHead>
+              <TableHead>Order ID</TableHead>
               <TableHead>Date</TableHead>
               <TableHead>Status</TableHead>
               <TableHead>Price</TableHead>
@@ -38,7 +38,7 @@ function AdminOrdersView() {
               <TableCell>$ 120</TableCell>
               <TableCell>
                 <Dialog open={openOrdersDetails} onOpenChange={setOpenOrdersDetails}>
-                  <Button variant="outline" onClick={() => setOpenOrdersDetails(true)}>View Details</Button>
+                  <Button variant="default" onClick={() => setOpenOrdersDetails(true)}>View Details</Button>
                   <AdminOrdersDetailsView />
                 </Dialog>
               </TableCell>

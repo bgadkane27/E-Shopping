@@ -74,6 +74,7 @@ function AdminOrdersDetailsView() {
                             placeholder: "Select a status to update.",
                             options: [
                                 { id: "pending", label: "Pending" },
+                                { id: "confirmed", label: "Confirmed" },
                                 { id: "inTransit", label: "In Transit" },
                                 { id: "rejected", label: "Rejected" },
                                 { id: "delivered", label: "Delivered" },
