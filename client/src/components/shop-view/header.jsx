@@ -1,5 +1,5 @@
 import { LogOut, Menu, ShoppingCart, UserCog } from "lucide-react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "../ui/sheet";
 import { Button } from "../ui/button";
 import { headermenuItems } from "@/config";
@@ -22,13 +22,22 @@ import { Label } from "../ui/label";
 function ShopHeader() {
   function MenuItems() {
     const navigate = useNavigate();
+    const location = useLocation();
+    const [searchParams, setSearchParams]= useSearchParams();
 
     function handleNavigate(getCurrentItem) {
       sessionStorage.removeItem("filters");
-      const currentFilter= {
+      const currentFilter= 
+      getCurrentItem.id !== 'home' && getCurrentItem.id !== 'products'
+      ?{
         category: [getCurrentItem.id]
       }
+      : null
       sessionStorage.setItem("filters", JSON.stringify(currentFilter));
+      location.pathname.includes('/listing') && currentFilter !== null 
+      ?
+      setSearchParams(new URLSearchParams(`?category=${getCurrentItem.id}`)) 
+      :
       navigate(getCurrentItem.path);
     }
 
@@ -59,6 +68,7 @@ function ShopHeader() {
     useEffect(() => {
       dispatch(fetchCartItems(user?.id));
     }, [dispatch]);
+
     return (
       <div className="flex flex-col lg:flex-row lg:items-center gap-2">
         <Sheet open={openCartSheet} onOpenChange={()=> setOpenCartSheet(false)}>
@@ -87,7 +97,7 @@ function ShopHeader() {
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={() => navigate("/shop/account")}>
               <UserCog className="ml-1 w-4 h-4" />
-              Manage your Account
+              My Account
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={handleLogoutUser}>
@@ -99,8 +109,6 @@ function ShopHeader() {
       </div>
     );
   }
-
-  // const { isAuthenticated } = useSelector((state) => state.auth);
 
   return (
     <header className="sticky top-0 z-40 w-full border-b bg-background">

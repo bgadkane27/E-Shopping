@@ -41,6 +41,8 @@ function ShopListing() {
   const [openDetailsDialog, setOpenDetailsDialog] = useState(false);
   const { toast } = useToast();
 
+  const categorySearchParams = searchParams.get('category');
+
   function handleSort(value) {
     setSort(value);
   }
@@ -83,7 +85,7 @@ function ShopListing() {
   useEffect(() => {
     setSort("asc");
     setFilters(JSON.parse(sessionStorage.getItem("filters")) || {});
-  }, []);
+  }, [categorySearchParams]);
 
   useEffect(() => {
     if (filters && Object.keys(filters).length > 0) {

@@ -6,6 +6,7 @@ import { Separator } from "../ui/separator"
 import { useDispatch } from "react-redux"
 import { Badge } from "../ui/badge"
 import { getAllOrderForAdmin, getOrderDetailsForAdmin, updateOrderStatus } from "@/store/admin/Order-slice"
+import { useToast } from "@/hooks/use-toast"
 
 const initialFormData = {
     status: "",
@@ -14,6 +15,7 @@ const initialFormData = {
 function AdminOrdersDetailsView({ orderDetails }) {
     const [formData, setFormData] = useState(initialFormData);
     const dispatch = useDispatch();
+    const {toast} = useToast();
 
     function handleUpdateStatus(event) {
         event.preventDefault();
@@ -22,7 +24,12 @@ function AdminOrdersDetailsView({ orderDetails }) {
         if(data?.payload?.success){
             dispatch(getOrderDetailsForAdmin(orderDetails?._id));
             dispatch(getAllOrderForAdmin());
-            setFormData(initialFormData);            
+            setFormData(initialFormData);     
+            toast({
+                variant: "success",
+                duration: 2000,
+                title: "Order status updated successfully.",
+            })       
         }
     })         
     }
