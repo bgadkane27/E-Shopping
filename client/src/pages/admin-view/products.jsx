@@ -130,7 +130,7 @@ function AdminProducts() {
             />
           ))
         ) : (
-          <p className="text-muted-foreground text-red-600 px-2">No products available. Add some products!</p>
+          <p className="text-muted-foreground text-red-600 px-2">Please wait...!</p>
         )}
       </div>
       <Sheet

@@ -25,8 +25,6 @@ function ShopOrders() {
     useEffect(()=>{
         dispatch(getAllOrderByUser(user?.id))
     }, [dispatch]) 
-
-    console.log("orderDetails", orderDetails);
     
     return (
         <Card>
@@ -51,7 +49,7 @@ function ShopOrders() {
                                 <TableRow>
                                 <TableCell>{orderItem?._id.slice(0, 8)}</TableCell>
                                 <TableCell>{orderItem?.orderDate.split('T')[0]}</TableCell>
-                                <TableCell><Badge variant="manual" className={`py-1 px-3 ${orderItem?.orderStatus == 'confirmed'? 'bg-green-600': 'bg-orange-500'}`}>{orderItem?.orderStatus}</Badge></TableCell>
+                                <TableCell><Badge variant="manual" className={`py-1 px-3 ${orderItem?.orderStatus == 'Confirmed'? 'bg-green-600': 'bg-orange-500'}`}>{orderItem?.orderStatus}</Badge></TableCell>
                                 <TableCell>$ {orderItem?.totalAmount.toFixed(2)}</TableCell>
                                 <TableCell>
                                     <Dialog open={openOrdersDetails} 

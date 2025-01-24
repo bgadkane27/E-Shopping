@@ -4,6 +4,8 @@ const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const authRoute = require("./routes/auth/auth-route");
 const adminProductsRoute = require("./routes/admin/products-route");
+const adminOrderRoute = require("./routes/admin/order-route");
+
 const shopProductRoute  = require("./routes/shop/products-route");
 const shopCartRoute = require("./routes/shop/cart-route");
 const shopAddressRoute = require("./routes/shop/address-route");
@@ -33,6 +35,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("/api/auth", authRoute);
 app.use("/api/admin/products", adminProductsRoute);
+app.use("/api/admin/orders", adminOrderRoute);
+
 app.use("/api/shop/products", shopProductRoute);
 app.use("/api/shop/cart", shopCartRoute);
 app.use("/api/shop/address", shopAddressRoute);

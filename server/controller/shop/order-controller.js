@@ -99,8 +99,8 @@ const capturePayment = async (req, res) => {
       });
     }
 
-    order.paymentStatus = "paid";
-    order.orderStatus= "confirmed";
+    order.paymentStatus = "Paid";
+    order.orderStatus= "Confirmed";
     order.paymentId = paymentId;
     order.payerId = payerId;
 

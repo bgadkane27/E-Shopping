@@ -9,7 +9,7 @@ function ShopOrdersDetailsView({ orderDetails }) {
   const { user } = useSelector((state) => state.auth);
 
   return (
-    <DialogContent className="sm:max-w-[600px]">
+    <DialogContent className="sm:max-w-[600px] max-h-[95vh] overflow-auto">
       <DialogTitle className="text-xl font-medium">Order Details</DialogTitle>
       <div className="grid gap-2">
         <div className="grid gap-2">
@@ -27,7 +27,7 @@ function ShopOrdersDetailsView({ orderDetails }) {
           </div>
           <div className="flex items-center justify-between">
             <p className="font-normal">Status</p>
-            <Label><Badge variant="manual" className={`py-1 px-3 ${orderDetails?.orderStatus == 'confirmed'? 'bg-green-600': 'bg-orange-500'}`}>{orderDetails?.orderStatus}</Badge></Label>
+            <Label><Badge variant="manual" className={`py-1 px-3 ${orderDetails?.orderStatus == 'Confirmed'? 'bg-green-600': 'bg-orange-500'}`}>{orderDetails?.orderStatus}</Badge></Label>
           </div>
         </div>
         <Separator />
