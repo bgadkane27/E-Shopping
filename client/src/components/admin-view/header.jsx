@@ -14,7 +14,7 @@ function AdminHeader({setOpen}) {
     .then(()=>{
       toast({
         variant: "success",
-        title: "Logged Out Successfully!",
+        title: "Logged out Successfully.",
         duration: 2000
       })
     })
@@ -29,7 +29,7 @@ function AdminHeader({setOpen}) {
       <div className="flex flex-1 justify-end px-4 py-2 font-light">
         <Button onClick={handleLogout}>
           <LogOut className="mt-0.5"/>
-          <span className="px-0.5">Sign out</span>
+          <span className="px-0.5">Sign Out</span>
         </Button>
       </div>
     </header>

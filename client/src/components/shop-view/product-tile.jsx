@@ -1,4 +1,4 @@
-import { ShoppingCart } from "lucide-react";
+import { ShoppingCart, SquareChartGantt } from "lucide-react";
 import { Button } from "../ui/button";
 import { Card, CardContent, CardFooter } from "../ui/card";
 import { brandOptions, categoryOptions } from "@/config";
@@ -7,7 +7,7 @@ import { Badge } from "../ui/badge";
 function ShopProductTile({ product, handlegetProductDetails, handleAddtoCart }) {
   return (
     <Card className="w-full max-w-sm mx-auto">
-      <div  className="relative">
+      <div className="relative">
         <div>
           <img
             src={product?.image}
@@ -15,11 +15,18 @@ function ShopProductTile({ product, handlegetProductDetails, handleAddtoCart }) 
             className="w-full h-[200px] object-cover rounded-t-lg"
           />
         </div>
-        {product?.salesPrice > 0 && (
-          <Badge className="absolute top-2 left-2 bg-red-500 hover:bg-red-600">
-            Sale
-          </Badge>
-        )}
+        {
+          product.totalStock == 0 ? <Badge className="absolute top-2 left-2 bg-red-500 hover:bg-red-600">
+            Out of Stock
+          </Badge> :
+            product.totalStock < 10 ? <Badge className="absolute top-2 left-2 bg-orange-500 hover:bg-orange-600">
+              {`Only ${product.totalStock} items left, Hurry up!`}
+            </Badge> :
+              product?.salesPrice < product?.price && (
+                <Badge className="absolute top-2 left-2 bg-green-500 hover:bg-green-600">
+                  Sale
+                </Badge>
+              )}
         <CardContent className="p-4">
           <h2 className="text-xl font-semibold mb-2">{product?.name}</h2>
           <div className="flex items-center justify-between mb-2">
@@ -32,11 +39,10 @@ function ShopProductTile({ product, handlegetProductDetails, handleAddtoCart }) 
           </div>
           <div className="flex items-center justify-between mb-2">
             <span
-              className={`${
-                product?.salesPrice > 0 ? "line-through" : ""
-              } text-lg font-semibold text-primary`}
-            > 
-            $ {product?.price}
+              className={`${product?.salesPrice > 0 ? "line-through" : ""
+                } text-lg font-semibold text-primary`}
+            >
+              $ {product?.price}
             </span>
             {product?.salesPrice > 0 ? (
               <span className="text-lg font-semibold text-primary">
@@ -46,11 +52,15 @@ function ShopProductTile({ product, handlegetProductDetails, handleAddtoCart }) 
           </div>
         </CardContent>
         <CardFooter className="flex flex-col justify-between items-center">
-          <Button onClick={()=>handleAddtoCart(product?._id)} variant="outline" size="sm" className="w-full mt-4">
+          {
+            product.totalStock === 0 ? <Button className="w-full mt-4 opacity-60 cursor-not-allowed">
+            Out of Stock
+          </Button> : <Button onClick={() => handleAddtoCart(product?._id)} variant="outline" size="sm" className="w-full mt-4">
             <ShoppingCart /> Add to Cart
           </Button>
-          <Button variant="default" size="sm" className="w-full mt-2" onClick={()=> handlegetProductDetails(product?._id)}>
-            View Details
+          }          
+          <Button variant="default" size="sm" className="w-full mt-2" onClick={() => handlegetProductDetails(product?._id)}>
+          <SquareChartGantt /> View Details
           </Button>
         </CardFooter>
       </div>
