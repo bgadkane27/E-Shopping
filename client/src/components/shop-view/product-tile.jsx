@@ -1,4 +1,4 @@
-import { ShoppingCart, SquareChartGantt } from "lucide-react";
+import { Blocks, ShoppingCart, SquareChartGantt } from "lucide-react";
 import { Button } from "../ui/button";
 import { Card, CardContent, CardFooter } from "../ui/card";
 import { brandOptions, categoryOptions } from "@/config";
@@ -17,10 +17,11 @@ function ShopProductTile({ product, handlegetProductDetails, handleAddtoCart }) 
         </div>
         {
           product.totalStock == 0 ? <Badge className="absolute top-2 left-2 bg-red-500 hover:bg-red-600">
-            Out of Stock
+          Out of Stock! Restock expected soon!
           </Badge> :
             product.totalStock < 10 ? <Badge className="absolute top-2 left-2 bg-orange-500 hover:bg-orange-600">
-              {`Only ${product.totalStock} items left, Hurry up!`}
+              {`Only ${product.totalStock} items left! Hurry up!`}
+              {/* {`Hurry! Only ${product.totalStock} left - grab yours before they're gone!`} */}
             </Badge> :
               product?.salesPrice < product?.price && (
                 <Badge className="absolute top-2 left-2 bg-green-500 hover:bg-green-600">
@@ -53,9 +54,9 @@ function ShopProductTile({ product, handlegetProductDetails, handleAddtoCart }) 
         </CardContent>
         <CardFooter className="flex flex-col justify-between items-center">
           {
-            product.totalStock === 0 ? <Button className="w-full mt-4 opacity-60 cursor-not-allowed">
-            Out of Stock
-          </Button> : <Button onClick={() => handleAddtoCart(product?._id)} variant="outline" size="sm" className="w-full mt-4">
+            product.totalStock === 0 ? <Button variant="outline" size="sm" className="w-full mt-4 opacity-60 cursor-not-allowed">
+            <Blocks /> Out of Stock
+          </Button> : <Button onClick={() => handleAddtoCart(product?._id, product?.totalStock)} variant="outline" size="sm" className="w-full mt-4">
             <ShoppingCart /> Add to Cart
           </Button>
           }          

@@ -1,6 +1,6 @@
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "../ui/button";
-import { ShoppingCart, StarIcon } from "lucide-react";
+import { Blocks, ShoppingCart, StarIcon } from "lucide-react";
 import { Separator } from "../ui/separator";
 import { Avatar, AvatarFallback } from "../ui/avatar";
 import { Input } from "../ui/input";
@@ -12,9 +12,24 @@ import { setproductDetails } from "@/store/shop/Product-slice";
 function ProductDetailsDialog({ open, setOpen, productDetail }) {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
+  const { cartItems } = useSelector((state) => state.shopCart);
   const { toast } = useToast();
-  function handleAddtoCart(getCurrentProductID) {
-    // console.log(getCurrentProductID);
+  function handleAddtoCart(getCurrentProductID, getTotalStock) {    
+    let getCartItems = cartItems.items || [];
+    if(getCartItems.length){
+      const indexOfCurrentItem  = getCartItems.findIndex((item)=> item.productId === getCurrentProductID);
+      if(indexOfCurrentItem > -1){
+        const getQuantity = getCartItems[indexOfCurrentItem].quantity;
+        if(getQuantity + 1  > getTotalStock){
+          toast({
+            title: `Only ${getTotalStock} quantity can be added to cart for the product.`,
+            variant: "destructive",
+            duration: 2000
+          })
+          return;
+        }
+      }      
+    }
     dispatch(
       addToCart({
         userId: user?.id,
@@ -70,16 +85,26 @@ function ProductDetailsDialog({ open, setOpen, productDetail }) {
             ) : null}
           </div>
           <div>
-            <Button
+            {
+              productDetail?.totalStock === 0 
+              ? <Button
+              variant="outline"
+              size="sm"
+              className="mt-2 w-full opacity-60 cursor-not-allowed"
+            >
+            <Blocks />  Out of Stock
+            </Button> 
+            : <Button
               variant="outline"
               size="sm"
               className="mt-2 w-full"
               onClick={() => {
-                handleAddtoCart(productDetail._id);
+                handleAddtoCart(productDetail._id, productDetail?.totalStock);
               }}
             >
               <ShoppingCart /> Add to Cart
             </Button>
+            }
           </div>
           <Separator className="my-4" />
           <div className="max-h-[300px] overflow-auto">
