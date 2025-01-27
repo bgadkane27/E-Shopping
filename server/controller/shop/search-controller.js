@@ -17,8 +17,6 @@ const searchProducts = async(req, res) =>{
             {category: regEx},
             {brand: regEx},
             {description: regEx},
-            {salesPrice: regEx},
-            {price: regEx},
         ]
     }
     const searchResults = await Product.find(createSearchQuery);

@@ -1,4 +1,4 @@
-import { LogOut, Menu, ShoppingCart, UserCog } from "lucide-react";
+import { LogOut, Menu, Search, ShoppingCart, UserCog } from "lucide-react";
 import { NavLink, useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "../ui/sheet";
 import { Button } from "../ui/button";
@@ -23,28 +23,28 @@ function ShopHeader() {
   function MenuItems() {
     const navigate = useNavigate();
     const location = useLocation();
-    const [searchParams, setSearchParams]= useSearchParams();
+    const [searchParams, setSearchParams] = useSearchParams();
 
     function handleNavigate(getCurrentItem) {
       sessionStorage.removeItem("filters");
-      const currentFilter= 
-      getCurrentItem.id !== 'home' && getCurrentItem.id !== 'products'
-      ?{
-        category: [getCurrentItem.id]
-      }
-      : null
+      const currentFilter =
+        getCurrentItem.id !== 'home' && getCurrentItem.id !== 'products'
+          ? {
+            category: [getCurrentItem.id]
+          }
+          : null
       sessionStorage.setItem("filters", JSON.stringify(currentFilter));
-      location.pathname.includes('/listing') && currentFilter !== null 
-      ?
-      setSearchParams(new URLSearchParams(`?category=${getCurrentItem.id}`)) 
-      :
-      navigate(getCurrentItem.path);
+      location.pathname.includes('/listing') && currentFilter !== null
+        ?
+        setSearchParams(new URLSearchParams(`?category=${getCurrentItem.id}`))
+        :
+        navigate(getCurrentItem.path);
     }
 
     return (
       <nav className="flex flex-col gap-2 lg:flex-row lg:space-x-6 lg:items-center">
         {headermenuItems.map((item) => (
-          <Label onClick = {()=>handleNavigate(item)}
+          <Label onClick={() => handleNavigate(item)}
             className="flex items-center gap-2 text-sm font-semibold leading-6 text-muted-foreground hover:text-foreground cursor-pointer"
             key={item.id}
           >
@@ -57,7 +57,7 @@ function ShopHeader() {
 
   function RightMenuItems() {
     const { user } = useSelector((state) => state.auth);
-    const {cartItems} = useSelector((state) => state.shopCart);
+    const { cartItems } = useSelector((state) => state.shopCart);
     const [openCartSheet, setOpenCartSheet] = useState(false);
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -71,13 +71,16 @@ function ShopHeader() {
 
     return (
       <div className="flex flex-col lg:flex-row lg:items-center gap-2">
-        <Sheet open={openCartSheet} onOpenChange={()=> setOpenCartSheet(false)}>
-          <Button onClick ={() => setOpenCartSheet(true)} variant="outline" size="icon" className="mr-2">
+        <Button variant="outline" size="icon" className="mr-2 cursor-pointer" onClick={() => navigate("/shop/search")}>
+          <Search className="w-6 h-6" />
+        </Button>
+        <Sheet open={openCartSheet} onOpenChange={() => setOpenCartSheet(false)}>
+          <Button onClick={() => setOpenCartSheet(true)} variant="outline" size="icon" className="mr-2">
             <ShoppingCart className="w-6 h-6" />
             <span className="sr-only">Cart</span>
           </Button>
-          <Cartwrapper setOpenCartSheet={setOpenCartSheet} 
-          cartItems={cartItems && cartItems.items && cartItems.items.length > 0 ? cartItems.items : []}/>
+          <Cartwrapper setOpenCartSheet={setOpenCartSheet}
+            cartItems={cartItems && cartItems.items && cartItems.items.length > 0 ? cartItems.items : []} />
         </Sheet>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>

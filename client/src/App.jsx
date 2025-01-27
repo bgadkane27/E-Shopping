@@ -20,6 +20,7 @@ import { useEffect } from "react";
 import { authUser } from "./store/auth-slice";
 import PaypalReturnPage from "./pages/shop-view/paypal-return";
 import PaymentSuccessPage from "./pages/shop-view/payment-success";
+import SearchProducts from "./pages/shop-view/search";
 
 function App() {
   
@@ -69,6 +70,7 @@ function App() {
           <Route path="listing" element={<ShopListing />} />
           <Route path="paypal-return" element={<PaypalReturnPage />}/>
           <Route path="payment-success" element={<PaymentSuccessPage />}/>
+          <Route path="search" element={<SearchProducts />}/>
         </Route>
         <Route path='unauth-page' element={<UnauthPage />}/>
         <Route path="*" element={<NotFound />}/>
