@@ -39,6 +39,7 @@ function ShopHome() {
 
     const [currentSlide, setCurrentSlide] = useState(0);
     const { productList, productDetails } = useSelector((state) => state.shopProduct);
+    const { cartItems } = useSelector((state) => state.shopCart);
     const [openDetailsDialog, setOpenDetailsDialog] = useState(false);
     const {user} = useSelector((state) => state.auth);
     const dispatch = useDispatch();
@@ -49,10 +50,25 @@ function ShopHome() {
         dispatch(getProductDetails(getProductDeatil));
       }
 
-    function handleAddtoCart(getCurrentProductID){
-        // console.log(getCurrentProductID);
-        dispatch(addToCart({userId: user?.id, productId : getCurrentProductID, quantity: 1})).then(data=>{
-          if(data?.payload?.success){
+      function handleAddtoCart(getCurrentProductID, getTotalStock) {
+    
+        let getCartItems = cartItems.items || [];
+        if(getCartItems.length){
+          const indexOfCurrentItem  = getCartItems.findIndex((item)=> item.productId === getCurrentProductID);
+          if(indexOfCurrentItem > -1){
+            const getQuantity = getCartItems[indexOfCurrentItem].quantity;
+            if(getQuantity + 1  > getTotalStock){
+              toast({
+                title: `Only ${getTotalStock} quantity can be added to cart for the product : ${getCartItems[indexOfCurrentItem].name}.`,
+                variant: "destructive",
+                duration: 2000
+              })
+              return;
+            }
+          }          
+        }
+        dispatch(addToCart({ userId: user?.id, productId: getCurrentProductID, quantity: 1 })).then(data => {
+          if (data?.payload?.success) {
             dispatch(fetchCartItems(user?.id));
             toast({
               variant: "success",
@@ -61,7 +77,7 @@ function ShopHome() {
             });
           }
         });
-      }
+    }
 
     function handleNaviateToListing(getCurrentItem, section) {
         sessionStorage.removeItem("filters");

@@ -34,7 +34,7 @@ function CartItemsContent({ cartItem }) {
                     const getQuantity = getCartItems[indexOfCurrentCartItem].quantity;
                     if (getQuantity + 1 > getTotalStock) {
                         toast({
-                            title: `Only ${getTotalStock} quantity can be added to cart for the product.`,
+                            title: `Only ${getTotalStock} quantity can be added to cart for the product : ${getCartItems[indexOfCurrentCartItem].name}.`,
                             variant: "destructive",
                             duration: 2000
                         })

@@ -22,7 +22,7 @@ function ProductDetailsDialog({ open, setOpen, productDetail }) {
         const getQuantity = getCartItems[indexOfCurrentItem].quantity;
         if(getQuantity + 1  > getTotalStock){
           toast({
-            title: `Only ${getTotalStock} quantity can be added to cart for the product.`,
+            title: `Only ${getTotalStock} quantity can be added to cart for the product : ${getCartItems[indexOfCurrentItem].name}.`,
             variant: "destructive",
             duration: 2000
           })
