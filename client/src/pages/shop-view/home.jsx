@@ -105,8 +105,6 @@ function ShopHome() {
         dispatch(getAllShopProducts({ filterParams: {}, sortParams: 'asc' }))
     }, [dispatch])
 
-    // console.log("Productlist", productList);
-
     return (
         <div className="flex flex-col min-h-screen">
             <div className="relative w-full h-[500px] overflow-hidden">
