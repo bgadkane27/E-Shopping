@@ -8,12 +8,44 @@ import { useDispatch, useSelector } from "react-redux";
 import { addToCart, fetchCartItems } from "@/store/shop/Cart-slice";
 import { useToast } from "@/hooks/use-toast";
 import { setproductDetails } from "@/store/shop/Product-slice";
+import { Label } from "../ui/label";
+import StarRatingComponent from "../common/star-rating";
+import { useEffect, useState } from "react";
+import { addReview, getReview } from "@/store/shop/Review-slice";
+import { use } from "react";
 
 function ProductDetailsDialog({ open, setOpen, productDetail }) {
+
+  const [reviewMsg, setReviewMsg] = useState("");
+  const [rating, setRating] = useState(0);
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
   const { cartItems } = useSelector((state) => state.shopCart);
+  const { reviews } = useSelector((state) => state.shopReview);
   const { toast } = useToast();
+
+  function handleRatingChange(getRating){
+    setRating(getRating);
+  }
+
+  function handleReviewSubmit(){
+    dispatch(addReview({
+      productId: productDetail?._id,
+        userId: user?.id,
+        username: user?.username,
+        reviewMessage: reviewMsg,
+        reviewValue: rating
+    })).then((data)=>{
+      if(data?.payload?.success){
+        dispatch(getReview(productDetail?._id));
+        toast({
+          variant: "success",
+          duration: 2000,
+          title: "Thanks for your review.",
+        });
+      } 
+    })
+  }
   function handleAddtoCart(getCurrentProductID, getTotalStock) {    
     let getCartItems = cartItems.items || [];
     if(getCartItems.length){
@@ -48,14 +80,22 @@ function ProductDetailsDialog({ open, setOpen, productDetail }) {
     });
   }
 
+  useEffect(() => {
+    if(productDetail)
+      dispatch(getReview(productDetail?._id));
+  },[productDetail])
+
   function handleDialogClose() {
     setOpen(false);
     dispatch(setproductDetails());
+    setRating(0);
+    setReviewMsg("");
   }
+  console.log(reviews, "reviews");
 
   return (
     <Dialog open={open} onOpenChange={handleDialogClose}>
-      <DialogContent className="grid grid-cols-2 gap-8 sm:p-12 max-w-[55vw] sm:max-w-[80vw] lg:max-w-[55vw] overflow-y-auto">
+      <DialogContent className="grid grid-cols-2 gap-8 sm:p-12 max-w-[60vw] sm:max-w-[80vw] lg:max-w-[60vw] overflow-y-auto">
         <div className="relative overflow-hidden rounded-lg">
           <img
             src={productDetail?.image}
@@ -107,71 +147,41 @@ function ProductDetailsDialog({ open, setOpen, productDetail }) {
             }
           </div>
           <Separator className="my-4" />
-          <div className="max-h-[300px] overflow-auto">
+          <div className="max-h-[300px] overflow-y-auto">
             <h3 className="text-md font-semibold my-2">Reviews</h3>
             <div className="grid gap-6 my-2">
-              <div className="flex gap-4">
+              {
+                reviews && reviews.length > 0 ?
+                reviews.map((review) =>
+                  <div className="flex gap-4">
                 <Avatar>
-                  <AvatarFallback>AB</AvatarFallback>
+                  <AvatarFallback>{review?.username[0].toUpperCase()}</AvatarFallback>
                 </Avatar>
                 <div className="grid gap-1">
                   <div className="flex gap-2">
-                    <h3 className="text-md font-semibold">Abhishek</h3>
+                    <h3 className="text-md font-semibold">{review?.username}</h3>
                   </div>
                   <div className="flex items-center gap-1">
-                    <StarIcon className="w-4 h-4 fill-primary" />
-                    <StarIcon className="w-4 h-4 fill-primary" />
-                    <StarIcon className="w-4 h-4 fill-primary" />
-                    <StarIcon className="w-4 h-4 fill-primary" />
-                    <StarIcon className="w-4 h-4 fill-primary" />
+                    <StarRatingComponent rating={review?.reviewValue} />
                   </div>
-                  <p className="text-md">This is an awesome product.</p>
+                  <p className="text-md">{review?.reviewMessage}</p>
                 </div>
               </div>
+                )
+                : <h1>No Reviews</h1>
+              } 
             </div>
-            <div className="grid gap-6 my-2">
-              <div className="flex gap-4">
-                <Avatar>
-                  <AvatarFallback>AB</AvatarFallback>
-                </Avatar>
-                <div className="grid gap-1">
-                  <div className="flex gap-2">
-                    <h3 className="text-md font-semibold">Abhishek</h3>
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <StarIcon className="w-4 h-4 fill-primary" />
-                    <StarIcon className="w-4 h-4 fill-primary" />
-                    <StarIcon className="w-4 h-4 fill-primary" />
-                    <StarIcon className="w-4 h-4 fill-primary" />
-                    <StarIcon className="w-4 h-4 fill-primary" />
-                  </div>
-                  <p className="text-md">This is an awesome product.</p>
-                </div>
+            <div className="flex flex-col gap-2 mt-6">
+              <Label className="py-1">Write a review</Label>
+              <div className="flex gap-0.5">
+                <StarRatingComponent rating={rating} handleRatingChange={handleRatingChange}/>
               </div>
-            </div>
-            <div className="grid gap-6 my-2">
-              <div className="flex gap-4">
-                <Avatar>
-                  <AvatarFallback>AB</AvatarFallback>
-                </Avatar>
-                <div className="grid gap-1">
-                  <div className="flex gap-2">
-                    <h3 className="text-md font-semibold">Abhishek</h3>
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <StarIcon className="w-4 h-4 fill-primary" />
-                    <StarIcon className="w-4 h-4 fill-primary" />
-                    <StarIcon className="w-4 h-4 fill-primary" />
-                    <StarIcon className="w-4 h-4 fill-primary" />
-                    <StarIcon className="w-4 h-4 fill-primary" />
-                  </div>
-                  <p className="text-md">This is an awesome product.</p>
-                </div>
-              </div>
-            </div>
-            <div className="flex gap-2 mt-6">
-              <Input placeholder="Write a review" className="mb-2 ml-1" />
-              <Button>Submit</Button>
+              <Input placeholder="Write a review..." 
+              name="review" value={reviewMsg} onChange={(e) => setReviewMsg(e.target.value)}
+              className="mb-2 mt-2" />
+              <Button disabled= {reviewMsg.trim() === ""}
+              onClick={handleReviewSubmit}
+              >Submit</Button>
             </div>
           </div>
         </div>

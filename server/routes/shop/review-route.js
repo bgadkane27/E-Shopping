@@ -4,6 +4,6 @@ const { addProductReview, getProductReview } = require("../../controller/shop/re
 const router = express.Router();
 
 router.post("/add", addProductReview);
-router.get("/get/:id", getProductReview);
+router.get("/:productId", getProductReview);
 
 module.exports = router;

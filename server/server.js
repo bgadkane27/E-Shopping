@@ -11,6 +11,7 @@ const shopCartRoute = require("./routes/shop/cart-route");
 const shopAddressRoute = require("./routes/shop/address-route");
 const shopOrderRoute = require("./routes/shop/order-route");
 const shopSearchRoute = require("./routes/shop/search-route");
+const shopReviewRoute = require("./routes/shop/review-route");
 
 const PORT = process.env.PORT || 5000;
 const app = express();
@@ -43,6 +44,7 @@ app.use("/api/shop/cart", shopCartRoute);
 app.use("/api/shop/address", shopAddressRoute);
 app.use("/api/shop/order", shopOrderRoute);
 app.use("/api/shop/search", shopSearchRoute);
+app.use("/api/shop/review", shopReviewRoute);
 
 app.listen(PORT, () => {
   console.log(`Port is running on ${PORT}`);

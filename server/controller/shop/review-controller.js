@@ -42,9 +42,16 @@ const addProductReview = async(req, res) =>{
 
     await newReview.save();
 
-    res.status(200).json({
+    const reviews = await ProductReview.find({productId});
+
+    const totalReviewsLength = reviews.length;
+    const averageReview = reviews.reduce((sum, reviewItem)=> sum + reviewItem.reviewValue, 0) / totalReviewsLength;
+
+    await Product.findByIdAndUpdate(productId, {averageReview});
+
+    res.status(201).json({
         success: true,
-        message: "Review added successfully."
+        data: newReview
     });
     
     }catch(e){
@@ -58,12 +65,20 @@ const addProductReview = async(req, res) =>{
 
 const getProductReview = async(req, res) =>{
     try{
-    const {id} = req.params;
+    const {productId} = req.params;
+    
+    const reviews = await ProductReview.find({productId});
+
+    res.status(200).json({
+        success: true,
+        data: reviews
+    })
+
     }catch(e){
         console.log(e);
         res.status(500).json({
             success: false,
-            message: "Unable to review on the product."
+            message: "Unable to get the product review."
         })
     }
 }
