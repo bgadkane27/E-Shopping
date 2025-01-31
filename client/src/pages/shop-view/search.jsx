@@ -76,7 +76,7 @@ function SearchProducts() {
             <div className="flex justify-center mb-8">
                 <div className="w-1/3 flex items-center">
                     <Input name="keyword" value={keyword} onChange={(e) => setKeyword(e.target.value)}
-                        placeholder="Search Products..."
+                        placeholder="Type here to search products..."
                     />
                 </div>
             </div>

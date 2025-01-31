@@ -97,6 +97,9 @@ export const addProductFormControls = [
       { id: "reebok", label: "Reebok" },
       { id: "converse", label: "Converse" },
       { id: "asics", label: "Asics" },
+      { id: "polo", label: "Polo" },
+      { id:"titan", label: "Titan"},
+      { id: "hp", label: "HP" },
       { id: "others", label: "Others" }
     ]
   },
@@ -252,6 +255,8 @@ export const brandOptions = {
   reebok : "Reebok",
   converse : "Converse",
   asics : "Asics",
+  polo : "Polo",
+  titan : "Titan",
   others : "Others"
 }
 
@@ -272,6 +277,9 @@ export const filterOptions = {
     { id: 'converse', label: 'Converse' },
     { id: 'asics', label: 'Asics' },
     { id: 'reebok', label: 'Reebok' },
+    { id: 'polo', label: 'Polo' },
+    { id: 'titan', label: 'Titan' },
+    { id: 'hp' , label: 'HP' },
     { id: 'others', label: 'Others' },
   ],
 };

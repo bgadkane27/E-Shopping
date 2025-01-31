@@ -17,7 +17,7 @@ function ShopProductTile({ product, handlegetProductDetails, handleAddtoCart }) 
         </div>
         {
           product.totalStock == 0 ? <Badge className="absolute top-2 left-2 bg-red-500 hover:bg-red-600">
-          Out of Stock! Restock expected soon!
+            Out of Stock! Restock expected soon!
           </Badge> :
             product.totalStock < 10 ? <Badge className="absolute top-2 left-2 bg-orange-500 hover:bg-orange-600">
               {`Only ${product.totalStock} items left! Hurry up!`}
@@ -29,7 +29,10 @@ function ShopProductTile({ product, handlegetProductDetails, handleAddtoCart }) 
                 </Badge>
               )}
         <CardContent className="p-4">
-          <h2 className="text-xl font-semibold mb-2">{product?.name}</h2>
+          {/* <h2 className="text-xl font-semibold mb-2">{product?.name}</h2> */}
+          <h2 className="text-xl font-semibold mb-2 hover:cursor-pointer hover:text-blue-800" onClick={() => handlegetProductDetails(product?._id)}>
+            {product?.name.length > 20 ? `${product?.name.slice(0, 20)}...` : product?.name}
+          </h2>
           <div className="flex items-center justify-between mb-2">
             <span className="text-md text-muted-foreground">
               {categoryOptions[product?.category]}
@@ -39,29 +42,29 @@ function ShopProductTile({ product, handlegetProductDetails, handleAddtoCart }) 
             </span>
           </div>
           <div className="flex items-center justify-between mb-2">
+            {product?.salesPrice > 0 ? (
+              <span className="text-lg font-semibold text-primary">
+                $ {product?.salesPrice}
+              </span>
+            ) : null}
             <span
               className={`${product?.salesPrice > 0 ? "line-through" : ""
                 } text-lg font-semibold text-primary`}
             >
               $ {product?.price}
             </span>
-            {product?.salesPrice > 0 ? (
-              <span className="text-lg font-semibold text-primary">
-                $ {product?.salesPrice}
-              </span>
-            ) : null}
           </div>
         </CardContent>
         <CardFooter className="flex flex-col justify-between items-center">
           {
             product.totalStock === 0 ? <Button variant="outline" size="sm" className="w-full mt-4 opacity-60 cursor-not-allowed">
-            <Blocks /> Out of Stock
-          </Button> : <Button onClick={() => handleAddtoCart(product?._id, product?.totalStock)} variant="outline" size="sm" className="w-full mt-4">
-            <ShoppingCart /> Add to Cart
-          </Button>
-          }          
+              <Blocks /> Out of Stock
+            </Button> : <Button onClick={() => handleAddtoCart(product?._id, product?.totalStock)} variant="outline" size="sm" className="w-full mt-4">
+              <ShoppingCart /> Add to Cart
+            </Button>
+          }
           <Button variant="default" size="sm" className="w-full mt-2" onClick={() => handlegetProductDetails(product?._id)}>
-          <SquareChartGantt /> View Details
+            <SquareChartGantt /> View Details
           </Button>
         </CardFooter>
       </div>
