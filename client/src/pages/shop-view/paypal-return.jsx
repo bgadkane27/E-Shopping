@@ -1,4 +1,4 @@
-import { Card, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { capturePayment } from "@/store/shop/Order-slice";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
@@ -13,10 +13,10 @@ function PaypalReturnPage() {
     const payerId = searchParams.get('PayerID');
 
     useEffect(() => {
-        if(paymentId && payerId) {
+        if (paymentId && payerId) {
             const orderId = JSON.parse(sessionStorage.getItem("currentOrderId"));
-            dispatch(capturePayment({paymentId, orderId, payerId})).then((data)=>{
-                if(data?.payload?.success) {
+            dispatch(capturePayment({ paymentId, orderId, payerId })).then((data) => {
+                if (data?.payload?.success) {
                     sessionStorage.removeItem("currentOrderId");
                     window.location.href = '/shop/payment-success';
                 }
@@ -25,11 +25,12 @@ function PaypalReturnPage() {
     }, paymentId, payerId, dispatch)
 
 
-    return(
-        <Card>
-            <CardHeader>
-                <CardTitle>Processing payment...please wait!</CardTitle>
-            </CardHeader>
+    return (
+        <Card className="w-full h-screen flex items-center justify-center">
+            <CardContent>
+                <img src="/processing.gif" alt="Processing..." className="w-20 h-20 mx-auto" />
+                <p className="text-md font-semibold">Processing your payment...</p>
+            </CardContent>
         </Card>
     )
 }

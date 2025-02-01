@@ -40,6 +40,11 @@ function App() {
     <div className="flex flex-col overflow-hidden">
       {/* <h4>Header</h4> */}
       <Routes>
+        <Route path="/" 
+        element={
+          <CheckAuth isAuthenticated={isAuthenticated} user={user} >
+          </CheckAuth>
+        }/>
         <Route path="/auth" element={
           <CheckAuth isAuthenticated={isAuthenticated} user={user} >
             <AppLayout />

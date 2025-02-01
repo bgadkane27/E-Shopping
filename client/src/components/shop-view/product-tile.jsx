@@ -30,26 +30,26 @@ function ShopProductTile({ product, handlegetProductDetails, handleAddtoCart }) 
               )}
         <CardContent className="p-4">
           {/* <h2 className="text-xl font-semibold mb-2">{product?.name}</h2> */}
-          <h2 className="text-xl font-semibold mb-2 hover:cursor-pointer hover:text-blue-800" onClick={() => handlegetProductDetails(product?._id)}>
+          <h2 className="text-lg font-semibold mb-2 hover:cursor-pointer hover:text-blue-600" onClick={() => handlegetProductDetails(product?._id)}>
             {product?.name.length > 20 ? `${product?.name.slice(0, 20)}...` : product?.name}
           </h2>
-          <div className="flex items-center justify-between mb-2">
+          {/* <div className="flex items-center justify-between mb-2">
             <span className="text-md text-muted-foreground">
               {categoryOptions[product?.category]}
             </span>
             <span className="text-md text-muted-foreground">
               {brandOptions[product?.brand]}
             </span>
-          </div>
+          </div> */}
           <div className="flex items-center justify-between mb-2">
             {product?.salesPrice > 0 ? (
-              <span className="text-lg font-semibold text-primary">
+              <span className="text-md font-semibold text-primary bg-green-200 py-1 px-3 rounded-full">
                 $ {product?.salesPrice}
               </span>
             ) : null}
             <span
               className={`${product?.salesPrice > 0 ? "line-through" : ""
-                } text-lg font-semibold text-primary`}
+                } text-md font-semibold text-primary`}
             >
               $ {product?.price}
             </span>

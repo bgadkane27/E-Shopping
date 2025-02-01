@@ -77,7 +77,7 @@ function ShopHeader() {
         <Sheet open={openCartSheet} onOpenChange={() => setOpenCartSheet(false)}>
           <Button onClick={() => setOpenCartSheet(true)} variant="outline" size="icon" className="mr-2 relative">
             <ShoppingCart className="w-6 h-6" />
-            <span className="absolute -top-2 right-0 text-xl font-bold text-blue-600">{cartItems?.items?.length || 0}</span>
+            <span className="absolute -top-2 right-0 text-xl font-bold text-blue-600">{cartItems?.items?.length || ''}</span>
             <span className="sr-only">Cart</span>
           </Button>
           <Cartwrapper setOpenCartSheet={setOpenCartSheet}

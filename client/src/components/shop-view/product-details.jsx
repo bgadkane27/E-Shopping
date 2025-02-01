@@ -114,17 +114,17 @@ function ProductDetailsDialog({ open, setOpen, productDetail }) {
             </p>
           </div>
           <div className="flex items-center justify-between mb-2">
-            <span
-              className={`${productDetail?.salesPrice > 0 ? "line-through" : ""
-                } text-lg font-semibold text-primary`}
-            >
-              $ {productDetail?.price}
-            </span>
             {productDetail?.salesPrice > 0 ? (
               <span className="text-lg font-semibold text-primary">
                 $ {productDetail?.salesPrice}
               </span>
             ) : null}
+             <span
+              className={`${productDetail?.salesPrice > 0 ? "line-through" : ""
+                } text-lg font-semibold text-primary`}
+            >
+              $ {productDetail?.price}
+            </span>
           </div>
           <div className="flex items-center">
             <div className="flex items-center gap-0">

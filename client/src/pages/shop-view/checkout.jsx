@@ -111,7 +111,9 @@ function ShopCheckout() {
                   variant="default"
                   className="w-full"
                   onClick={handleInitiatePaypalPayment}>
-                  Pay with paypal
+                  {
+                    isPaymentStart ? 'Processing Payment...' : 'Pay with Paypal'
+                  }
                 </Button>
               </div>
             </>

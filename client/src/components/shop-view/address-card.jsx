@@ -6,7 +6,7 @@ import { Edit, Trash2 } from "lucide-react";
 function AddressCard({ addressInfo, handleEditAddress, handleDeleteAddress, setCurrentSelectedAddress }) {
 
     return (
-        <Card className="bg-gradient-to-b from-pink-200 to-blue-300 max-w-96"
+        <Card className="bg-gradient-to-b from-pink-200 to-blue-300 max-w-96 cursor-pointer"
             onClick={setCurrentSelectedAddress ? () => setCurrentSelectedAddress(addressInfo) : null}>
             <CardContent className="grid gap-4 p-4 mb-4">
                 <Label>{addressInfo?.address}</Label>
