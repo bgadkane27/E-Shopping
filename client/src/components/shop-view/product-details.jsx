@@ -91,7 +91,11 @@ function ProductDetailsDialog({ open, setOpen, productDetail }) {
     setRating(0);
     setReviewMsg("");
   }
- 
+
+
+  const averageReview = reviews && reviews.length > 0 ?
+    reviews.reduce((sum, reviewItem) => sum + reviewItem.reviewValue, 0) / reviews.length : 0
+
   return (
     <Dialog open={open} onOpenChange={handleDialogClose}>
       <DialogContent className="grid grid-cols-2 gap-8 sm:p-12 max-w-[55vw] sm:max-w-[80vw] lg:max-w-[55vw] overflow-y-auto">
@@ -121,6 +125,14 @@ function ProductDetailsDialog({ open, setOpen, productDetail }) {
                 $ {productDetail?.salesPrice}
               </span>
             ) : null}
+          </div>
+          <div className="flex items-center">
+            <div className="flex items-center gap-0">
+              <StarRatingComponent rating={averageReview} />
+            </div>
+            <span className="text-muted-foreground">
+              ({averageReview === 0 ? "0" : averageReview.toFixed(1)})
+            </span>
           </div>
           <div>
             {

@@ -67,7 +67,7 @@ function CartItemsContent({ cartItem }) {
                     className="h-20 w-20 rounded object-cover"
                 />
                 <div className="flex-1">
-                    <h3 className="font-medium text-xl -mt-2">{cartItem?.name}</h3>
+                    <h3 className="font-medium text-md ">{cartItem?.name}</h3>
                     <div className="flex items-center gap-2 mt-2">
                         <Button onClick={() => handleUpdateQty(cartItem, 'minus')} className="w-10 h-10 rounded-full"
                             variant="outline"
