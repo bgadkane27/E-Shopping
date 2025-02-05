@@ -27,7 +27,7 @@ mongoose
 
 app.use(
   cors({
-    origin: process.env.BASE_URI,
+    origin: process.env.CLIENT_BASE_URI,
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Expires", "Pragma", "Cache-Control"],
     credentials: true,
