@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const express = require("express");
 const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
@@ -17,8 +19,7 @@ const PORT = process.env.PORT || 5000;
 const app = express();
 
 const mongoDBURI =
-  process.env.MONGODB_URI ||
-  "mongodb+srv://adkaneb:Password%231@cluster0.y2q5d.mongodb.net/";
+  process.env.MONGODB_URI || process.env.MONGODB_URL;
 mongoose
   .connect(mongoDBURI)
   .then(() => console.log("MongoDB Conneted"))
@@ -26,7 +27,7 @@ mongoose
 
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: process.env.BASE_URI,
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Expires", "Pragma", "Cache-Control"],
     credentials: true,

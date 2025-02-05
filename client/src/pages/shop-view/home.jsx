@@ -134,15 +134,15 @@ function ShopHome() {
                 </Button>
             </div>
             <section className="py-4 px-4 bg-gray-100">
-                <div className="container mx-auto px-4">
-                    <h2 className="text-3xl font-bold text-center mb-4 bg-gradient-to-r from-pink-500 to-blue-500 bg-clip-text text-transparent">Shop By Category</h2>
+                <div className="block container mx-auto px-4">
+                    <h2 className="text-3xl font-bold text-center mb-4 text-blue-500">Shop By Category</h2>
                 </div>
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
                     {
                         categoriesWithIcon.map((category) => (
                             <Card onClick={() => {handleNaviateToListing(category, "category") }}
                             key={category.id}
-                            className="cursor-pointer hover:shadow-lg transition-shadow duration-500">
+                            className="cursor-pointer hover:shadow-lg transition-shadow duration-500 bg-gradient-to-r from-indigo-300 to-purple-400">
                                 <CardContent className="flex flex-col items-center justify-evenly p-6 gap-2">
                                     <category.icon className="w-6 h-6 text-pink-500" />
                                     <span className="text-lg font-semibold">{category.label}</span>
@@ -155,14 +155,14 @@ function ShopHome() {
             <Separator className="bg-pink-300" />
             <section className="py-4 px-4 bg-gray-100">
                 <div className="container mx-auto px-4">
-                    <h2 className="text-3xl font-bold text-center mb-4 bg-gradient-to-r from-pink-500 to-blue-500 bg-clip-text text-transparent">Shop By Brand</h2>
+                    <h2 className="text-3xl font-bold text-center mb-4 text-blue-600">Shop By Brand</h2>
                 </div>
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
                     {
                         brandWithIcon.map((brand) => (
                             <Card onClick={() => {handleNaviateToListing(brand, "brand") }}
                             key={brand.id}
-                            className="cursor-pointer hover:shadow-lg transition-shadow duration-500">
+                            className="cursor-pointer hover:shadow-lg transition-shadow duration-500 bg-gradient-to-l from-indigo-300 to-purple-400">
                                 <CardContent className="flex flex-col items-center justify-evenly p-6 gap-2">
                                     <brand.icon className="w-6 h-6 text-pink-500" />
                                     <span className="text-lg font-semibold">{brand.label}</span>

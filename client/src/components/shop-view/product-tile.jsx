@@ -41,21 +41,30 @@ function ShopProductTile({ product, handlegetProductDetails, handleAddtoCart }) 
               {brandOptions[product?.brand]}
             </span>
           </div> */}
-          <div className="flex items-center justify-between mb-2">
+          <div className="flex items-center justify-between">
             {product?.salesPrice > 0 ? (
-              <span className="text-md font-semibold text-primary bg-green-200 py-1 px-3 rounded-full">
+              <span className="text-md font-semibold text-primary bg-blue-100 py-1 px-3 rounded-full">
                 $ {product?.salesPrice}
               </span>
             ) : null}
             <span
               className={`${product?.salesPrice > 0 ? "line-through" : ""
-                } text-md font-semibold text-primary`}
+                } text-sm -ml-4 font-semibold text-primary`}
             >
-              $ {product?.price}
+              ${product?.price}
+            </span>
+            <span>
+              {
+                product.totalStock === 0 ? <Button variant="outline" size="sm" className="w-full opacity-60 cursor-not-allowed">
+                  <Blocks color="red" /> <span className="text-red-500"> /</span>
+                </Button> : <Button onClick={() => handleAddtoCart(product?._id, product?.totalStock)} variant="outline" size="sm" className="w-full">
+                  <ShoppingCart /> +
+                </Button>
+              }
             </span>
           </div>
         </CardContent>
-        <CardFooter className="flex flex-col justify-between items-center">
+        {/* <CardFooter className="flex flex-col justify-between items-center">
           {
             product.totalStock === 0 ? <Button variant="outline" size="sm" className="w-full mt-4 opacity-60 cursor-not-allowed">
               <Blocks /> Out of Stock
@@ -66,7 +75,7 @@ function ShopProductTile({ product, handlegetProductDetails, handleAddtoCart }) 
           <Button variant="default" size="sm" className="w-full mt-2" onClick={() => handlegetProductDetails(product?._id)}>
             <SquareChartGantt /> View Details
           </Button>
-        </CardFooter>
+        </CardFooter> */}
       </div>
     </Card>
   );
